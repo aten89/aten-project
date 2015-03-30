@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+<struts>
+	<!-- 编码 -->
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<!-- 全局结果集 -->
+	<package name="json-result" extends="json-default">
+		<global-results>
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param><!-- 输出父类属性 -->
+				<param name="excludeNullProperties">true</param><!-- 排除空属性 -->
+				<param name="callbackParameter">jsoncallback</param><!-- 跨域 -->
+				<param name="contentType">text/html</param><!--application/json类型使用 ajaxFileUpload 下载时用IE时会变成下载 -->
+			</result>
+			<result name="error" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">msg,msg.code,msg.text</param>
+				<param name="callbackParameter">jsoncallback</param>
+				<param name="contentType">text/html</param>
+			</result> 
+		</global-results>
+    </package>
+    
+    <!-- 数据字典 -->
+    <package name="dict" namespace="/l/dict" extends="json-result">
+		<!--产品下拉框 -->
+		<action name="initProductSel" class="dictAction" method="initProductSel"/>
+		<!-- 性别 -->
+		<action name="initSexSel" class="dictAction" method="initSexSel"/>
+		<!-- 客户性质 -->
+		<action name="initCustomerNatureSel" class="dictAction" method="initCustomerNatureSel"/>
+		<!-- 沟通类型 -->
+		<action name="initCommTypeSel" class="dictAction" method="initCommTypeSel"/>
+		<!-- 提醒类型 -->
+		<action name="initAppointmentTypeSel" class="dictAction" method="initAppointmentTypeSel"/>
+	</package>
+    
+    <!-- 导入客户 -->
+	<package name="importCustomer" namespace="/m/importCustomer" extends="json-result">
+		<action name="uploadCustomer" class="importCustomerAction" method="uploadCustomer">
+			<!-- Excel文件上传 -->
+			<result>/page/DataManage/ImportAllocate/CustomerImport.jsp</result>
+			<result name="error">/page/error.jsp</result>
+			<param name="maxUploadSize">-1</param>
+		</action>
+		
+		<action name="uploadCustomerTemp" class="importCustomerAction" method="uploadCustomerTemp">
+			<!-- 临时上传文件 -->
+			<result>/temp/cust_upload.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		
+		<action name="query_customerList" class="importCustomerAction" method="queryCustomerList"/>
+		<action name="delete_importCustomer" class="importCustomerAction" method="deleteImportCustomer"/>
+		<action name="importCustomer" class="importCustomerAction" method="importCustomer"/>
+		<!-- 手动分配 -->
+		<action name="init_manualAllotPage" class="importCustomerAction" method="initManualAllotPage">
+			<result>/page/DataManage/ImportAllocate/ManualAllotCustomer.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="save_manualAllotImportCust" class="importCustomerAction" method="manualAllotImportCustomer"/>
+		<!-- 自动分配 -->
+		<action name="save_autoAllotImportCust" class="importCustomerAction" method="autoAllotImportCustomer"/>
+	</package>
+    
+     <!-- 客户 -->
+	<package name="customer" namespace="/m/customer" extends="json-result">
+		<action name="queryCustomerInfoList" class="customerInfoAction" method="queryCustomerInfoList"/>
+		<!-- 查找未提交客户 -->
+		<action name="query_unCommitCustList" class="customerInfoAction" method="queryUnCommitCustList"/>
+		<!-- 导入我的客户-->
+		<action name="import_myCustomer" class="customerInfoAction" method="importMyCustomer"/>
+		<action name="delete" class="customerInfoAction" method="delCustomerInfo"/>
+		<action name="changeSaleMan" class="customerInfoAction" method="changeSaleMan"/>
+		<action name="queryConsultRecordList" class="customerInfoAction" method="queryConsultRecordList"/>
+		<action name="addConsultRecord" class="customerInfoAction" method="addConsultRecord"/>
+		<action name="queryAppointmentRecordList" class="customerInfoAction" method="queryAppointmentRecordList"/>
+		<action name="add_appointmentRecord" class="customerInfoAction" method="addAppointmentRecord"/>
+		<action name="delete_appointmentRecord" class="customerInfoAction" method="deleteAppointmentRecord"/>
+		<action name="modify_appointmentRecord" class="customerInfoAction" method="modifyAppointmentRecord"/>
+		<action name="initModifyAppointmentRecord" class="customerInfoAction" method="initModifyAppointmentRecord">
+			<result>/page/MyCustomer/CustomerInfo/editAppointmentRecord.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="delete_consultRecord" class="customerInfoAction" method="deleteConsultRecord"/>
+		<action name="editorCustomerInfo" class="customerInfoAction" method="editorCustomerInfo"/>
+		<action name="initAdd" class="customerInfoAction" method="initAddCustomer">
+			<result>/page/MyCustomer/CustomerInfo/edit_customerinfo.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="customerInfoAction" method="addCustomer" />
+		<action name="initmodify" class="customerInfoAction" method="initModifyCustomer">
+			<result>/page/MyCustomer/CustomerInfo/edit_customerinfo.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initmodify_div" class="customerInfoAction" method="initModifyCustomerDiv">
+			<result>/page/MyCustomer/CustomerInfo/edit_customerinfo_div.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="customerInfoAction" method="modifyCustomer" />
+		<action name="initframe" class="customerInfoAction" method="initFrame">
+			<result>/page/MyCustomer/CustomerInfo/customerInfoFrame.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="view" class="customerInfoAction" method="viewCustomer">
+			<result>/page/MyCustomer/CustomerInfo/view_customerinfo.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="queryVisitRecordList" class="customerInfoAction" method="queryVisitRecordList" />
+		<action name="delete_visitRecord" class="customerInfoAction" method="deleteVisitRecord"/>
+		<action name="query_fomal" class="customerInfoAction" method="queryFomalCustomerList"/>
+		<action name="queryTransferRecordList" class="customerInfoAction" method="queryTransferRecordList"/>
+		<action name="initAddReturnVist" class="customerInfoAction" method="initAddReturnVist">
+			<result>/page/MyCustomer/CustomerInfo/editReturnVist.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initmodifyReturnVist" class="customerInfoAction" method="initmodifyReturnVist">
+			<result>/page/MyCustomer/CustomerInfo/editReturnVist.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="returnvisit_add" class="customerInfoAction" method="addReturnVist" />
+		<action name="returnvisit_modify" class="customerInfoAction" method="modifyReturnVist" />
+		<action name="modify_commit" class="customerInfoAction" method="commitCustomer" />
+		<action name="initCustomerInfoSel" class="customerInfoAction" method="initCustomerInfoSel" />
+		<action name="getCustomerInfo" class="customerInfoAction" method="viewCustomerInfo" />
+		<action name="queryMessageList" class="customerInfoAction" method="queryMessageList" ></action>
+		<action name="queryTransactionRecordPage" class="customerInfoAction" method="queryTransactionRecordPage" ></action>
+		<action name="queryPaymentRecordPage" class="customerInfoAction" method="queryPaymentRecordPage" ></action>
+		<action name="modify_commitFromView" class="customerInfoAction" method="commitFromView"/>
+		
+		<action name="mark" class="customerInfoAction" method="changeMemoMark"/>
+		<action name="autocompdata" class="customerInfoAction" method="loadAutoCompleteData"/>
+	</package>
+	
+	 <!-- 客服管理 -->
+	<package name="customerService" namespace="/m/customerService" extends="json-result">
+		<action name="queryCustomerInfoList" class="customerServiceAction" method="queryCustomerInfoList"/>
+	</package>
+		
+	<!-- 组织机构扩展（部门业务类型配置） -->
+	<package name="group_ext" namespace="/m/group_ext" extends="json-result">
+		<!-- menu -->
+		<action name="initquery" class="groupExtAction" method="initQuery">
+			<result>/page/paraconf/query_group_ext.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<!-- query_group_ext.js -->
+		<action name="view" class="groupExtAction" method="viewGroup">
+			<result>/page/paraconf/edit_group_ext.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initmodify" class="groupExtAction" method="initModify">
+			<result>/page/paraconf/edit_group_ext.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		
+		<!-- edit_group_ext.js -->
+		<action name="dictsel" class="groupExtAction" method="loadDictSelect"/>
+		<action name="dict_sale" class="groupExtAction" method="loadDictSaleDeport"/>
+		<action name="modify" class="groupExtAction" method="saveGroupExt"/>
+		
+		<action name="query_saleGroupSel" class="groupExtAction" method="querySaleGroupSel"/>
+		<action name="queryAllSaleGroupSel" class="groupExtAction" method="queryAllSaleGroupSel"/>
+		<action name="query_groupStaffByGroup" class="groupExtAction" method="queryGroupStaffByGroupName"/>
+		<action name="query_allSaleStaff" class="groupExtAction" method="queryAllSaleStaff"/>
+		<action name="init_autoAllotImportCust" class="groupExtAction" method="queryManSaleStaffs">
+			<result>/page/DataManage/ImportAllocate/AutoAllotCustomer.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 用户账号扩展（客服与销售映射） -->
+	<package name="user_account_ext" namespace="/m/user_account_ext" extends="json-result">
+		<!-- menu -->
+		<action name="initquery" class="userAccountExtAction" method="initQuery">
+			<result>/page/paraconf/query_uacc_ext.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		
+		<!-- query_uacc_ext.js -->
+		<action name="query" class="userAccountExtAction" method="queryUser"/>
+		<action name="modify" class="userAccountExtAction" method="modifyServiceAccount"/>
+		<action name="salesel" class="userAccountExtAction" method="querySaleManSel"/>
+	</package>
+	
+	<!-- 报表管理 -->
+	<package name="report" namespace="/m/report" extends="json-result">
+		<action name="export" class="reportAction" method="exportRpt"/>
+		
+		<action name="query_assign" class="reportAction" method="queryReportAssign"/>
+		<action name="add_assign" class="reportAction" method="saveReportAssign"/>
+		<action name="assignsel" class="reportAction" method="loadAssignDeptSelect"/>
+		<action name="assigndept" class="reportAction" method="loadAssignDepts"/>
+		<action name="depusersel" class="reportAction" method="loadDeptUserSelect"/>
+		
+		<action name="initnorm" class="reportAction" method="initNormConf">
+			<result>/page/report/conf_norm.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify_norm" class="reportAction" method="saveReportNorm"/>
+	</package>
+</struts>

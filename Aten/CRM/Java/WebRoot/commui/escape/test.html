@@ -1,0 +1,30 @@
+<body>
+	<script type="text/javascript" src="iso88591_map.js"></script>
+	<script type="text/javascript" src="punycode.js"></script>
+	<script type="text/javascript" src="strutil.js"></script>
+	
+	
+	<script>
+		var str = "测试CSDN";
+		var encoding = "UTF-8";
+		var test = "";
+		
+		//encoding为iso88591时才需要引入iso88591_map.js
+		//使用escapeToPunyCode编码时才需要引入punycode.js
+		
+		test += escapeToUtf16(str) + "\n";
+		test += escapeToUtf32(str) + "\n";
+		test += escapeToNumRef(str, 10) + "\n";
+		test += escapeToNumRef(str, 16) + "\n";
+		test += escapeToPunyCode(str) + "\n";
+		test += escapeToEscapedBytes(str, 16, encoding) + "\n";
+		test += escapeToEscapedBytes(str, 8, encoding) + "\n";
+		test += escapeToBase64(str, encoding) + "\n";
+		test += escapeToQuotedPrintable(str, encoding) + "\n";
+		test += escapeToUrl(str, encoding) + "\n";
+		test += escapeToMime(str, "base64", encoding) + "\n";
+		test += escapeToMime(str, "quoted-printable", encoding) + "\n";
+		alert(test);
+	</script>
+
+</body>

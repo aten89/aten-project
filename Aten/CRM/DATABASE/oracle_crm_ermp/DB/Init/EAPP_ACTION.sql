@@ -1,0 +1,74 @@
+--EAPP_ACTION 动作配置
+-- 回访
+DECLARE
+	V_COUNT int;
+BEGIN
+	SELECT count(1) INTO V_COUNT FROM EAPP_ACTION where ACTION_ID_ = '9ec6f1b3e5184df5abd4b6e769a7d7dd';
+IF V_COUNT  = 0  THEN 
+    insert into EAPP_ACTION (ACTION_ID_,ACTION_KEY_,NAME_,LOGO_URL_,TIPS_,DESCRIPTION_) values 
+  ('9ec6f1b3e5184df5abd4b6e769a7d7dd','returnvisit','回访',null,null,null);
+END IF;
+END;
+/
+
+-- 预约
+DECLARE
+	V_COUNT int;
+BEGIN
+	SELECT count(1) INTO V_COUNT FROM EAPP_ACTION where ACTION_ID_ = 'f4a9676ae41449fa8ecfe4ee7f02b28b';
+IF V_COUNT  = 0  THEN 
+    insert into EAPP_ACTION (ACTION_ID_,ACTION_KEY_,NAME_,LOGO_URL_,TIPS_,DESCRIPTION_) values 
+  ('f4a9676ae41449fa8ecfe4ee7f02b28b','appoint','预约',null,null,null);
+END IF;
+END;
+/
+
+-- 咨询
+DECLARE
+	V_COUNT int;
+BEGIN
+	SELECT count(1) INTO V_COUNT FROM EAPP_ACTION where ACTION_ID_ = '832006b2885743d3b6add076fccf733b';
+IF V_COUNT  = 0  THEN 
+    insert into EAPP_ACTION (ACTION_ID_,ACTION_KEY_,NAME_,LOGO_URL_,TIPS_,DESCRIPTION_) values 
+  ('832006b2885743d3b6add076fccf733b','request','咨询',null,null,null);
+END IF;
+END;
+/
+
+-- 短信
+DECLARE
+	V_COUNT int;
+BEGIN
+	SELECT count(1) INTO V_COUNT FROM EAPP_ACTION where ACTION_ID_ = '0fb966912d6b4bf084c8f6be9bef668f';
+IF V_COUNT  = 0  THEN 
+    insert into EAPP_ACTION (ACTION_ID_,ACTION_KEY_,NAME_,LOGO_URL_,TIPS_,DESCRIPTION_) values 
+  ('0fb966912d6b4bf084c8f6be9bef668f','message','短信',null,null,null);
+END IF;
+END;
+/
+
+-- 分配
+DECLARE
+	V_COUNT int;
+BEGIN
+	SELECT count(1) INTO V_COUNT FROM EAPP_ACTION where ACTION_ID_ = '40285c8146527be1014652803c320002';
+IF V_COUNT  = 0  THEN 
+    insert into EAPP_ACTION (ACTION_ID_,ACTION_KEY_,NAME_,LOGO_URL_,TIPS_,DESCRIPTION_) values 
+  ('40285c8146527be1014652803c320002','allot','分配',null,null,null);
+END IF;
+END;
+/
+
+-- 导入
+DECLARE
+	V_COUNT int;
+BEGIN
+	SELECT count(1) INTO V_COUNT FROM EAPP_ACTION where ACTION_ID_ = '40285c8146529300014652d572ef0001';
+IF V_COUNT  = 0  THEN 
+    insert into EAPP_ACTION (ACTION_ID_,ACTION_KEY_,NAME_,LOGO_URL_,TIPS_,DESCRIPTION_) values 
+  ('40285c8146529300014652d572ef0001','import','导入',null,null,null);
+END IF;
+END;
+/
+
+insert into EAPP_ACTION (ACTION_ID_,ACTION_KEY_,NAME_,LOGO_URL_,TIPS_,DESCRIPTION_) values ('40288a8646f6e6130146faf41beb0029','confnorm','指标配置',null,null,null);

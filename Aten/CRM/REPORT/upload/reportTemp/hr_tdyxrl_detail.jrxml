@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hr_tdyxrl_detail" language="groovy" pageWidth="315" pageHeight="804" whenNoDataType="AllSectionsNoDetail" columnWidth="301" leftMargin="7" rightMargin="7" topMargin="7" bottomMargin="7" isIgnorePagination="true" uuid="fe72ec94-a367-4215-aae1-a2aaa1480072">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1" mode="Opaque" fontName="null" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[($V{COLUMN_COUNT}.intValue() % 2 ) == 0 ? true : false]]></conditionExpression>
+			<style backcolor="#F8F8F8" isBlankWhenNull="true" fontName="null" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="DEPT_ID" class="java.lang.String"/>
+	<parameter name="QUERY_MONTH" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT PM.SALE_MAN_ID_, UA1.DISPLAY_NAME_, GR.GROUP_NAME_ FROM POSS.POSS_CUST_PAYMENT PM, EAPP.EAPP_USER_ACCOUNT UA1, EAPP.EAPP_GROUP_USER GRU1, EAPP.EAPP_GROUP GR WHERE PM.SALE_MAN_ID_=UA1.ACCOUNT_ID_ AND UA1.USER_ID_=GRU1.USER_ID_ AND GRU1.GROUP_ID_=GR.GROUP_ID AND GR.GROUP_ID=$P{DEPT_ID} AND PM.FORM_STATUS_=2  AND (TO_CHAR(PM.TRANSFER_DATE_,'yyyy-mm') = $P{QUERY_MONTH} OR TO_CHAR(ADD_MONTHS(PM.TRANSFER_DATE_,1),'yyyy-mm') = $P{QUERY_MONTH} OR TO_CHAR(ADD_MONTHS(PM.TRANSFER_DATE_,2),'yyyy-mm') = $P{QUERY_MONTH}) GROUP BY PM.SALE_MAN_ID_, UA1.DISPLAY_NAME_, GR.GROUP_NAME_ HAVING SUM(PM.TRANSFER_AMOUNT_) / 3 >= (SELECT TO_NUMBER(RNC.NORM_VALUE_) FROM CRM.CRM_RPT_NORM_CONF RNC WHERE RNC.RPT_ID_='tdyxrl' AND RNC.NORM_CODE_='AVG_AMOUNT')]]>
+	</queryString>
+	<field name="SALE_MAN_ID_" class="java.lang.String"/>
+	<field name="DISPLAY_NAME_" class="java.lang.String"/>
+	<field name="GROUP_NAME_" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="84e02474-7616-4a68-982c-819b7e079a1e" x="0" y="0" width="300" height="40"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<topPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<leftPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<bottomPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<rightPen lineWidth="0.0" lineColor="#B1C9EB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="黑体" size="16" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[有效人力明细]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c997abdf-e7ca-434a-950b-d1721638cfe7" mode="Opaque" x="180" y="0" width="120" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[所属机构]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1c028c3a-efed-40b3-8310-b0184ba4e868" mode="Opaque" x="0" y="0" width="90" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[工号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7a4b358c-634c-4ca3-b8d4-0c690a07fc13" mode="Opaque" x="90" y="0" width="90" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[员工]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a6c858dc-d81c-48a9-afbc-c28fa16880e6" style="style1" stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALE_MAN_ID_}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="dce65101-5655-45a7-a292-fb6e40650f23" style="style1" stretchType="RelativeToBandHeight" x="180" y="0" width="120" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GROUP_NAME_}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement uuid="6ba8e720-1fb4-43f9-8a8e-2b941ff51c21" style="style1" stretchType="RelativeToBandHeight" x="90" y="0" width="90" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DISPLAY_NAME_}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

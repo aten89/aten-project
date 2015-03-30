@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.eapp.crm.hbean.ReportQueryAssign" table="CRM_RPT_QUERY_ASSIGN">
+		
+		<id name="id" type="java.lang.String">
+			<column name="ID_" length="36" />
+			<generator class="uuid.hex"></generator>
+		</id>
+        <property name="rptID" type="java.lang.String">
+            <column name="RPT_ID_" length="36" />
+        </property>
+        <property name="userAccountID" type="java.lang.String">
+            <column name="UserAccountID_" length="100" />
+        </property>
+        <property name="groupName" type="java.lang.String">
+            <column name="GroupName_" length="100" />
+        </property>
+	</class>
+</hibernate-mapping>
+
+
