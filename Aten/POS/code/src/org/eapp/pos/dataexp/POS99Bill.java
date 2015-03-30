@@ -149,7 +149,7 @@ public class POS99Bill extends URLRequest {
 		long t1 = System.currentTimeMillis();
 		System.out.println("login time:" + (t1-t));
 		
-		String str = test.loadList("2015-03-28 00:00:00", "2015-03-28 10:59:59", 20, 1);
+		String str = test.loadList("2015-03-28 00:00:00", "2015-03-28 8:59:59", 20, 1);
 		int pageCounts = Integer.parseInt(getMatchText(str, "&nbsp;共(.*?)页&nbsp;", "$1"));
 		
 		
@@ -157,7 +157,7 @@ public class POS99Bill extends URLRequest {
 		test.readFields(str);
 		for (int i = 2; i<=pageCounts; i++) {
 			System.out.println("page:" +i);
-			str = test.loadList("2015-03-28 00:00:00", "2015-03-28 10:59:59", 20, i);
+			str = test.loadList("2015-03-28 00:00:00", "2015-03-28 8:59:59", 20, i);
 			test.readFields(str);
 		}
 		System.out.println("===========================\n");
