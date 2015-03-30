@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.eapp.oa.travel.hbean.BusTripApply" table="OA_BUSTRIPAPPLY">
+		
+		<id name="id" type="java.lang.String">
+			<column name="ID_" length="36" />
+			<generator class="assigned"></generator>
+		</id>
+
+		<property name="applicant" type="java.lang.String">
+			<column name="APPLICANT_" length="36" />
+		</property>
+		
+		<property name="applyDate" type="java.util.Date">
+			<column name="APPLYDATE_" length="11" />
+		</property>
+
+        <property name="regional" type="java.lang.String">
+            <column name="REGIONAL_" length="36" />
+        </property>
+        		
+		<property name="applyDept" type="java.lang.String">
+			<column name="APPLYDEPT_" length="128" />
+		</property>
+		
+		<property name="appointTo" type="java.lang.String">
+			<column name="APPOINTTO_" length="128" />
+		</property>	
+
+        <property name="borrowSum" type="java.lang.Double">
+            <column name="BORROWSUM_" precision="10" />
+        </property>
+        
+		<property name="termType" type="java.lang.String">
+			<column name="TERMTYPE_" length="128" />
+		</property>	
+		        					
+		<property name="totalDays" type="java.lang.Double">
+			<column name="TOTALDAYS_" length="4" />
+		</property>
+
+        <property name="tripAppId" type="java.lang.String">
+            <column name="TRIPAPPID_" length="36" />
+        </property>
+        
+        <property name="changeReason" type="java.lang.String">
+            <column name="CHANGEREASON_" length="256"/>
+        </property>
+       
+        <property name="flowInstanceId" type="java.lang.String">
+            <column name="FLOWINSTANCEID_" length="36" />
+        </property>
+
+        <property name="archiveDate" type="java.util.Date">
+            <column name="ARCHIVEDATE_" length="11" />
+        </property> 
+
+		<property name="passed" type="java.lang.Boolean">
+            <column name="PASSED_" />
+        </property> 
+               
+        <property name="applyStatus" type="java.lang.Integer">
+            <column name="APPLYSTATUS_" precision="22" scale="0"/>
+        </property>
+       
+		<set name="busTripApplyDetail" cascade="all,delete-orphan" order-by="STARTDATE_" lazy="false">
+            <key>
+                <column name="TRIPAPPLYID_" length="36" />
+            </key>
+            <one-to-many class="org.eapp.oa.travel.hbean.BusTripApplyDetail" />
+        </set>	
+                                                 
+	</class>
+</hibernate-mapping>
+
+

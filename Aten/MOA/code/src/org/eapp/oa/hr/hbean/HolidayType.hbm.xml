@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.eapp.oa.hr.hbean.HolidayType" table="OA_HOLIDAYTYPE">
+		
+		<id name="id" type="java.lang.String">
+			<column name="ID_" length="36" />
+			<generator class="uuid.hex"></generator>
+		</id>
+
+		<property name="holidayName" type="java.lang.String">
+			<column name="HOLIDAYNAME_" length="100" />
+		</property>
+		<property name="maxDays" type="java.lang.Double">
+			<column name="MAXDAYS_" length="4" />
+		</property>
+		<property name="expression" type="java.lang.String">
+			<column name="EXPRESSION_" length="36" />
+		</property>
+		 
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION_" length="512" />
+        </property>
+	</class>
+</hibernate-mapping>
+
+

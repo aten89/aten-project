@@ -1,0 +1,167 @@
+@charset "utf-8";
+@import "../comm/oaComm.css";
+
+.addTool .t_f01{padding-top:0; height:28px;}
+
+/*启动流程*/
+.costsBg{background:#fff url(../flat/images/costsNavLine.gif) repeat-y left top;}
+.costsBgTip{background:url(../flat/images/costsBg.gif) no-repeat left bottom}
+.costsNav h1{background:#fff; height:25px; color:#000;border-left:1px solid #dbdbdb;border-top:1px solid #dbdbdb; border-bottom:none; font-size:14px;}
+.costsNav .mb li{border:none;color:#000; width:auto; height:88px; padding-top:8px}
+.costsNav .mb li.current{border:none;background:#f8f8f8;border-left:1px solid #dbdbdb }
+.costsNav .mb li.over{ border:none;background:#f8f8f8;;border-left:1px solid #dbdbdb  }
+.costsListHead{border:1px solid #e0e0e0;background:#ececec url(../flat/images/budgetList.gif) no-repeat 8px center;}
+.costsListHead span{color:#f00;}
+.costsLog h1{color:#000;background:#F1F5FE url(../blue/images/costsArrowClose.gif) no-repeat 2px center}
+.costsLog .logArrow{color:#000;background:#F1F5FE url(../blue/images/costsArrowOpen.gif) no-repeat 2px center}
+.costsLog .mb{border:1px solid #dbdbdb; color:#666}
+.qdPic{color:#666;border:1px solid #dbdbdb;}
+.qdPic b{color:#000}
+.costsNewFlow .costsOver{background:#F1F5FE;}
+.costsBm{color:#f60}
+.costsBm b{color:#000}
+.costsBk{border:1px solid #dbdbdb}
+
+/*预算审批*/
+.ysspTh{border:1px solid #ABC7EB; border:1px solid #ABC7EB}
+.ysspTh th{ background:#D6EDFC url(../blue/images/thList.gif) repeat-x;border:1px solid #ABC7EB}
+.ysspTh th.double{background:#D6EDFC url(../blue/images/thList2.gif)}
+.ysspTab{background:#ABC7EB;}
+.ysspTab td .cbxj td{border-top:1px solid #ABC7EB;border-right:1px solid #ABC7EB}
+.ysspTab td .cbxj tr.over{background:#F1F5FE}
+	
+/*新增信息类型---浮动层*/
+.newType{border:1px solid #ABC7EB}
+.newType li.current{background:#F1F5FE}
+
+/*安装申请单*/
+.arrowOpen{background:url(../blue/images/costsArrowOpen.gif) no-repeat}
+.arrowClose{background:url(../blue/images/costsArrowClose.gif) no-repeat}
+
+/*选项卡*/
+.allTabs ul{background:url(../blue/images/tabsDot.gif) repeat-x bottom}
+.allTabs li{background:url(../blue/images/tabs.png) no-repeat;}
+.allTabs li div{background:url(../blue/images/tabs.png) no-repeat right 0;}
+.allTabs li.current{background:url(../blue/images/tabs.png) no-repeat 0 -27px;}
+.allTabs li.current div{background:url(../blue/images/tabs.png) no-repeat right -27px }
+
+/*其他*/
+.zjfy th{border:1px solid #ABC7EB}
+.addTit01{border-left:1px solid #ABC7EB;border-right:1px solid #ABC7EB;border-top:1px solid #ABC7EB;}
+
+/*会议内容*/
+.meetingConBk{background:#fff url(../blue/images/mTit01.gif) repeat-y -7px top;border:1px solid #ABC7EB;}
+
+/*OA 审批*/
+.feesSp{border:1px solid #dbdbdb;border-top:none;background:#fff}
+.feesSp th.addHeader{background:#fff;border-bottom:1px solid #dbdbdb; padding-top:3px; height:26px;}
+.feesSp .tabLine{ border:1px solid #fff; border-top:1px solid #dbdbdb;border-right:none; border-left:none}
+.feesSp td{background:#fefefe; color:#333; height:28px}
+.feesSp td.spTit{color:#333;}
+.feesSp td.spOpW a{background:url(../blue/images/spBtn.gif)}
+.feesSp td.spOpW a:hover{background:url(../blue/images/spBtnOver.gif);color:#333}
+.feesSp td.spDot span{background:url(../blue/images/spDot.gif) no-repeat left top}
+.feesSp td.feesList{background:#fff;background:#f8f8f8}
+.feesSp td.feesList th{background:#F3F3F3;color:#000;}
+.feesSp td.feesList td{background:#F9F9F9;color:#888;}
+.fsMar{border-top:1px solid #dbdbdb;}
+
+.boxShadow .shadowPadd{border-top:1px solid #F1F5FE;border-left:1px solid #ABC7EB; border-botttom:1px solid #ABC7EB; border-right:1px solid #ABC7EB}
+
+/*处理结果 审批 form crm.css*/ 
+.addCon td.tipList{background:#F1F5FE}
+
+.crmList th{background:url(../blue/images/thList2.gif) repeat-x;border:1px solid #ABC7EB;}
+.crmList td{border:1px solid #ABC7EB;}
+.crmList tr.over{background:#F1F5FE}
+.crmList tr.sum td{background:#F1F5FE;}
+.crmList tr.subtotal td{background:#F1F5FE;}
+
+/*三级框架*/
+.crmSubNav h1{background:#fff; color:#000;border-left:1px solid #dbdbdb;border-top:1px solid #dbdbdb; border-bottom:none; font-size:14px;}
+.crmSubNav .mb{padding-left:0;padding-right:0}
+.crmSubNav .mb li{color:#000;border:none;padding-left:10px }
+.crmSubNav .mb li div{ float:left;border:none;}
+.crmSubNav .mb li.current{border-left:1px solid #dbdbdb;background-color:#f8f8f8;}
+.crmSubNav .mb li.current div{ border:none; background:#f8f8f8}
+.crmSubNav .mb li.over{ border-left:1px solid #dbdbdb;;background-color:#f8f8f8; }
+.crmSubNav .mb li.over div{ border:none; background:#f8f8f8}
+.crmSubNav .mb li.submb{background:url(../comm/images/crmSubNavLine02.gif) no-repeat 12px center; border:none;}
+.crmSubNav .mb li.subLast{background:url(../comm/images/crmSubNavLine03.gif) no-repeat 12px center; border:none}
+.crmFrameHead{background:#fff ;border:none; }
+
+/*内嵌表格的样式*/
+.ywjgList table{background:#fff}
+.ywjgList th{background:#eee}
+.ywjgList th.ywglTit{background:#fff; border-top:1px dashed #ddd; color:#f60;}
+.ywjgList td{background:#F6F6F6}
+.ywjgList td.tit{background:#eee;}
+
+/*----------2011-01-21 --------------------*/
+/*工单 办理 详情页面*/
+.clyj .tit01{background:#F3F7FC; border:1px dashed #ABC7EB;}
+.clyjEditBg{ background:#f8f8f8}
+.clgcTit{background:#F3F7FC; border-left:2px solid #ABC7EB;}
+.taskTit span{color:#999; border-right:1px solid #ABC7EB;}
+.taskTit font{color:#ABC7EB}
+.handleCon{color:#000}
+.sqBk{border:1px dashed #ccc;}
+.ckspgc a{color:#ABC7EB}
+
+/*阴影*/
+.boxShadow{position:relative; left:0; top:4px;}
+.boxShadow .shadow01{background:#fff; }
+.boxShadow .shadow02{background:#fff; }
+.boxShadow .shadow03{background:#fff; }
+.boxShadow .shadow04{background:#fff; }
+.boxShadow .shadowCon{ border:1px solid #ececec}
+
+.oppBtnBg{background:#fff; text-align:center}
+
+/*表单tab*/
+.crmSubTabs{left:-5px}
+.crmSubTabs li{float:left;height:20px; color:#000; padding:4px 10px 0;font-weight:normal; white-space:nowrap;margin:0 5px;display:inline; background:#eee;  cursor:pointer;-moz-border-radius: 15px; -webkit-border-radius: 15px;  border-radius:15px;	 behavior:url(../flat/images/pie.htc);}
+.crmSubTabs li.current{ background:#2C8AEF; color:#fff; font-weight:normal;  }
+.crmSubTabs li div{height:12px; float:left; padding:0 0px 1px;background:none}
+.crmSubTabs li div.lastNone{ background:none}
+
+/*工具栏按钮样式*/
+.queryAssign_btn{border:none; background:url(../flat/images/queryAssign.png) no-repeat; width:80px; height:23px;}
+.equipmentUse_btn{border:none; background:url(../flat/images/equipmentUse.png) no-repeat; width:105px; height:23px;}
+.equipmentAllot_btn{border:none; background:url(../flat/images/equipmentAllot.png) no-repeat; width:80px; height:23px;}
+.equipmentScrap_btn{border:none; background:url(../flat/images/equipmentScrap.png) no-repeat; width:80px; height:23px;}
+.lzcl_btn{border:none; background:url(../flat/images/lzcl.png) no-repeat; width:105px; height:23px;}
+
+.fillUp_btn{border:none; background:url(../flat/images/fillUp.png) no-repeat; width:80px; height:23px;}
+.equipmentReg_btn{border:none; background:url(../flat/images/equipmentReg.png) no-repeat; width:105px; height:23px;}
+.equipmentAllotReg_btn{border:none; background:url(../flat/images/equipmentAllotReg.png) no-repeat; width:80px; height:23px;}
+.equipmentRepair_btn{border:none; background:url(../flat/images/equipmentRepair.png) no-repeat; width:80px; height:23px;}
+.equipmentScrapReg_btn{border:none; background:url(../flat/images/equipmentScrapReg.png) no-repeat; width:80px; height:23px;}
+.equipmentScrapDispose_btn{border:none; background:url(../flat/images/equipmentScrapDispose.png) no-repeat; width:105px; height:23px;}
+.lzclReg_btn{border:none; background:url(../flat/images/lzclReg.png) no-repeat; width:105px; height:23px;}
+.inFile_btn{border:none; background:url(../flat/images/inFile.png) no-repeat; width:60px; height:23px;}
+.fz_btn{border:none; background:url(../flat/images/fz.png) no-repeat; width:60px; height:23px;}
+.zzsk_btn{border:none; background:url(../flat/images/zzsk.png) no-repeat; width:80px; height:23px;}
+
+/*三级菜单图标*/
+.costsQdsqd{ display:block; margin:0 auto 6px;background:url(../flat/images/costsQdsqd.png) no-repeat; width:45px; height:45px;}
+.costsDbsqd{ display:block; margin:0 auto 6px;background:url(../flat/images/costsDbsqd.png) no-repeat; width:45px; height:45px;}
+.costsGzsqd{ display:block; margin:0 auto 6px;background:url(../flat/images/costsGzsqd.png) no-repeat; width:45px; height:45px;}
+.costsGdsqd{ display:block; margin:0 auto 6px;background:url(../flat/images/costsGdsqd.png) no-repeat; width:45px; height:45px;}
+.costsFycxCw{ display:block; margin:0 auto 6px;background:url(../flat/images/costsFycxCw.png) no-repeat; width:45px; height:45px;}
+.costsBxdcxCw{ display:block; margin:0 auto 6px;background:url(../flat/images/costsBxdcxCw.png) no-repeat; width:45px; height:45px;}
+.costsBxdcxCw{ display:block; margin:0 auto 6px;background:url(../flat/images/costsBxdcxCw.png) no-repeat; width:45px; height:45px;}
+.flatIcon_oa1{ display:block; margin:0 auto 6px;background:url(../flat/images/flatIcon_oa1.png) no-repeat; width:45px; height:45px;}
+.flatIcon_oa2{ display:block; margin:0 auto 6px;background:url(../flat/images/flatIcon_oa2.png) no-repeat; width:45px; height:45px;}
+.flatGear{display:block; margin:0 auto 6px;background:url(../flat/images/flatGear.png) no-repeat; width:45px; height:45px;}
+
+.divPanelSub a{ color:#046ACB}
+
+
+
+
+
+
+
+
+

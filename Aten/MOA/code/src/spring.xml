@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<!-- Spring 加载属文件 -->
+  	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name="locations">
+      		<value>classpath:config.properties</value>
+    	</property>
+		<property name="searchSystemEnvironment">
+			<value>true</value>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders">
+			<value>false</value>
+		</property>
+	</bean>
+	
+	<!-- 定义流程引擎数据源 -->
+	<bean id="wfDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${WF_DRIVER_CLASS}" />
+   		<property name="jdbcUrl" value="${WF_DB_JDBC_URL}" />
+   		<property name="maxIdleTime" value="600" />
+   		<property name="acquireIncrement" value="2" />
+   		<property name="maxPoolSize" value="10" />
+   		<property name="initialPoolSize" value="2" />
+   		<property name="minPoolSize" value="2" />
+   		<property name="maxStatements" value="100" />
+   		<property name="idleConnectionTestPeriod" value="120" />
+   		
+		<!-- c3p0密码配置 -->
+		<property name="properties">
+			<bean class="org.eapp.util.spring.C3p0Properties">
+				<property name="properties">
+					<props>
+						<prop key="user">${WF_DB_USER}</prop>
+					  	<prop key="encrypt">${WF_DB_PSW_ENCRYPT}</prop>
+						<prop key="password">${WF_DB_PASSWORD}</prop>
+					<!--	<prop key="encrypt">false</prop>
+						<prop key="password">db_paw</prop> -->
+					</props>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 定义Hibernate SessionFactory -->
+	<bean id="wfSessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> 
+	<!--	class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"> -->
+	 	
+		<!-- dataSource可以为任意的数据源 例如DBCP、C3P0 -->
+		<property name="dataSource" ref="wfDataSource"></property>
+		<!-- 其他的Hibernate常用配置 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${WF_HIBERNATE_DIALET}</prop>
+				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.show_sql">${HIBERNATE_SHOW_SQL}</prop>
+			</props>
+		</property>
+		<!-- 映射文件路径 -->
+		<property name="mappingResources">
+			<list>
+				<value>org/eapp/workflow/def/FlowDefine.hbm.xml</value>
+				<value>org/eapp/workflow/def/Node.hbm.xml</value>
+				<value>org/eapp/workflow/def/Transition.hbm.xml</value>
+				<value>org/eapp/workflow/def/Event.hbm.xml</value>
+				<value>org/eapp/workflow/def/Action.hbm.xml</value>
+				<value>org/eapp/workflow/def/TaskDefine.hbm.xml</value>
+				<value>org/eapp/workflow/def/ParallelTaskDefine.hbm.xml</value>
+				<value>org/eapp/workflow/def/SerialTaskDefine.hbm.xml</value>
+				<value>org/eapp/workflow/def/Delegation.hbm.xml</value>
+				<value>org/eapp/workflow/def/FlowDraft.hbm.xml</value>
+				<value>org/eapp/workflow/def/VariableDeclare.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/StartNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/EndNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/TaskNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/DecisionNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/ForkNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/JoinNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/SubFlowNode.hbm.xml</value>
+				<value>org/eapp/workflow/asyn/AsynJob.hbm.xml</value>
+				<value>org/eapp/workflow/asyn/AsynNodeJob.hbm.xml</value>
+				<value>org/eapp/workflow/asyn/AsynActionJob.hbm.xml</value>
+				<value>org/eapp/workflow/exe/ContextVariable.hbm.xml</value>
+				<value>org/eapp/workflow/exe/FlowInstance.hbm.xml</value>
+				<value>org/eapp/workflow/exe/FlowToken.hbm.xml</value>
+				<value>org/eapp/workflow/exe/PooledActor.hbm.xml</value>
+				<value>org/eapp/workflow/exe/PooledRole.hbm.xml</value>
+				<value>org/eapp/workflow/exe/TaskInstance.hbm.xml</value>
+				<value>org/eapp/workflow/exe/OrderExecTaskInstance.hbm.xml</value>
+			<!-- 	<value>org/eapp/workflow/exe/log/NodeActionLog.hbm.xml</value> -->
+				<value>org/eapp/workflow/trace/TracePoint.hbm.xml</value>
+				<value>org/eapp/workflow/db/hibernate.queries.hbm.xml</value>
+	         </list>
+		</property>
+	</bean>
+	
+	<!-- 定义系统数据源 -->
+<!-- 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">      
+		<property name="jndiName" value="java:ORACLEDS_EAPP"/>      
+	</bean>  -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${DRIVER_CLASS}" />
+   		<property name="jdbcUrl" value="${DB_JDBC_URL}" />
+   		<property name="maxIdleTime" value="600" />
+   		<property name="acquireIncrement" value="2" />
+   		<property name="maxPoolSize" value="20" />
+   		<property name="initialPoolSize" value="2" />
+   		<property name="minPoolSize" value="2" />
+   		<property name="maxStatements" value="100" />
+   		<property name="idleConnectionTestPeriod" value="120" />
+   		
+		<!-- c3p0密码配置 -->
+		<property name="properties">
+			<bean class="org.eapp.util.spring.C3p0Properties">
+				<property name="properties">
+					<props>
+						<prop key="user">${DB_USER}</prop>
+					  	<prop key="encrypt">${DB_PSW_ENCRYPT}</prop>
+						<prop key="password">${DB_PASSWORD}</prop>
+					<!--	<prop key="encrypt">false</prop>
+						<prop key="password">db_paw</prop> -->
+					</props>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 定义Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> 
+	<!--	class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"> -->
+	 	
+		<!-- dataSource可以为任意的数据源 例如DBCP、C3P0 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 其他的Hibernate常用配置 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${HIBERNATE_DIALET}</prop>
+				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.show_sql">${HIBERNATE_SHOW_SQL}</prop>
+			</props>
+		</property>
+		<!-- 映射文件路径 -->
+		<property name="mappingResources">
+			<list>
+				<value>org/eapp/oa/flow/hbean/FlowConfig.hbm.xml</value>
+				<value>org/eapp/oa/flow/hbean/FlowMeta.hbm.xml</value>
+				<value>org/eapp/oa/flow/hbean/Task.hbm.xml</value>
+				<value>org/eapp/oa/flow/hbean/TaskAssign.hbm.xml</value>
+				<value>org/eapp/oa/flow/hbean/FlowNotify.hbm.xml</value>
+				
+				<value>org/eapp/oa/system/hbean/Attachment.hbm.xml</value>
+				
+				<value>org/eapp/oa/doc/hbean/DocClass.hbm.xml</value>
+				<value>org/eapp/oa/doc/hbean/DocClassAssign.hbm.xml</value>
+				<value>org/eapp/oa/doc/hbean/DocForm.hbm.xml</value>
+				<value>org/eapp/oa/doc/hbean/DocNumber.hbm.xml</value>
+				
+				<value>org/eapp/oa/info/hbean/InfoForm.hbm.xml</value>
+				<value>org/eapp/oa/info/hbean/InfoLayout.hbm.xml</value>
+				<value>org/eapp/oa/info/hbean/InfoLayoutAssign.hbm.xml</value>
+				<value>org/eapp/oa/info/hbean/Information.hbm.xml</value>
+				
+				<value>org/eapp/oa/address/hbean/AddressList.hbm.xml</value>
+				
+				<value>org/eapp/oa/reimburse/hbean/OutlayList.hbm.xml</value>
+				<value>org/eapp/oa/reimburse/hbean/Reimbursement.hbm.xml</value>
+				<value>org/eapp/oa/reimburse/hbean/ReimItem.hbm.xml</value>
+				<value>org/eapp/oa/reimburse/hbean/ReimFlowConf.hbm.xml</value>
+				
+				<value>org/eapp/oa/hr/hbean/HolidayApply.hbm.xml</value>
+				<value>org/eapp/oa/hr/hbean/HolidayDetail.hbm.xml</value>
+				<value>org/eapp/oa/hr/hbean/HolidayType.hbm.xml</value>
+				<value>org/eapp/oa/hr/hbean/HRFlowConf.hbm.xml</value>
+				<value>org/eapp/oa/hr/hbean/StaffFlowApply.hbm.xml</value>
+				<value>org/eapp/oa/hr/hbean/WorkExperience.hbm.xml</value>
+				<value>org/eapp/oa/hr/hbean/StaffFlowQueryAssign.hbm.xml</value>
+				<value>org/eapp/oa/hr/hbean/SalaryBill.hbm.xml</value>
+				<value>org/eapp/oa/hr/hbean/TransferApply.hbm.xml</value>
+				<value>org/eapp/oa/hr/hbean/PositiveApply.hbm.xml</value>
+				
+				<value>org/eapp/oa/device/hbean/Device.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DeviceProperty.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DevRepairForm.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DevValidateForm.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DeviceValiDetail.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DeviceClass.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DeviceClassAssign.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DeviceClassAssignArea.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DeviceClassAssignDetail.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DevAllocateList.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DeviceCfgItem.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DeviceCheckItem.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DeviceCurStatusInfo.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DeviceUpdateLog.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DevPurchaseList.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DiscardDevList.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/AreaDeviceCfg.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DevFlowApplyProcess.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DevicePropertyDetail.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DevDiscardDealForm.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DiscardDealDevList.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/DeviceFlowView.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/PurchaseDevice.hbm.xml</value>
+				<value>org/eapp/oa/device/hbean/PurchaseDevPurpose.hbm.xml</value>
+				
+				<value>org/eapp/oa/lucene/db/IndexTask.hbm.xml</value>
+				<value>org/eapp/oa/kb/hbean/Knowledge.hbm.xml</value>
+				<value>org/eapp/oa/kb/hbean/KnowledgeAttachment.hbm.xml</value>
+				<value>org/eapp/oa/kb/hbean/KnowledgeClass.hbm.xml</value>
+				<value>org/eapp/oa/kb/hbean/KnowledgeClassAssign.hbm.xml</value>
+				<value>org/eapp/oa/kb/hbean/KnowledgeLog.hbm.xml</value>
+				<value>org/eapp/oa/kb/hbean/KnowledgeReply.hbm.xml</value>
+				<value>org/eapp/oa/kb/hbean/LabelLib.hbm.xml</value>
+				
+				<value>org/eapp/oa/meeting/hbean/MeetingInfo.hbm.xml</value>
+				<value>org/eapp/oa/meeting/hbean/MeetingAttachment.hbm.xml</value>
+				<value>org/eapp/oa/meeting/hbean/MeetingRoom.hbm.xml</value>
+				<value>org/eapp/oa/meeting/hbean/MeetingParticipant.hbm.xml</value>
+				
+				<value>org/eapp/oa/travel/hbean/BusTripApply.hbm.xml</value>
+				<value>org/eapp/oa/travel/hbean/BusTripApplyDetail.hbm.xml</value>
+				<value>org/eapp/oa/travel/hbean/BusTripFlowConf.hbm.xml</value>
+	         </list>
+		</property>
+		
+		<!-- 注释映射路径
+		<property name="annotatedClasses">
+            <list>
+         		<value>org.eapp.hbean.UserAccount</value>
+            </list>
+        </property> -->
+	</bean>
+	
+	<!-- 事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 事务拦截器 -->
+	<bean id="transactionInterceptor" 
+ 		class="org.springframework.transaction.interceptor.TransactionInterceptor"> 
+      	<property name="transactionManager"> 
+       		<ref bean="transactionManager" /> 
+      	</property> 
+      	<!-- 配置事务属性 --> 
+      	<property name="transactionAttributes"> 
+       		<props> 
+       			<!-- 以下方法开头需要事务 --> 
+        		<prop key="delete*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="add*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="modify*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="tx*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="ntx*">PROPAGATION_REQUIRES_NEW,-Exception</prop> 
+		        <!-- 以下方法开头只查询无事务 --> 
+		        <prop key="get*">PROPAGATION_SUPPORTS,readOnly</prop> 
+		        <prop key="query*">PROPAGATION_SUPPORTS,readOnly</prop> 
+		       	<prop key="cs*">PROPAGATION_SUPPORTS,readOnly</prop>
+       		</props> 
+      	</property> 
+	</bean> 
+	
+	<!-- 自动代理 凡是开头是tx的bean都进入事务管理 -->
+	<bean id="preformanceThresholdProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>*Biz</value><!-- 拦截Bean名称为Service结尾的所有方法，方法嵌套时支持同一事务或同一Session -->
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<value>transactionInterceptor</value>
+		</property>
+	</bean>
+	
+	<!-- 获取SPRING的ApplicationContext对象-->
+	<bean class="org.eapp.util.spring.SpringHelper"></bean>
+  
+  	<!-- WEB服务器启动初始化内容  -->
+  	<bean id="serverStartupInit" class="org.eapp.oa.system.util.ServerStartupInit" init-method="init" destroy-method="destroy">
+  		<property name="wfSessionFactory" ref="wfSessionFactory" />
+  		<property name="uploadConfig" ref="uploadConfig" />
+  		<property name="mailConfig" ref="mailConfig" />
+  		<property name="luceneConfig" ref="luceneConfig" />
+	</bean>
+  
+	<!-- 文件管理 -->
+	<bean id="uploadConfig" class="org.eapp.util.web.upload.UploadConfig">
+		<property name="rootFolder" value="upload/" />
+	  	<property name="tempFolder" value="temp/" />
+	  	<property name="imgExt" value=".jpg.jpeg.gif.bmp.png" />
+	  	<property name="enableUploadPath" value="true" />
+	  	<property name="savePath" value="${FILE_SAVE_PATH}" />
+	</bean>
+	<!-- 邮件服务 -->
+  	<bean id="mailConfig" class="org.eapp.util.mail.MailConfig">
+  		<property name="sendAddress" value="${MAIL_SEND_ADDRESS}" />
+  		<property name="username" value="${MAIL_USERNAME}" />
+  		<property name="password" value="${MAIL_PASSWORD}" />
+  		<property name="props">
+  	  		<value>
+  	  			${MAIL_SMTP_PROPS}
+  	  		</value>
+    	</property>
+  	</bean>
+  	<!-- 索引管理 -->
+	<bean id="luceneConfig" class="org.eapp.oa.lucene.LuceneConfig">
+		<property name="analyzerClassName" value="${LUCENE_ANALYZER_CLASS_NAME}" />
+	  	<property name="indexRootdir" value="${FILE_SAVE_PATH}" />
+	  	<property name="period" value="${LUCENE_TASK_PERIOD}" />
+	</bean>
+	
+	<bean id="flowDataDAO" class="org.eapp.oa.flow.dao.impl.FlowDataDAO"></bean>
+	<bean id="flowDataBiz" class="org.eapp.oa.flow.blo.impl.FlowDataBiz">
+		<property name="flowDataDAO" ref="flowDataDAO" />
+	</bean>
+	
+	<!-- BaseDAO -->
+	<bean id="baseDAO" class="org.eapp.oa.system.dao.imp.BaseHibernateDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 以下为DAO Service ...，都要继承baseDAO -->
+	
+	<!-- ======系统管理====== -->
+	<bean id="taskDAO" class="org.eapp.oa.flow.dao.impl.TaskDAO" parent="baseDAO"></bean>
+	<bean id="taskBiz" class="org.eapp.oa.flow.blo.impl.TaskBiz">
+		<property name="taskDAO" ref="taskDAO" />
+		<property name="addressListDAO" ref="addressListDAO"/>
+		<property name="noticeFlowTask" value="${IS_NOTICE_FLOW_TASK}" />
+		<property name="noticeSubject" value="${TASK_NOTICE_SUBJECT}" />
+		<property name="noticeContent" value="${TASK_NOTICE_CONTENT}" />
+	</bean>
+	
+	<bean id="flowConfigDAO" class="org.eapp.oa.flow.dao.impl.FlowConfigDAO" parent="baseDAO"></bean>
+	<bean id="flowConfigBiz" class="org.eapp.oa.flow.blo.impl.FlowConfigBiz">
+		<property name="flowConfigDAO" ref="flowConfigDAO" />
+	</bean>
+	
+	<bean id="flowMetaDAO" class="org.eapp.oa.flow.dao.impl.FlowMetaDAO" parent="baseDAO"></bean>
+	<bean id="flowMetaBiz" class="org.eapp.oa.flow.blo.impl.FlowMetaBiz">
+		<property name="flowMetaDAO" ref="flowMetaDAO" />
+	</bean>
+	
+	<bean id="flowNotifyDAO" class="org.eapp.oa.flow.dao.impl.FlowNotifyDAO" parent="baseDAO"></bean>
+	<bean id="flowNotifyBiz" class="org.eapp.oa.flow.blo.impl.FlowNotifyBiz">
+		<property name="flowNotifyDAO" ref="flowNotifyDAO" />
+	</bean>
+	
+	<!-- ======公文审批====== -->
+	<!-- 公文类别 -->
+	<bean id="docClassDAO" class="org.eapp.oa.doc.dao.impl.DocClassDAO" parent="baseDAO"/>
+	<bean id="docClassBiz" class="org.eapp.oa.doc.blo.impl.DocClassBiz">
+		<property name="docClassDAO" ref="docClassDAO"/>
+	</bean>
+	<!-- 公文类别授权-->
+	<bean id="docClassAssignDAO" class="org.eapp.oa.doc.dao.impl.DocClassAssignDAO" parent="baseDAO"/>
+	<bean id="docClassAssignBiz" class="org.eapp.oa.doc.blo.impl.DocClassAssignBiz">
+		<property name="docClassAssignDAO" ref="docClassAssignDAO"/>
+		<property name="docClassDAO" ref="docClassDAO"/>
+	</bean>
+	<!-- 公文编号 -->
+	<bean id="docNumberDAO" class="org.eapp.oa.doc.dao.impl.DocNumberDAO" parent="baseDAO"/>
+	<bean id="docNumberBiz" class="org.eapp.oa.doc.blo.impl.DocNumberBiz">
+		<property name="docNumberDAO" ref="docNumberDAO"/>
+	</bean>
+	<!-- 公文表单 -->
+	<bean id="docFormDAO" class="org.eapp.oa.doc.dao.impl.DocFormDAO" parent="baseDAO"/>
+	<bean id="docFormBiz" class="org.eapp.oa.doc.blo.impl.DocFormBiz">
+		<property name="docFormDAO" ref="docFormDAO"/>
+		<property name="taskDAO" ref="taskDAO"/>
+		<property name="informationDAO" ref="informationDAO"/>
+	</bean>
+	
+	<!-- ======信息发布======-->
+	<bean id="infoLayoutDAO" class="org.eapp.oa.info.dao.impl.InfoLayoutDAO" parent="baseDAO"/>
+	<bean id="infoLayoutBiz" class="org.eapp.oa.info.blo.impl.InfoLayoutBiz">
+		<property name="infoLayoutDAO" ref="infoLayoutDAO"/>
+	</bean>
+	<bean id="infoLayoutAssignDAO" class="org.eapp.oa.info.dao.impl.InfoLayoutAssignDAO" parent="baseDAO"/>
+	<bean id="infoLayoutAssignBiz" class="org.eapp.oa.info.blo.impl.InfoLayoutAssignBiz">
+		<property name="infoLayoutAssignDAO" ref="infoLayoutAssignDAO"/>
+		<property name="infoLayoutDAO" ref="infoLayoutDAO"/>
+	</bean>
+	<bean id="informationDAO" class="org.eapp.oa.info.dao.impl.InformationDAO" parent="baseDAO"/>
+	<bean id="informationBiz" class="org.eapp.oa.info.blo.impl.InformationBiz">
+		<property name="informationDAO" ref="informationDAO"/>
+		<property name="infoFormDAO" ref="infoFormDAO"/>
+		<property name="infoLayoutDAO" ref="infoLayoutDAO"/>
+	</bean>
+	<bean id="infoFormDAO" class="org.eapp.oa.info.dao.impl.InfoFormDAO" parent="baseDAO"/>
+	<bean id="infoFormBiz" class="org.eapp.oa.info.blo.impl.InfoFormBiz">
+		<property name="infoFormDAO" ref="infoFormDAO"/>
+		<property name="taskDAO" ref="taskDAO"/>
+	</bean>
+	
+	<!-- ======通讯录====== -->
+	<bean id="addressListDAO" class="org.eapp.oa.address.dao.impl.AddressListDAO" parent="baseDAO"/>
+	<bean id="addressListBiz" class="org.eapp.oa.address.blo.impl.AddressListBiz">
+		<property name="addressListDAO" ref="addressListDAO"/>
+	</bean>
+	
+	<!-- ======报销====== -->
+	<!-- 报销单 -->
+	<bean id="reimbursementDAO" class="org.eapp.oa.reimburse.dao.impl.ReimbursementDAO" parent="baseDAO"/>
+	<bean id="reimbursementBiz" class="org.eapp.oa.reimburse.blo.impl.ReimbursementBiz">
+		<property name="reimbursementDAO" ref="reimbursementDAO"/>
+		<property name="taskDAO" ref="taskDAO"/>
+		<property name="reimFlowConfDAO" ref="reimFlowConfDAO"/>
+	</bean>
+	
+	<!-- 费用明细 -->
+	<bean id="outlayListDAO" class="org.eapp.oa.reimburse.dao.impl.OutlayListDAO" parent="baseDAO"/>
+	<bean id="outlayListBiz" class="org.eapp.oa.reimburse.blo.impl.OutlayListBiz">
+		<property name="outlayListDAO" ref="outlayListDAO"/>
+	</bean>
+	<!-- 报销流程配置 -->
+	<bean id="reimFlowConfDAO" class="org.eapp.oa.reimburse.dao.impl.ReimFlowConfDAO" parent="baseDAO"/>
+	<bean id="reimFlowConfBiz" class="org.eapp.oa.reimburse.blo.impl.ReimFlowConfBiz">
+		<property name="reimFlowConfDAO" ref="reimFlowConfDAO"/>
+		<property name="flowConfigDAO" ref="flowConfigDAO"/>
+	</bean>
+	
+	<!-- ======请假====== -->
+	<!-- 请假单 -->
+	<bean id="holidayApplyDAO" class="org.eapp.oa.hr.dao.impl.HolidayApplyDAO" parent="baseDAO"/>
+	<bean id="holidayApplyBiz" class="org.eapp.oa.hr.blo.impl.HolidayApplyBiz">
+		<property name="holidayApplyDAO" ref="holidayApplyDAO"/>
+		<property name="taskDAO" ref="taskDAO"/>
+		<property name="holidayTypeBiz" ref="holidayTypeBiz"/>
+		<property name="hrFlowConfDAO" ref="hrFlowConfDAO"/>
+	</bean>
+	<!-- 假种 -->
+	<bean id="holidayTypeDAO" class="org.eapp.oa.hr.dao.impl.HolidayTypeDAO" parent="baseDAO"/>
+	<bean id="holidayTypeBiz" class="org.eapp.oa.hr.blo.impl.HolidayTypeBiz">
+		<property name="holidayTypeDAO" ref="holidayTypeDAO"/>
+	</bean>
+	<!-- 请假流程配置 -->
+	<bean id="hrFlowConfDAO" class="org.eapp.oa.hr.dao.impl.HRFlowConfDAO" parent="baseDAO"/>
+	<bean id="hrFlowConfBiz" class="org.eapp.oa.hr.blo.impl.HRFlowConfBiz">
+		<property name="hrFlowConfDAO" ref="hrFlowConfDAO"/>
+		<property name="flowConfigDAO" ref="flowConfigDAO"/>
+	</bean>
+	<!-- 入职离职单 -->
+	<bean id="employeeNumberCreater" class="org.eapp.oa.hr.blo.impl.EmployeeNumberCreater">
+		<property name="prefixStr" value="QY"/>
+		<property name="numberFormat" value="0000"/>
+	</bean>
+	<bean id="staffFlowApplyDAO" class="org.eapp.oa.hr.dao.impl.StaffFlowApplyDAO" parent="baseDAO"/>
+	<bean id="staffFlowApplyBiz" class="org.eapp.oa.hr.blo.impl.StaffFlowApplyBiz">
+		<property name="staffFlowApplyDAO" ref="staffFlowApplyDAO"/>
+		<property name="taskDAO" ref="taskDAO"/>
+		<property name="hrFlowConfDAO" ref="hrFlowConfDAO"/>
+		<property name="employeeNumberCreater" ref="employeeNumberCreater"/>
+	</bean>
+	<!-- 工资条 -->
+	<bean id="salaryBillDAO" class="org.eapp.oa.hr.dao.impl.SalaryBillDAO" parent="baseDAO"/>
+	<bean id="salaryBillBiz" class="org.eapp.oa.hr.blo.impl.SalaryBillBiz">
+		<property name="salaryBillDAO" ref="salaryBillDAO"/>
+		<property name="staffFlowApplyDAO" ref="staffFlowApplyDAO"/>
+		<property name="impStartRowNum" value="2"/>
+		<property name="impSheetIndex" value="0"/>
+	</bean>
+	
+	<!-- 异动单 -->
+	<bean id="transferApplyDAO" class="org.eapp.oa.hr.dao.impl.TransferApplyDAO" parent="baseDAO"/>
+	<bean id="transferApplyBiz" class="org.eapp.oa.hr.blo.impl.TransferApplyBiz">
+		<property name="transferApplyDAO" ref="transferApplyDAO"/>
+		<property name="taskDAO" ref="taskDAO"/>
+		<property name="hrFlowConfDAO" ref="hrFlowConfDAO"/>
+		<property name="staffFlowApplyDAO" ref="staffFlowApplyDAO"/>
+	</bean>
+	
+	<!-- 转正单 -->
+	<bean id="positiveApplyDAO" class="org.eapp.oa.hr.dao.impl.PositiveApplyDAO" parent="baseDAO"/>
+	<bean id="positiveApplyBiz" class="org.eapp.oa.hr.blo.impl.PositiveApplyBiz">
+		<property name="positiveApplyDAO" ref="positiveApplyDAO"/>
+		<property name="taskDAO" ref="taskDAO"/>
+		<property name="hrFlowConfDAO" ref="hrFlowConfDAO"/>
+		<property name="staffFlowApplyDAO" ref="staffFlowApplyDAO"/>
+	</bean>
+	
+	<!-- 设备管理 -->
+	
+	<!-- 设备管理属性 -->
+	<bean id="devicePropertyDAO" class="org.eapp.oa.device.dao.impl.DevicePropertyDAO" parent="baseDAO"/>
+	<bean id="devicePropertyBiz" class="org.eapp.oa.device.blo.impl.DevicePropertyBiz">
+		<property name="devicePropertyDAO" ref="devicePropertyDAO"/>
+	</bean>
+	<!-- 设备类别 -->
+	<bean id="deviceClassDAO" class="org.eapp.oa.device.dao.impl.DeviceClassDAO" parent="baseDAO"/>
+	<bean id="deviceClassBiz" class="org.eapp.oa.device.blo.impl.DeviceClassBiz">
+		<property name="deviceClassDAO" ref="deviceClassDAO"/>
+		<property name="deviceBiz" ref="deviceBiz"/>
+	</bean>
+	<bean id="deviceAreaConfigDAO" class="org.eapp.oa.device.dao.impl.DeviceAreaConfigDAO" parent="baseDAO"/>
+	<bean id="deviceAreaConfigBiz" class="org.eapp.oa.device.blo.impl.DeviceAreaConfigBiz">
+		<property name="deviceAreaConfigDAO" ref="deviceAreaConfigDAO"/>
+		<property name="flowConfigBiz" ref="flowConfigBiz"/>
+	</bean>
+	<!-- 设备检查项配置 -->
+	<bean id="deviceCheckItemDAO" class="org.eapp.oa.device.dao.impl.DeviceCheckItemDAO" parent="baseDAO"/>
+	<bean id="deviceCheckItemBiz" class="org.eapp.oa.device.blo.impl.DeviceCheckItemBiz">
+		<property name="deviceCheckItemDAO" ref="deviceCheckItemDAO"/>
+	<!--	<property name="cacheData" ref="cacheData"/> -->
+		<property name="deviceClassDAO" ref="deviceClassDAO"/>
+	</bean>
+	<!-- 设备授权 -->
+	<bean id="deviceClassAssignDAO" class="org.eapp.oa.device.dao.impl.DeviceClassAssignDAO" parent="baseDAO"/>
+	<bean id="deviceClassAssignBiz" class="org.eapp.oa.device.blo.impl.DeviceClassAssignBiz">
+		<property name="deviceClassAssignDAO" ref="deviceClassAssignDAO"/>
+	</bean>
+	<!-- 设备管理 -->
+	<bean id="deviceDAO" class="org.eapp.oa.device.dao.impl.DeviceDAO" parent="baseDAO"/>
+	<bean id="deviceBiz" class="org.eapp.oa.device.blo.impl.DeviceBiz">
+		<property name="deviceDAO" ref="deviceDAO"/>
+		<property name="devValidateFormDAO" ref="devValidateFormDAO"/>
+		<property name="deviceClassDAO" ref="deviceClassDAO"/>
+		<property name="devAllocateFormDAO" ref="devAllocateFormDAO"/>
+		<property name="devUseApplyFormDAO" ref="devUseApplyFormDAO"/>
+		<property name="devDiscardFormDAO" ref="devDiscardFormDAO"/>
+	</bean>
+	<bean id="devRepairFormDAO" class="org.eapp.oa.device.dao.impl.DevRepairFormDAO" parent="baseDAO"/>
+	<bean id="devRepairFormBiz" class="org.eapp.oa.device.blo.impl.DevRepairFormBiz">
+		<property name="devRepairFormDAO" ref="devRepairFormDAO"/>
+		<property name="deviceDAO" ref="deviceDAO"/>
+	</bean>
+	<!-- 设备验收单 -->
+	<bean id="devValidateFormDAO" class="org.eapp.oa.device.dao.impl.DevValidateFormDAO" parent="baseDAO"/>
+	<bean id="devValidateFormBiz" class="org.eapp.oa.device.blo.impl.DevValidateFormBiz">
+		<property name="devValidateFormDAO" ref="devValidateFormDAO"/>
+		<property name="deviceDAO" ref="deviceDAO"/>
+	</bean>
+	<bean id="devAllocateFormDAO" class="org.eapp.oa.device.dao.impl.DevAllocateFormDAO" parent="baseDAO"/>
+	<bean id="deviceAllocateBiz" class="org.eapp.oa.device.blo.impl.DeviceAllocateBiz">
+		<property name="devAllocateFormDAO" ref="devAllocateFormDAO"/>
+		<property name="deviceDAO" ref="deviceDAO"/>
+		<property name="deviceClassDAO" ref="deviceClassDAO"/>
+		<property name="taskDAO" ref="taskDAO"/>
+		<property name="devValidateFormBiz" ref="devValidateFormBiz"/>
+		<property name="devUseApplyFormDAO" ref="devUseApplyFormDAO"/>
+		<property name="deviceAreaConfigBiz" ref="deviceAreaConfigBiz"/>
+		<property name="deviceBiz" ref="deviceBiz"/>
+		<property name="deviceApplyBiz" ref="deviceApplyBiz"/>
+	</bean>
+	<!-- 设备报废 -->
+	<bean id="devDiscardFormDAO" class="org.eapp.oa.device.dao.impl.DevDiscardFormDAO" parent="baseDAO"/>
+	<bean id="deviceDiscardBiz" class="org.eapp.oa.device.blo.impl.DeviceDiscardBiz">
+		<property name="devDiscardFormDAO" ref="devDiscardFormDAO"/>
+		<property name="deviceDAO" ref="deviceDAO"/>
+		<property name="devValidateFormBiz" ref="devValidateFormBiz"/>
+		<property name="devUseApplyFormDAO" ref="devUseApplyFormDAO"/>
+		<property name="deviceAreaConfigBiz" ref="deviceAreaConfigBiz"/>
+		<property name="deviceBiz" ref="deviceBiz"/>
+	</bean>
+	<bean id="devUseApplyFormDAO" class="org.eapp.oa.device.dao.impl.DevUseApplyFormDAO" parent="baseDAO"/>
+	<bean id="deviceApplyBiz" class="org.eapp.oa.device.blo.impl.DeviceApplyBiz">
+		<property name="devUseApplyFormDAO" ref="devUseApplyFormDAO"/>
+		<property name="deviceDAO" ref="deviceDAO"/>
+		<property name="taskDAO" ref="taskDAO"/>
+		<property name="deviceClassDAO" ref="deviceClassDAO"/>
+		<property name="deviceAreaConfigBiz" ref="deviceAreaConfigBiz"/>
+		<property name="deviceBiz" ref="deviceBiz"/>
+		<property name="devValidateFormDAO" ref="devValidateFormDAO"/>
+		<property name="devAllocateFormDAO" ref="devAllocateFormDAO"/>
+	</bean>
+	<!-- 报废处理 -->
+	<bean id="devDiscardDisposeDAO" class="org.eapp.oa.device.dao.impl.DevDiscardDisposeDAO" parent="baseDAO" />
+	<bean id="devDiscardDisposeBiz" class="org.eapp.oa.device.blo.impl.DevDiscardDisposeBiz">
+		<property name="devDiscardDisposeDAO" ref="devDiscardDisposeDAO"/>
+	</bean>
+	<!-- 设备更新日志 -->
+	<bean id="deviceUpdateLogDAO" class="org.eapp.oa.device.dao.impl.DeviceUpdateLogDAO" parent="baseDAO" />
+	<bean id="deviceUpdateLogBiz" class="org.eapp.oa.device.blo.impl.DeviceUpdateLogBiz">
+		<property name="deviceUpdateLogDAO" ref="deviceUpdateLogDAO"/>
+	</bean>
+	<!-- 设备报废列表DAO -->
+	<bean id="deviceFlowDAO" class="org.eapp.oa.device.dao.impl.DeviceFlowDAO" parent="baseDAO"/>
+	<!-- 设备流程Biz -->
+	<bean id="devFlowBiz" class="org.eapp.oa.device.blo.impl.DevFlowBiz">
+		<property name="deviceApplyBiz" ref="deviceApplyBiz"/>
+		<property name="devRepairFormBiz" ref="devRepairFormBiz"/>
+		<property name="deviceDiscardBiz" ref="deviceDiscardBiz"/>
+		<property name="devAllocateFormDAO" ref="devAllocateFormDAO"/>
+		<property name="devDiscardDisposeDAO" ref="devDiscardDisposeDAO"/>
+		<property name="deviceFlowDAO" ref="deviceFlowDAO"/>
+		<property name="taskDAO" ref="taskDAO"/>
+	</bean>
+	
+	<!-- 知识库管理 -->
+	<!-- 索引队列任务 -->
+	<bean id="indexTaskDAO" class="org.eapp.oa.kb.dao.impl.IndexTaskDAO" parent="baseDAO"/>
+	<bean id="indexTaskBiz" class="org.eapp.oa.kb.blo.impl.IndexTaskBiz">
+		<property name="indexTaskDAO" ref="indexTaskDAO"/>
+	</bean>
+	<bean id="knowledgeDAO" class="org.eapp.oa.kb.dao.impl.KnowledgeDAO" parent="baseDAO"/>
+	<!-- 知识库回复 -->
+	<bean id="knowledgeReplyDAO" class="org.eapp.oa.kb.dao.impl.KnowledgeReplyDAO" parent="baseDAO"/>
+	<bean id="knowledgeBiz" class="org.eapp.oa.kb.blo.impl.KnowledgeBiz">
+		<property name="knowledgeDAO" ref="knowledgeDAO"/>
+		<property name="knowledgeClassBiz" ref="knowledgeClassBiz"/>
+		<property name="knowledgeLogBiz" ref="knowledgeLogBiz"/>
+		<property name="knowledgeReplyDAO" ref="knowledgeReplyDAO"/>
+		<property name="knowledgeClassAssignDAO" ref="knowledgeClassAssignDAO"/>
+		<property name="labelLibBiz" ref="labelLibBiz"/>
+		<property name="addressListBiz" ref="addressListBiz"/>		
+	</bean>
+	
+	<!-- 标签库管理 -->
+	<bean id="labelLibDAO" class="org.eapp.oa.kb.dao.impl.LabelLibDAO" parent="baseDAO"/>
+	<bean id="labelLibBiz" class="org.eapp.oa.kb.blo.impl.LabelLibBiz">
+		<property name="labelLibDAO" ref="labelLibDAO"/>
+	</bean>
+	<!-- 知识库分类管理 -->
+	<bean id="knowledgeClassDAO" class="org.eapp.oa.kb.dao.impl.KnowledgeClassDAO" parent="baseDAO"/>
+	<bean id="knowledgeClassBiz" class="org.eapp.oa.kb.blo.impl.KnowledgeClassBiz">
+		<property name="knowledgeClassDAO" ref="knowledgeClassDAO"/>
+		<property name="knowledgeDAO" ref="knowledgeDAO"/>
+	</bean>
+	<!-- 知识库授权 -->
+	<bean id="knowledgeClassAssignDAO" class="org.eapp.oa.kb.dao.impl.KnowledgeClassAssignDAO" parent="baseDAO"/>
+	<bean id="knowledgeClassAssignBiz" class="org.eapp.oa.kb.blo.impl.KnowledgeClassAssignBiz">
+		<property name="knowledgeClassAssignDAO" ref="knowledgeClassAssignDAO"/>
+		<property name="knowledgeClassDAO" ref="knowledgeClassDAO"/>
+	</bean>
+	<!-- 知识库操作日志 -->
+	<bean id="knowledgeLogDAO" class="org.eapp.oa.kb.dao.impl.KnowledgeLogDAO" parent="baseDAO"/>
+	<bean id="knowledgeLogBiz" class="org.eapp.oa.kb.blo.impl.KnowledgeLogBiz">
+		<property name="knowledgeLogDAO" ref="knowledgeLogDAO"/>
+	</bean>	
+	
+	<!--会议管理 -->
+	<bean id="meetingRoomDAO" class="org.eapp.oa.meeting.dao.impl.MeetingRoomDAO" parent="baseDAO"/>
+	<bean id="meetingRoomBiz" class="org.eapp.oa.meeting.blo.impl.MeetingRoomBiz">
+		<property name="meetingRoomDAO" ref="meetingRoomDAO"/>
+		<property name="meetingInfoDAO" ref="meetingInfoDAO"/>
+	</bean>
+	<bean id="meetingInfoDAO" class="org.eapp.oa.meeting.dao.impl.MeetingInfoDAO" parent="baseDAO"/>
+	<bean id="meetingInfoBiz" class="org.eapp.oa.meeting.blo.impl.MeetingInfoBiz">
+		<property name="meetingInfoDAO" ref="meetingInfoDAO"/>
+		<property name="meetingRoomDAO" ref="meetingRoomDAO"/>
+		<property name="addressListDAO" ref="addressListDAO"/>
+	</bean>
+	<bean id="meetingParticipantDAO" class="org.eapp.oa.meeting.dao.impl.MeetingParticipantDAO" parent="baseDAO"/>
+	<bean id="meetingParticipantBiz" class="org.eapp.oa.meeting.blo.impl.MeetingParticipantBiz">
+		<property name="meetingParticipantDAO" ref="meetingParticipantDAO"/>
+	</bean>
+	
+	<!-- 出差管理 -->
+	<bean id="busTripFlowConfDAO" class="org.eapp.oa.travel.dao.impl.BusTripFlowConfDAO" parent="baseDAO"/>
+	<bean id="busTripFlowConfBiz" class="org.eapp.oa.travel.blo.impl.BusTripFlowConfBiz">
+		<property name="busTripFlowConfDAO" ref="busTripFlowConfDAO"/>
+		<property name="flowConfigDAO" ref="flowConfigDAO"/>
+	</bean>
+	<bean id="busTripApplyDAO" class="org.eapp.oa.travel.dao.impl.BusTripApplyDAO" parent="baseDAO"/>
+	<bean id="busTripApplyBiz" class="org.eapp.oa.travel.blo.impl.BusTripApplyBiz">
+		<property name="busTripApplyDAO" ref="busTripApplyDAO"/>
+		<property name="busTripFlowConfDAO" ref="busTripFlowConfDAO"/>
+		<property name="taskDAO" ref="taskDAO"/>
+	</bean>
+</beans>

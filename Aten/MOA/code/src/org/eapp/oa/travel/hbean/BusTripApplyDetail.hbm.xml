@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.eapp.oa.travel.hbean.BusTripApplyDetail" table="OA_BUSTRIPAPPLYDETAIL">
+		
+		<id name="id" type="java.lang.String">
+			<column name="ID_" length="36" />
+				<generator class="uuid.hex"></generator>
+		</id>
+
+		<property name="fromPlace" type="java.lang.String">
+			<column name="FROMPLACE_" length="128" />
+		</property>
+		<property name="toPlace" type="java.lang.String">
+			<column name="TOPLACE_" length="128" />
+		</property>
+
+		<property name="startDate" type="java.util.Date">
+			<column name="STARTDATE_" length="11" />
+		</property>
+		
+		<property name="endDate" type="java.util.Date">
+			<column name="ENDDATE_" length="11" />
+		</property>
+
+		<property name="days" type="java.lang.Double">
+			<column name="DAYS_" length="4" />
+		</property>
+		<property name="causa" type="java.lang.String">
+			<column name="CAUSA_" length="256" />
+		</property>
+				
+		<many-to-one name="busTripApply" class="org.eapp.oa.travel.hbean.BusTripApply" fetch="select" lazy="false">
+            <column name="TRIPAPPLYID_" length="36" />
+        </many-to-one>
+
+	</class>
+</hibernate-mapping>
+
+

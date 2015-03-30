@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.eapp.oa.kb.hbean.Knowledge" table="OA_Knowledge">
+        <id name="id" type="java.lang.String">
+            <column name="ID_" length="36" />
+			<generator class="uuid.hex"></generator>
+        </id>                                                        
+		<many-to-one name="knowledgeClass" class="org.eapp.oa.kb.hbean.KnowledgeClass" fetch="select" lazy="false">
+            <column name="KNOWLEDGECLASSID_" length="36" />
+        </many-to-one>
+		 <property name="subject" type="java.lang.String">
+            <column name="SUBJECT_" length="256" />
+        </property>
+		<property name="labels" type="java.lang.String">
+            <column name="LABELS_" length="1000" />
+        </property>
+
+		 <property name="remark" type="java.lang.String">
+            <column name="REMARK_" length="4000" />
+        </property>
+
+		 <property name="content" type="java.lang.String">
+            <column name="CONTENT_" length="16" />
+        </property>
+
+		 <property name="contentUrl" type="java.lang.String">
+            <column name="CONTENTURL_" length="512" />
+        </property>
+
+		 <property name="displayMode" type="java.lang.Integer">
+            <column name="DISPLAYMODE_" length="2" />
+        </property>
+
+		 <property name="groupName" type="java.lang.String">
+            <column name="GROUPNAME_" length="128" />
+        </property>
+
+		 <property name="publisher" type="java.lang.String">
+            <column name="PUBLISHER_" length="128" />
+        </property>
+
+		 <property name="publishDate" type="java.util.Date">
+            <column name="PUBLISHDATE_" length="8" />
+        </property>
+
+		 <property name="property" type="java.lang.Integer">
+            <column name="PROPERTY_" length="2" />
+        </property>
+
+		 <property name="status" type="java.lang.Integer">
+            <column name="STATUS_" length="2" />
+        </property>
+         <property name="modifyDate" type="java.util.Date">
+            <column name="MODIFYDATE_" length="8" />
+        </property>
+		<property name="firstType" type="java.lang.String">
+			<column name="FIRSTTYPE_" length="128"></column>
+		</property>
+		<property name="secondType" type="java.lang.String">
+			<column name="SECONDTYPE_" length="128"></column>
+		</property>
+		
+		<!-- 附件 知识 关系 -->
+		
+		<set name="knowledgeAttachments" table="OA_Knowledge_Attach"  where="TYPE_=0" inverse="true" lazy="false">
+            <key>
+                <column name="KNOWLEDGEID_" length="36" not-null="true" />
+            </key>
+            <many-to-many entity-name="org.eapp.oa.system.hbean.Attachment" unique="true">
+                <column name="ATTACHMENTID_" length="36" not-null="true" />
+            </many-to-many>
+        </set>
+        
+        <set name="contentImgAttachments" table="OA_Knowledge_Attach"  where="TYPE_=1" inverse="true" lazy="false">
+            <key>
+                <column name="KNOWLEDGEID_" length="36" not-null="true" />
+            </key>
+            <many-to-many entity-name="org.eapp.oa.system.hbean.Attachment" unique="true">
+                <column name="ATTACHMENTID_" length="36" not-null="true" />
+            </many-to-many>
+        </set>
+        
+        <set name="replys" cascade="delete">
+            <key>
+                <column name="KNOWLEDGEID_" length="36" />
+            </key>
+            <one-to-many class="org.eapp.oa.kb.hbean.KnowledgeReply" />
+        </set>
+    </class>
+</hibernate-mapping>
+
+

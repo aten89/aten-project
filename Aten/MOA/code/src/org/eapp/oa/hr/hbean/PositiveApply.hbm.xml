@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.eapp.oa.hr.hbean.PositiveApply" table="OA_POSITIVEAPPLY">
+		
+		<id name="id" type="java.lang.String">
+			<column name="ID_" length="36" />
+			<generator class="assigned"></generator>
+		</id>
+        <property name="applicant" column="APPLICANT_" type="java.lang.String"/>
+        <property name="applyDate" column="APPLYDATE_" type="java.util.Date"/>
+        <property name="positiveUser" column="POSITIVEUSER_" type="java.lang.String"/>
+        <property name="dept" column="DEPT_" type="java.lang.String"/>
+        <property name="entryDate" column="ENTRYDATE_" type="java.util.Date"/>
+        <property name="sex" column="SEX_" type="java.lang.Integer"/>
+        <property name="post" column="POST_" type="java.lang.String"/>
+        <property name="probation" column="PROBATION_" type="java.lang.Integer"/>
+        <property name="formalDate" column="FORMALDATE_" type="java.util.Date"/>
+        <property name="formalType" column="FORMALTYPE_" type="java.lang.String"/>
+        <property name="workResults" column="WORKRESULTS_" type="java.lang.String"/>
+        <property name="cultureUnderstand" column="CULTUREUNDERSTAND_" type="java.lang.String"/>
+        <property name="rulesCompliance" column="RULESCOMPLIANCE_" type="java.lang.String"/>
+        <property name="workExperience" column="WORKEXPERIENCE_" type="java.lang.String"/>
+        <property name="workSummary" column="WORKSUMMARY_" type="java.lang.String"/>
+        <property name="workImprove" column="WORKIMPROVE_" type="java.lang.String"/>
+        <property name="flowInstanceID" column="FLOWINSTANCEID_" type="java.lang.String"/>
+        <property name="archiveDate" column="ARCHIVEDATE_" type="java.util.Date"/>
+        <property name="passed" column="PASSED_" type="java.lang.Boolean"/>
+        <property name="applyStatus" column="APPLYSTATUS_" type="java.lang.Integer"/>
+
+	</class>
+</hibernate-mapping>
+
+

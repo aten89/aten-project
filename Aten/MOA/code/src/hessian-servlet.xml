@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	<!-- Hessian服务端用户名与密码配置 -->
+	<bean id="authentication" class="org.eapp.rmi.util.hession.authentication.SimpleAuthenticationHandler">
+		<property name="userName" value="oa_user"/>
+		<property name="password" value="oa_hessian_key"/>
+	</bean>
+	
+	<!-- 通讯录远程服务   -->
+	<bean id="addressListPoint" class="org.eapp.oa.rmi.hessian.imp.AddressListPoint">
+		<property name="addressListBiz" ref="addressListBiz"/>
+	</bean>
+	<bean name="/addrlist" class="org.eapp.rmi.util.hession.SecureHessianServiceExporter">  
+    	<property name="service" ref="addressListPoint"/> 
+    	<property name="serviceInterface" value="org.eapp.oa.rmi.hessian.IAddressListPoint"/>  
+		<property name="authentication" ref="authentication"/>
+	</bean> 
+	<!-- 流程配置远程服务   -->
+	<bean id="flowConfigPoint" class="org.eapp.oa.rmi.hessian.imp.FlowConfigPoint">
+		<property name="flowConfigBiz" ref="flowConfigBiz"/>
+	</bean>
+	<bean name="/flowcfg" class="org.eapp.rmi.util.hession.SecureHessianServiceExporter">  
+    	<property name="service" ref="flowConfigPoint"/> 
+    	<property name="serviceInterface" value="org.eapp.oa.rmi.hessian.IFlowConfigPoint"/>  
+		<property name="authentication" ref="authentication"/>
+	</bean>
+</beans>

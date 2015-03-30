@@ -1,0 +1,209 @@
+/*全局样式*/
+*{word-break:break-all}
+body{padding:0;margin:0;font-size:12px; overflow:auto; background:#c1d8f1; font-family:Arial, Helvetica, sans-serif,"宋体"}
+td,th,input{margin:0; padding:0px; font-size:12px}
+img{border:0; margin:0; padding:0}
+.blank{ clear:both;height:8px; font-size:1px;}
+a:link {color: #15428B; text-decoration:none;}
+a:visited {color: #15428B;text-decoration:none;}
+a:hover {color: #15428B; text-decoration:underline;}
+a:active {color: #15428B;}
+.blank{clear:both;height:8px; font-size:1px;}
+ul,li{margin:0; padding:0; list-style-type:none}
+
+/*工具栏*/
+.workflowHead{background:url(images/toolLine.gif) repeat-x; height:55px; overflow:hidden}
+.workflowTools{float:left; height:55px; width:286px;background:url(./images/logoBg.gif) no-repeat}
+.workflowLogo{float:left; width:50px; position:relative}
+.workflowLogo img{position:absolute; top:4px; left:6px;}
+.workflowMenu{float:right;width:236px}
+
+.workflowNew{clear:both; height:26px; padding:5px 0 0 13px}
+.workflowNew img{cursor:pointer}
+.workflowNew li{float:left; width:51px; height:19px; padding:2px 0 0; margin:0 7px 0 0; text-align:center}
+.workflowNew li.over{background:url(images/newBg.gif) no-repeat}
+.workflowTy{clear:both; padding:4px 0 0 20px}
+.workflowTy img{cursor:pointer}
+.workflowTy li{float:left; width:51px; height:19px; margin:0 6px 0 0; text-align:center}
+.workflowTy li.over{background:url(images/newBg.gif) no-repeat}
+
+/*画图操作*/
+.workflowOperate{float:left;width:700px;height:55px; padding:3px 0 0 20px}
+.workflowOperate li{float:left; width:50px; height:48px; padding:5px 0 0 1px;  margin:0 23px 0 0}
+.workflowOperate li.over{background:url(images/over.gif) no-repeat}
+.workflowOperate li.current{background:url(images/current.gif) no-repeat}
+
+.workflowToolTip{ position:absolute; right:0; width:23px; height:55px;}
+.workflowMinWidth{ width:1024px; clear:both;}
+
+.workflowMain{clear:both;padding:5px 3px 0 3px}
+.workflowProperty{ float:right; width:265px; height:538px; border:1px solid #92A5C7; background:#D2E2F5}
+.workflowProperty .wftit{font-size:12px; color:#00156E; font-weight:normal;clear:both; height:21px;background:url(images/wfDot.gif) repeat-x left top; padding:0}
+.workflowProperty .wftit li{ float:left; width:88px; height:20px; line-height:20px; color:#333;background:url(images/wfTab02.gif) no-repeat; text-align:center; padding:0 15px 0 0;cursor:pointer}
+.workflowProperty .wftit li.current{background:url(images/wfTab01.gif) no-repeat; color:#15428B; font-weight:bold;border-left:1px solid #92A5C7}
+.workflowProperty .sxmb{height:518px; width:263px; padding:0; overflow:auto}
+.workflowProperty .sxSubHead{background:url(images/sxSubHead.gif) repeat-x left bottom; border-bottom:1px solid #AEC8EA; color:#113673; height:16px; line-height:16px; text-align:left; padding:2px 0 0 5px}
+.workflowProperty .sxLeft{ background:#DFECFC; width:98px; color:#000; border-right:1px solid #92A5C7;border-bottom:1px solid #B6CFEF; text-align:right; padding:0 3px 0 0;filter:alpha(opacity=71);}
+.workflowProperty .sxRight{ padding:0 2px;width:139px;background:#D8E6F5;border-bottom:1px solid #B6CFEF;}
+.workflowProperty table{border:25px;border-color:silver red RGB(223, 94, 77) black;width:220px;}
+.workflowProperty input{}
+.workflowProperty textarea{border:1px solid #788FBA; width:130px;height:50px;}
+.workflowProperty .sxIpt{ border:1px solid #788FBA; width:130px}
+
+.workflowArea{margin-right:205px;height:520px}
+
+.workflowAreaHead{background:#ccc url(images/areaLine.gif) repeat-x; height:21px; border-right:1px solid #92A5C7;}
+.workflowAreaHead div{height:21px;background:url(images/areaTip.gif) no-repeat left top; color:#000 ;line-height:21px; padding:0 0 0 10px}
+
+.workflowCon{clear:both; height:517px; overflow:auto; border:1px solid #91A2B5; margin:3px 0 0;background:#fff url(images/grid.gif)}
+.workflowShadow{height:100%; width:100%}
+
+/*弹出层*/
+.wfDialog{width:500px;height:300px; position:absolute; top:200px; left:100px;cursor : move;}
+.wfBlank7{width:7px; font-size:1px}
+.wfBlank12{width:12px; font-size:1px}
+.wfDialog01{width:7px; height:28px;background:url(images/wfDialog01.png) no-repeat}
+.wfDialog02{ text-align:left;height:28px;background:url(images/wfDialog02.gif) repeat-x; padding:0 0 0 6px; color:#15428B; font-weight:bold}
+.wfDialogClose01{float:right; border:none;cursor:pointer; width:15px; height:15px;background:url(images/wfDialogClose01.gif) no-repeat }
+.wfDialogClose02{float:right; border:none;cursor:pointer; width:15px; height:15px;background:url(images/wfDialogClose02.gif) no-repeat }
+.wfDialog02 span{float:left}
+.wfDialog03{width:12px;background:url(images/wfDialog03.png) no-repeat}
+.wfDialog04{background:url(images/wfDialog04.png) no-repeat repeat-y}
+.wfDialog05{background:url(images/wfDialog05.png) no-repeat repeat-y}
+.wfDialog06{background:url(images/wfDialog06.png) no-repeat}
+.wfDialog07{height:28px;background:url(images/wfDialog07.png) repeat-x}
+.wfDialog08{background:url(images/wfDialog08.png) no-repeat}
+.wfDialogCon{ padding:15px 5px 5px; background:#fff; cursor:default}
+.wfDialogCon td{ white-space:nowrap}
+.wfDialogCon select{ font-size:12px;font-family:Arial, Helvetica, sans-serif,"宋体"}
+.wfBtn{padding:3px 3px 0 4px;height:21px; border:1px solid #7296C5;background:url(images/wfBtnLine.gif) repeat-x}
+.wfIpt{ width:80px; border:1px solid #788FBA; height:21px}
+.wfArea{width:100%; height:88px;}
+.wfTit{ clear:both; padding:9px 0 2px; font-weight:bold}
+.wfOperatorsTool{ clear:both;background:url(images/wfOperatorLine.gif) repeat-x; height:66px; border:1px solid #C1D9F9; padding:0 0 0 15px}
+.wfOperatorsTool .t01{ clear:both; height:26px}
+.wfOperators{clear:both;height:16px; padding:6px 10px 0 0; float:right;}
+.wfOperators li.overWf{display:block;width:18px; float:left; text-align:center;margin:0 0 0 10px; display:inline; width:22px; height:20px; line-height:19px;background:url(images/operatorBg02.gif) repeat-x}
+.wfOperators li.currentWf{background:url(images/operatorBg01.gif) repeat-x; text-decoration:none;cursor:pointer;}
+/* CSS Document */
+
+.OnMouseOverMenuItem{
+	cursor:pointer;
+	background-image:url(images/MenuBarMenuItemOverBg.gif);
+	background-position:center;
+	background-repeat:repeat-x;
+	border:#ffd049 1px solid;
+	padding:1px 2px 1px 2px;
+}
+
+.OnMouseOutMenuItem{
+	cursor:pointer;
+	border-style:solid;
+	border-width:1px;
+	border-color:#d9e5f3;
+	padding:1px 2px 1px 2px;
+}
+
+.OnMouseOverTopMenuItem{
+	cursor:pointer;
+	background-image:url(images/MenuBarMenuItemOverBg.gif);
+	background-position:center;
+	background-repeat:repeat-x;
+	border:#ffd049 1px solid;
+	padding:1px 2px 1px 2px;
+}
+
+.OnMouseOutTopMenuItem{
+	cursor:pointer;
+	border-style:solid;
+	border-width:1px;
+	border-color:#a7c4eb;
+	padding:1px 2px 1px 2px;
+} 
+
+
+.MenuItemImg{
+	float:left;
+	width:18px;
+}
+
+.MenuItemText{
+	float:left; margin-top:2px;
+}
+
+.ToolItemOut{
+	padding:4px;
+	float:left;
+	background-image:url();
+	background-repeat:no-repeat;
+	text-align:center;
+	margin-top:2px;
+	position:relative;
+}
+
+.ToolItemOver{
+	padding:4px;
+	float:left;
+	background-image:url(images/ToolBox_Mouseover.gif);
+	background-repeat:no-repeat;
+	text-align:center;
+	margin-top:2px;
+}
+
+.ToolItemChecked{
+	padding:4px;
+	float:left;
+	background-image:url(images/ToolBox_Mousechecked.gif);
+	background-repeat:no-repeat;
+	text-align:center;
+	margin-top:2px;
+}/* CSS Document */
+
+v\:* {Behavior:url(#default#VML);}
+
+.drag{
+	width: 100px;
+	font:12px verdana;
+	cursor:default;
+	position:absolute;
+	line-height:100%;
+	position: absolute;
+	white-space:normal; 
+	word-break:break-all;
+	vertical-align:middle;
+}
+
+.drag div{
+	position: absolute;
+	top: 50%;
+	left:50%;	
+}
+
+.drag div div{
+	position: relative;
+	top: -50%;
+	left:-50%;
+	line-height:1.6;	
+}
+
+.line div{
+	position: absolute;
+	top: 50%;
+	left:50%;	
+}
+
+.line div div{
+	position: relative;
+	top: -50%;
+	left:-50%;
+	line-height:1.6;	
+}
+
+.contentsPanel{
+	height:550px; 
+	overflow:auto;top: 0px;
+	background-color:#FFFFFF; border:dotted 1px #666666;
+	cursor:default;
+	background-image:url(images/grid.gif);
+}
+

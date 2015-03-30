@@ -1,0 +1,19 @@
+﻿@charset "utf-8";
+/*附件组件 web*/ 
+#fjObjBk{height:168px;vertical-align:top}
+.fjObj{clear:both;}
+.fjObj .fjTools{clear:both; height:28px;background:#f6f6f6;border-left:1px solid #ccc;border-right:1px solid #ccc;border-top:1px solid #ccc;}
+.fjObj .fjTools span{float:left; display:block; width:18px;height:17px;}
+.fjObj .fjTools ul{float:left; width:300px; padding:5px 0 0}
+.fjObj .fjTools li{ float:left; padding:0 0 0 0px;text-align:left; height:23px;}
+.fjObj .fjTools li img{ vertical-align:middle; margin:0 3px -2px 0; cursor:pointer}
+.fjObj .fjMb{clear:both; padding:10px 5px;line-height:2.4; background:#fff;height:110px;border-left:1px solid #ccc;border-right:1px solid #ccc;border-bottom:1px solid #ccc; overflow:auto }
+.fjObj .fjMb li{color:#555; height:23px; line-height:23px; padding:0 0 0 23px; cursor:default;background:url(../images/attachment.gif) no-repeat 5px 3px}
+.fjObj .fileTextList{clear:both;}
+.fjObj .fileTextList input{width:70px;}
+.fjObj .fjDel{border:none;background:url(../images/fjObjDel.gif) no-repeat;width:16px; height:16px; margin:5px 0px 0 0; cursor:pointer}
+.fjObj .fjAdd{border:none;background:url(../images/fjObjAdd.gif) no-repeat;width:70px; height:20px; margin:1px 0px 0 0; cursor:pointer}
+
+
+
+
