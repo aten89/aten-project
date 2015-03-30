@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        ">
+	
+	<!-- Spring 加载属文件 -->
+  	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name="locations">
+      		<value>classpath:config.properties</value>
+    	</property>
+		<property name="searchSystemEnvironment">
+			<value>true</value>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders">
+			<value>false</value>
+		</property>
+	</bean>
+	
+	<!-- 定义流程引擎数据源 -->
+	<bean id="wfDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${WF_DRIVER_CLASS}" />
+   		<property name="jdbcUrl" value="${WF_DB_JDBC_URL}" />
+   		<property name="maxIdleTime" value="600" />
+   		<property name="acquireIncrement" value="2" />
+   		<property name="maxPoolSize" value="10" />
+   		<property name="initialPoolSize" value="2" />
+   		<property name="minPoolSize" value="2" />
+   		<property name="maxStatements" value="100" />
+   		<property name="idleConnectionTestPeriod" value="120" />
+   		
+		<!-- c3p0密码配置 -->
+		<property name="properties">
+			<bean class="org.eapp.util.spring.C3p0Properties">
+				<property name="properties">
+					<props>
+						<prop key="user">${WF_DB_USER}</prop>
+					  	<prop key="encrypt">${WF_DB_PSW_ENCRYPT}</prop>
+						<prop key="password">${WF_DB_PASSWORD}</prop>
+					<!--	<prop key="encrypt">false</prop>
+						<prop key="password">db_paw</prop> -->
+					</props>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 定义Hibernate SessionFactory -->
+	<bean id="wfSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> 
+	<!--	class="org.springframework.orm.hibernate4.annotation.AnnotationSessionFactoryBean"> -->
+	 	
+		<!-- dataSource可以为任意的数据源 例如DBCP、C3P0 -->
+		<property name="dataSource" ref="wfDataSource"></property>
+		<!-- 其他的Hibernate常用配置 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${WF_HIBERNATE_DIALET}</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop> 
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.show_sql">${HIBERNATE_SHOW_SQL}</prop>
+			</props>
+		</property>
+		<!-- 映射文件路径 -->
+		<property name="mappingResources">
+			<list>
+				<value>org/eapp/workflow/def/FlowDefine.hbm.xml</value>
+				<value>org/eapp/workflow/def/Node.hbm.xml</value>
+				<value>org/eapp/workflow/def/Transition.hbm.xml</value>
+				<value>org/eapp/workflow/def/Event.hbm.xml</value>
+				<value>org/eapp/workflow/def/Action.hbm.xml</value>
+				<value>org/eapp/workflow/def/TaskDefine.hbm.xml</value>
+				<value>org/eapp/workflow/def/ParallelTaskDefine.hbm.xml</value>
+				<value>org/eapp/workflow/def/SerialTaskDefine.hbm.xml</value>
+				<value>org/eapp/workflow/def/Delegation.hbm.xml</value>
+				<value>org/eapp/workflow/def/FlowDraft.hbm.xml</value>
+				<value>org/eapp/workflow/def/VariableDeclare.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/StartNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/EndNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/TaskNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/DecisionNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/ForkNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/JoinNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/SubFlowNode.hbm.xml</value>
+				<value>org/eapp/workflow/asyn/AsynJob.hbm.xml</value>
+				<value>org/eapp/workflow/asyn/AsynNodeJob.hbm.xml</value>
+				<value>org/eapp/workflow/asyn/AsynActionJob.hbm.xml</value>
+				<value>org/eapp/workflow/exe/ContextVariable.hbm.xml</value>
+				<value>org/eapp/workflow/exe/FlowInstance.hbm.xml</value>
+				<value>org/eapp/workflow/exe/FlowToken.hbm.xml</value>
+				<value>org/eapp/workflow/exe/PooledActor.hbm.xml</value>
+				<value>org/eapp/workflow/exe/PooledRole.hbm.xml</value>
+				<value>org/eapp/workflow/exe/TaskInstance.hbm.xml</value>
+				<value>org/eapp/workflow/exe/OrderExecTaskInstance.hbm.xml</value>
+				<value>org/eapp/workflow/trace/TracePoint.hbm.xml</value>
+				<value>org/eapp/workflow/db/hibernate.queries.hbm.xml</value>
+	         </list>
+		</property>
+	</bean>
+	
+	<!-- 定义数据源 -->
+<!-- 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">      
+		<property name="jndiName" value="java:ORACLEDS_EAPP"/>      
+	</bean>  -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${DRIVER_CLASS}" />
+   		<property name="jdbcUrl" value="${DB_JDBC_URL}" />
+   		<property name="maxIdleTime" value="600" />
+   		<property name="acquireIncrement" value="2" />
+   		<property name="maxPoolSize" value="20" />
+   		<property name="initialPoolSize" value="2" />
+   		<property name="minPoolSize" value="2" />
+   		<property name="maxStatements" value="100" />
+   		<property name="idleConnectionTestPeriod" value="120" />
+   		
+		<!-- c3p0密码配置 -->
+		<property name="properties">
+			<bean class="org.eapp.util.spring.C3p0Properties">
+				<property name="properties">
+					<props>
+						<prop key="user">${DB_USER}</prop>
+					  	<prop key="encrypt">${DB_PSW_ENCRYPT}</prop>
+						<prop key="password">${DB_PASSWORD}</prop>
+					<!--	<prop key="encrypt">false</prop>
+						<prop key="password">db_paw</prop> -->
+					</props>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 定义Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> 
+	<!--	class="org.springframework.orm.hibernate4.annotation.AnnotationSessionFactoryBean"> -->
+	 	
+		<!-- dataSource可以为任意的数据源 例如DBCP、C3P0 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 其他的Hibernate常用配置 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${HIBERNATE_DIALET}</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop> 
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.show_sql">${HIBERNATE_SHOW_SQL}</prop>
+			</props>
+		</property>
+		<!-- 映射文件路径 -->
+		<property name="mappingResources">
+			<list>
+				<value>org/eapp/hbean/Action.hbm.xml</value>
+				<value>org/eapp/hbean/ActionLog.hbm.xml</value>
+				<value>org/eapp/hbean/ActorAccount.hbm.xml</value>
+				<value>org/eapp/hbean/DataDictionary.hbm.xml</value>
+				<value>org/eapp/hbean/Module.hbm.xml</value>
+				<value>org/eapp/hbean/ModuleAction.hbm.xml</value>
+				<value>org/eapp/hbean/Group.hbm.xml</value>
+				<value>org/eapp/hbean/Role.hbm.xml</value>
+				<value>org/eapp/hbean/Service.hbm.xml</value>
+				<value>org/eapp/hbean/ShortCutMenu.hbm.xml</value>
+				<value>org/eapp/hbean/SubSystem.hbm.xml</value>
+				<value>org/eapp/hbean/UserAccount.hbm.xml</value>
+				<value>org/eapp/hbean/Post.hbm.xml</value>
+				<value>org/eapp/hbean/Portlet.hbm.xml</value>
+				<value>org/eapp/hbean/UserPortlet.hbm.xml</value>
+				<value>org/eapp/hbean/DefaultPortlet.hbm.xml</value>
+				<value>org/eapp/hbean/LoginLog.hbm.xml</value>
+				<value>org/eapp/hbean/SysMsg.hbm.xml</value>
+				<value>org/eapp/hbean/FlowConfig.hbm.xml</value>
+				<value>org/eapp/hbean/FlowVar.hbm.xml</value>
+				<value>org/eapp/hbean/FlowHandler.hbm.xml</value>
+				<!-- value>org/eapp/flow/db/FlowTask.hbm.xml</value> 在要用流程的子系统里引入这两个配置并创建对应表
+				<value>org/eapp/flow/db/FlowTaskAssign.hbm.xml</value -->
+	         </list>
+		</property>
+		
+		<!-- 注释映射路径
+		<property name="annotatedClasses">
+            <list>
+         		<value>org.eapp.hbean.UserAccount</value>
+            </list>
+        </property> -->
+	</bean>
+	
+	<!-- 事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 事务拦截器 -->
+	<bean id="transactionInterceptor" 
+ 		class="org.springframework.transaction.interceptor.TransactionInterceptor"> 
+      	<property name="transactionManager"> 
+       		<ref bean="transactionManager" /> 
+      	</property> 
+      	<!-- 配置事务属性 --> 
+      	<property name="transactionAttributes"> 
+       		<props> 
+       			<!-- 以下方法开头需要事务 --> 
+        		<prop key="delete*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="add*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="modify*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="tx*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="ntx*">PROPAGATION_REQUIRES_NEW,-Exception</prop> 
+		        <!-- 以下方法开头只查询无事务 --> 
+		        <prop key="get*">PROPAGATION_SUPPORTS,readOnly</prop> 
+		        <prop key="query*">PROPAGATION_SUPPORTS,readOnly</prop> 
+		       	<prop key="cs*">PROPAGATION_SUPPORTS,readOnly</prop>
+       		</props> 
+      	</property> 
+	</bean> 
+	
+	<!-- 自动代理 凡是开头是tx的bean都进入事务管理 -->
+	<bean id="preformanceThresholdProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="proxyTargetClass" value="true"></property> <!-- 强制使用cglib的方式生成代理对象，这样Bean可以没有对接口如FlowTaskBiz -->
+		<property name="beanNames">
+			<list>
+				<value>*Biz</value><!-- 拦截Bean名称为Service结尾的所有方法，方法嵌套时支持同一事务或同一Session -->
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<value>transactionInterceptor</value>
+		</property>
+	</bean>
+	
+	<!-- 获取SPRING的ApplicationContext对象-->
+	<bean class="org.eapp.util.spring.SpringHelper"></bean>
+  
+  	<!-- WEB服务器启动初始化内容  -->
+  	<bean id="serverStartupInit" class="org.eapp.sys.util.ServerStartupInit" init-method="init" destroy-method="destroy">
+  		<property name="wfSessionFactory" ref="wfSessionFactory" />
+  		<property name="uploadConfig" ref="uploadConfig" />
+  		<property name="rpcSessionInvalid" value="${RPC_SESSION_INVALID}" />
+  		<property name="rpcPrincipalRefresh" value="${RPC_PRINCIPAL_REFRESH}" />
+  		<property name="casLogoutUrl" value="${edu.yale.its.tp.cas.client.filter.logoutUrl}" />
+  		<property name="casLoginUrl" value="${edu.yale.its.tp.cas.client.filter.loginUrl}" />
+  		<property name="casValidateUrl" value="${edu.yale.its.tp.cas.client.filter.validateUrl}" />
+  		<property name="subSystemConfig" value="${SUB_SYSTEM_CONFIG}" />
+  		<property name="shortCutIconDir" value="${SHORT_CUT_ICON_DIR}" />
+	</bean>
+  
+	<!-- 文件管理 -->
+	<bean id="uploadConfig" class="org.eapp.util.web.upload.UploadConfig">
+		<property name="rootFolder" value="upload/" />
+	  	<property name="tempFolder" value="temp/" />
+	  	<property name="imgExt" value=".jpg.jpeg.gif.bmp.png" />
+	  	<property name="enableUploadPath" value="true" />
+	  	<property name="savePath" value="${FILE_SAVE_PATH}" />
+	</bean>
+	
+	<!-- BaseDAO -->
+	<bean id="baseDAO" class="org.eapp.dao.imp.BaseHibernateDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 以下为DAO Service ...，都要继承baseDAO -->
+	<bean id="actionLogDAO" class="org.eapp.dao.imp.ActionLogDAO" parent="baseDAO"></bean>
+	<bean id="actionLogBiz" class="org.eapp.blo.imp.ActionLogBiz">
+		<property name="actionLogDAO" ref="actionLogDAO" />
+		<property name="subSystemDAO" ref="subSystemDAO" />
+		<property name="moduleDAO" ref="moduleDAO" />
+		<property name="actionDAO" ref="actionDAO" />
+		<property name="userAccountDAO" ref="userAccountDAO" />
+		<property name="actorAccountDAO" ref="actorAccountDAO" />
+	</bean>
+	
+	<bean id="moduleActionDAO" class="org.eapp.dao.imp.ModuleActionDAO" parent="baseDAO"></bean>
+	<bean id="moduleActionBiz" class="org.eapp.blo.imp.ModuleActionBiz">
+		<property name="moduleActionDAO" ref="moduleActionDAO" />
+	</bean>
+
+	<bean id="roleDAO" class="org.eapp.dao.imp.RoleDAO" parent="baseDAO"></bean>
+	<bean id="roleBiz" class="org.eapp.blo.imp.RoleBiz">
+		<property name="roleDAO" ref="roleDAO" />
+		<property name="moduleActionDAO" ref="moduleActionDAO" />
+		<property name="groupDAO" ref="groupDAO" />
+		<property name="userAccountDAO" ref="userAccountDAO" />
+	</bean>
+	
+	<bean id="postDAO" class="org.eapp.dao.imp.PostDAO" parent="baseDAO"></bean>
+	<bean id="postBiz" class="org.eapp.blo.imp.PostBiz">
+		<property name="postDAO" ref="postDAO" />
+		<property name="groupDAO" ref="groupDAO" />
+		<property name="userAccountDAO" ref="userAccountDAO" />
+	</bean>
+	
+	<bean id="groupDAO" class="org.eapp.dao.imp.GroupDAO" parent="baseDAO"></bean>
+	<bean id="groupBiz" class="org.eapp.blo.imp.GroupBiz">
+		<property name="groupDAO" ref="groupDAO" />
+		<property name="userAccountDAO" ref="userAccountDAO" />
+		<property name="roleDAO" ref="roleDAO" />
+		<property name="postDAO" ref="postDAO" />
+	</bean>
+	
+	<bean id="userAccountDAO" class="org.eapp.dao.imp.UserAccountDAO" parent="baseDAO"></bean>
+	<bean id="userAccountBiz" class="org.eapp.blo.imp.UserAccountBiz">
+		<property name="userAccountDAO" ref="userAccountDAO" />
+		<property name="groupDAO" ref="groupDAO" />
+		<property name="roleDAO" ref="roleDAO" />
+		<property name="shortCutMenuDAO" ref="shortCutMenuDAO" />
+		<property name="userPortletDAO" ref="userPortletDAO" />
+		<property name="defaultPassword" value="${DEFAULT_PASSWORD}" />
+	</bean>
+	
+	<bean id="serviceDAO" class="org.eapp.dao.imp.ServiceDAO" parent="baseDAO"></bean>
+	<bean id="serviceBiz" class="org.eapp.blo.imp.ServiceBiz">
+		<property name="serviceDAO" ref="serviceDAO" />
+		<property name="moduleActionDAO" ref="moduleActionDAO" />
+		<property name="actorAccountDAO" ref="actorAccountDAO" />
+	</bean>
+	
+	<bean id="actorAccountDAO" class="org.eapp.dao.imp.ActorAccountDAO" parent="baseDAO"></bean>
+	<bean id="actorAccountBiz" class="org.eapp.blo.imp.ActorAccountBiz">
+	    <property name="actorAccountDAO" ref="actorAccountDAO" />
+	    <property name="serviceDAO" ref="serviceDAO" />
+	</bean>
+	
+	<bean id="sessionAccountInfoBiz" class="org.eapp.rpc.session.SessionAccountInfoManage">
+		<property name="userAccountDAO" ref="userAccountDAO" />
+		<property name="actorAccountDAO" ref="actorAccountDAO" />
+		<property name="moduleActionDAO" ref="moduleActionDAO" />
+		<property name="credenceAlgorithm" ref="credenceAlgorithm" />
+		<property name="defaultStyleThemes" value="${DEFAULT_STYLE_THEMES}" />
+	</bean>
+	
+	<bean id="credenceAlgorithm" class="org.eapp.rpc.session.SimpleCredenceAlgorithm"></bean>
+	
+	
+	<bean id="moduleDAO" class="org.eapp.dao.imp.ModuleDAO" parent="baseDAO"></bean>
+	<bean id="moduleBiz" class="org.eapp.blo.imp.ModuleBiz">
+		<property name="moduleDAO" ref="moduleDAO" />
+		<property name="moduleActionDAO" ref="moduleActionDAO" />
+		<property name="actionDAO" ref="actionDAO" />
+		<property name="subSystemDAO" ref="subSystemDAO" />
+		<property name="fixedMenuKey" value="${FIXED_MENU_KEY}" />
+	</bean>
+	
+	<bean id="subSystemDAO" class="org.eapp.dao.imp.SubSystemDAO" parent="baseDAO"></bean>
+	<bean id="subSystemBiz" class="org.eapp.blo.imp.SubSystemBiz">
+	    <property name="subSystemDAO" ref="subSystemDAO" />
+		<property name="dataDictionaryDAO" ref="dataDictionaryDAO" />
+		<property name="moduleDAO" ref="moduleDAO" />
+	</bean>
+	
+	<bean id="actionDAO" class="org.eapp.dao.imp.ActionDAO" parent="baseDAO"></bean>
+	<bean id="actionBiz" class="org.eapp.blo.imp.ActionBiz">
+		<property name="actionDAO" ref="actionDAO" />
+	</bean>
+	
+	<bean id="dataDictionaryDAO" class="org.eapp.dao.imp.DataDictionaryDAO" parent="baseDAO"></bean>
+	<bean id="dataDictionaryBiz" class="org.eapp.blo.imp.DataDictionaryBiz">
+		<property name="dataDictionaryDAO" ref="dataDictionaryDAO" />
+		<property name="subSystemDAO" ref="subSystemDAO" />
+	</bean>
+	
+	<bean id="userPortletDAO" class="org.eapp.dao.imp.UserPortletDAO" parent="baseDAO"></bean>
+	<bean id="userPortalBiz" class="org.eapp.blo.imp.UserPortalBiz">
+		<property name="userPortletDAO" ref="userPortletDAO" />
+		<property name="userAccountDAO" ref="userAccountDAO" />
+		<property name="portletDAO" ref="portletDAO" />
+	</bean>
+	
+	<bean id="portletDAO" class="org.eapp.dao.imp.PortletDAO" parent="baseDAO"></bean>
+	<bean id="portletBiz" class="org.eapp.blo.imp.PortletBiz">
+		<property name="portletDAO" ref="portletDAO" />
+		<property name="roleDAO" ref="roleDAO" />
+		<property name="userAccountDAO" ref="userAccountDAO" />
+		<property name="subSystemDAO" ref="subSystemDAO" />
+	</bean>
+	
+	<bean id="shortCutMenuDAO" class="org.eapp.dao.imp.ShortCutMenuDAO" parent="baseDAO"></bean>
+	<bean id="shortCutMenuBiz" class="org.eapp.blo.imp.ShortCutMenuBiz">
+		<property name="shortCutMenuDAO" ref="shortCutMenuDAO" />
+		<property name="userAccountDAO" ref="userAccountDAO" />
+	</bean>
+	
+	<bean id="loginLogDAO" class="org.eapp.dao.imp.LoginLogDAO" parent="baseDAO"></bean>
+	<bean id="loginLogBiz" class="org.eapp.blo.imp.LoginLogBiz">
+		<property name="loginLogDAO" ref="loginLogDAO" />
+		<property name="userAccountDAO" ref="userAccountDAO" />
+	</bean>
+	
+	<bean id="sysMsgDAO" class="org.eapp.dao.imp.SysMsgDAO" parent="baseDAO"></bean>
+	<bean id="sysMsgBiz" class="org.eapp.blo.imp.SysMsgBiz">
+		<property name="sysMsgDAO" ref="sysMsgDAO" />
+		<property name="userAccountDAO" ref="userAccountDAO" />
+	</bean>
+	
+	<bean id="flowVarDAO" class="org.eapp.dao.imp.FlowVarDAO" parent="baseDAO"></bean>
+	<bean id="flowVarBiz" class="org.eapp.blo.imp.FlowVarBiz">
+		<property name="flowVarDAO" ref="flowVarDAO" />
+	</bean>
+	
+	<bean id="flowHandlerDAO" class="org.eapp.dao.imp.FlowHandlerDAO" parent="baseDAO"></bean>
+	<bean id="flowHandlerBiz" class="org.eapp.blo.imp.FlowHandlerBiz">
+		<property name="flowHandlerDAO" ref="flowHandlerDAO" />
+	</bean>
+	
+	<bean id="flowConfigDAO" class="org.eapp.dao.imp.FlowConfigDAO" parent="baseDAO"></bean>
+	<bean id="flowConfigBiz" class="org.eapp.blo.imp.FlowConfigBiz">
+		<property name="flowConfigDAO" ref="flowConfigDAO" />
+	</bean>
+	<bean id="flowDataBiz" class="org.eapp.blo.imp.FlowDataBiz">
+		<property name="userAccountDAO" ref="userAccountDAO" />
+	</bean>
+	
+	<!-- 以下为struts Action，大多应该设为非单例模式 -->
+	
+	<!-- ======退出====== -->
+	<bean name="publicAction" class="org.eapp.action.PublicAction" scope="prototype">
+    	<property name="serverStartupInit" ref="serverStartupInit"/>
+    </bean>
+   	<!-- ======主页框架====== -->
+	<bean name="mainFrameAction" class="org.eapp.action.MainFrameAction" scope="prototype">
+    	<property name="subSystemBiz" ref="subSystemBiz"/>
+    	<property name="moduleBiz" ref="moduleBiz"/>
+    	<property name="userPortalBiz" ref="userPortalBiz"/>
+    	<property name="portletBiz" ref="portletBiz"/>
+    	<property name="shortCutMenuBiz" ref="shortCutMenuBiz"/>
+    	<property name="userAccountBiz" ref="userAccountBiz"/>
+    	<property name="sysMsgBiz" ref="sysMsgBiz"/>
+    	<property name="serverStartupInit" ref="serverStartupInit"/>
+    </bean>
+    <!-- ======动作管理====== -->
+    <bean name="actionAction" class="org.eapp.action.ActionAction" scope="prototype">
+    	<property name="actionBiz" ref="actionBiz"/>
+    </bean>
+    <!-- ======子系统管理====== -->
+    <bean name="subSystemAction" class="org.eapp.action.SubSystemAction" scope="prototype">
+    	<property name="subSystemBiz" ref="subSystemBiz"/>
+    </bean>
+    <!-- ======模块管理====== -->
+    <bean name="moduleAction" class="org.eapp.action.ModuleAction" scope="prototype">
+    	<property name="moduleBiz" ref="moduleBiz"/>
+    	<property name="moduleActionBiz" ref="moduleActionBiz"/>
+    	<property name="subSystemBiz" ref="subSystemBiz"/>
+    </bean>
+    <!-- ======模块服务管理====== -->
+    <bean name="moduleActionAction" class="org.eapp.action.ModuleActionAction" scope="prototype">
+    	<property name="moduleActionBiz" ref="moduleActionBiz"/>
+    	<property name="moduleBiz" ref="moduleBiz"/>
+    </bean>
+    <!-- ======系统缓存====== -->
+    <bean name="systemDataAction" class="org.eapp.action.SystemDataAction" scope="prototype">
+    </bean>
+    
+    <!-- ======字典管理====== -->
+    <bean name="dataDictionaryAction" class="org.eapp.action.DataDictionaryAction" scope="prototype">
+    	<property name="dataDictionaryBiz" ref="dataDictionaryBiz"/>
+    	<property name="subSystemBiz" ref="subSystemBiz"/>
+    </bean>
+    <!-- ======快捷菜单====== -->
+    <bean name="shortCutMenuAction" class="org.eapp.action.ShortCutMenuAction" scope="prototype">
+    	<property name="shortCutMenuBiz" ref="shortCutMenuBiz"/>
+    	<property name="serverStartupInit" ref="serverStartupInit"/>
+    </bean>
+    <!-- ======门户管理====== -->
+    <bean name="portletAction" class="org.eapp.action.PortletAction" scope="prototype">
+    	<property name="portletBiz" ref="portletBiz"/>
+    </bean>
+    <!-- ======接口账号====== -->
+    <bean name="actorAccountAction" class="org.eapp.action.ActorAccountAction" scope="prototype">
+    	<property name="actorAccountBiz" ref="actorAccountBiz"/>
+    </bean>
+    <!-- ======接口服务====== -->
+    <bean name="serviceAction" class="org.eapp.action.ServiceAction" scope="prototype">
+    	<property name="serviceBiz" ref="serviceBiz"/>
+    </bean>
+    <!-- ======用户账号====== -->
+    <bean name="userAccountAction" class="org.eapp.action.UserAccountAction" scope="prototype">
+    	<property name="userAccountBiz" ref="userAccountBiz"/>
+    	<property name="userPortalBiz" ref="userPortalBiz"/>
+    	<property name="portletBiz" ref="portletBiz"/>
+    </bean>
+    <!-- ======用户角色====== -->
+    <bean name="roleAction" class="org.eapp.action.RoleAction" scope="prototype">
+    	<property name="roleBiz" ref="roleBiz"/>
+    	<property name="groupBiz" ref="groupBiz"/>
+    </bean>
+    <!-- ======群主管理====== -->
+    <bean name="groupAction" class="org.eapp.action.GroupAction" scope="prototype">
+    	<property name="groupBiz" ref="groupBiz"/>
+    </bean>
+    <!-- ======职位管理====== -->
+    <bean name="postAction" class="org.eapp.action.PostAction" scope="prototype">
+    	<property name="postBiz" ref="postBiz"/>
+    </bean>
+	<!-- ======日志管理====== -->
+    <bean name="actionLogAction" class="org.eapp.action.ActionLogAction" scope="prototype">
+    	<property name="actionLogBiz" ref="actionLogBiz"/>
+    </bean>
+    <!-- ======登录日志管理====== -->
+    <bean name="loginLogAction" class="org.eapp.action.LoginLogAction" scope="prototype">
+    	<property name="loginLogBiz" ref="loginLogBiz"/>
+    </bean>
+    <!-- ======流程变量====== -->
+    <bean name="flowVarAction" class="org.eapp.action.FlowVarAction" scope="prototype">
+    	<property name="flowVarBiz" ref="flowVarBiz"/>
+    </bean>
+    <!-- ======处理程序====== -->
+    <bean name="flowHandlerAction" class="org.eapp.action.FlowHandlerAction" scope="prototype">
+    	<property name="flowHandlerBiz" ref="flowHandlerBiz"/>
+    </bean>
+    <!-- ======流程管理====== -->
+    <bean name="flowConfigAction" class="org.eapp.action.FlowConfigAction" scope="prototype">
+    	<property name="flowConfigBiz" ref="flowConfigBiz"/>
+    </bean>
+    <!-- ======流程数据管理====== -->
+    <bean name="flowDataAction" class="org.eapp.action.FlowDataAction" scope="prototype">
+    	<property name="flowDataBiz" ref="flowDataBiz"/>
+    </bean>
+</beans>

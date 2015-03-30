@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ehcache.xsd">
+	<diskStore path="java.io.tmpdir" />
+	
+	<cacheManagerPeerProviderFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+		properties="peerDiscovery=automatic, multicastGroupAddress=230.0.0.1,
+				multicastGroupPort=4446, timeToLive=32"/>
+    <cacheManagerPeerListenerFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"/>
+    
+    <defaultCache maxElementsInMemory="1000" eternal="false"
+		timeToIdleSeconds="1800" timeToLiveSeconds="3600" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</defaultCache>
+		
+	<cache name="org.eapp.hbean.Action" maxElementsInMemory="500" eternal="false"
+		timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.ActorAccount" maxElementsInMemory="50" eternal="false"
+		timeToIdleSeconds="1800" timeToLiveSeconds="3600" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.DataDictionary" maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.Group" maxElementsInMemory="500" eternal="false"
+		timeToIdleSeconds="1800" timeToLiveSeconds="3600" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.Module" maxElementsInMemory="500" eternal="false"
+		timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.ModuleAction" maxElementsInMemory="5000" eternal="false"
+		timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.Portlet" maxElementsInMemory="100" eternal="false"
+		timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.Post" maxElementsInMemory="500" eternal="false"
+		timeToIdleSeconds="1800" timeToLiveSeconds="3600" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.Role" maxElementsInMemory="200" eternal="false"
+		timeToIdleSeconds="1800" timeToLiveSeconds="3600" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.Service" maxElementsInMemory="50" eternal="false"
+		timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.ShortCutMenu" maxElementsInMemory="5000" eternal="false"
+		timeToIdleSeconds="1800" timeToLiveSeconds="3600" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.SubSystem" maxElementsInMemory="50" eternal="false"
+		timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.UserAccount" maxElementsInMemory="3000" eternal="false"
+		timeToIdleSeconds="1800" timeToLiveSeconds="3600" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.UserPortlet" maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.DefaultPortlet" maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	
+	<cache name="org.eapp.hbean.FlowConfig" maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.FlowVar" maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+	<cache name="org.eapp.hbean.FlowHandler" maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+	</cache>
+</ehcache>

@@ -1,0 +1,262 @@
+/*==============================================================*/
+/* Table: EAPP_FLOW_CONFIG                                      */
+/*==============================================================*/
+CREATE TABLE EAPP_FLOW_CONFIG  (
+   CONF_ID_             VARCHAR2(36)                    NOT NULL,
+   FLOW_CLASS_          VARCHAR2(100),
+   FLOW_KEY_            VARCHAR2(36),
+   FLOW_NAME_           VARCHAR2(100),
+   FLOW_VERSION_        NUMBER(14),
+   DRAFT_FLAG_          SMALLINT,
+   CONSTRAINT PK_EAPP_FLOW_CONFIG PRIMARY KEY (CONF_ID_)
+);
+
+COMMENT ON COLUMN EAPP_FLOW_CONFIG.DRAFT_FLAG_ IS
+'1：草稿；2：发布；3：禁用';
+
+/*==============================================================*/
+/* Table: EAPP_FLOW_HANDLER                                     */
+/*==============================================================*/
+CREATE TABLE EAPP_FLOW_HANDLER  (
+   HAND_ID_             VARCHAR2(36)                    NOT NULL,
+   FLOW_CLASS_          VARCHAR2(100),
+   NAME_                VARCHAR2(100),
+   HANDLER_CLASS_       VARCHAR2(100),
+   TYPE_                VARCHAR2(20),
+   GLOBAL_FLAG_         SMALLINT,
+   CONSTRAINT PK_EAPP_FLOW_HANDLER PRIMARY KEY (HAND_ID_)
+);
+
+COMMENT ON COLUMN EAPP_FLOW_HANDLER.TYPE_ IS
+'ACTION/ASSIGN/MUTIASSIGN/DECISION/VIEW';
+
+
+/*==============================================================*/
+/* Table: EAPP_FLOW_VAR                                         */
+/*==============================================================*/
+CREATE TABLE EAPP_FLOW_VAR  (
+   VAR_ID_              VARCHAR2(36)                    NOT NULL,
+   FLOW_CLASS_          VARCHAR2(100),
+   NAME_                VARCHAR2(100),
+   DISPLAY_NAME_        VARCHAR2(100),
+   TYPE_                VARCHAR2(20),
+   NOT_NUL_             SMALLINT,
+   GLOBAL_FLAG_         SMALLINT,
+   CONSTRAINT PK_EAPP_FLOW_VAR PRIMARY KEY (VAR_ID_)
+);
+
+COMMENT ON COLUMN EAPP_FLOW_VAR.TYPE_ IS
+'STRING/BOOLEAN/INT/LONG/FLOAT/DOUBLE/DATE';
+
+
+/*==============================================================*/
+/* Table: FLOW_TASK                                             */
+/*==============================================================*/
+CREATE TABLE FLOW_TASK  (
+   TASK_ID_             VARCHAR2(36)                    NOT NULL,
+   FLOW_CLASS_          VARCHAR2(100),
+   FLOW_KEY_            VARCHAR2(36),
+   TASK_INSTANCE_ID_    VARCHAR2(36),
+   FLOW_INSTANCE_ID_    VARCHAR2(36),
+   FLOW_DEFINE_ID_      VARCHAR2(36),
+   TASK_STATE_          VARCHAR2(20),
+   FORM_ID_             VARCHAR2(36),
+   TRANSACTOR_          VARCHAR2(100),
+   CREATE_TIME_         TIMESTAMP,
+   START_TIME_          TIMESTAMP,
+   END_TIME_            TIMESTAMP,
+   COMMENT_             VARCHAR2(4000),
+   TASK_NAME_           VARCHAR2(400),
+   NODE_NAME_           VARCHAR2(400),
+   FLOW_NAME_           VARCHAR2(100),
+   VIEW_FLAG_           SMALLINT,
+   DESCRIPTION_         VARCHAR2(400),
+   CONSTRAINT PK_FLOW_TASK PRIMARY KEY (TASK_ID_)
+);
+
+COMMENT ON COLUMN FLOW_TASK.FORM_ID_ IS
+'跟据流程分类关联不同类型的流程表单';
+
+COMMENT ON COLUMN FLOW_TASK.TRANSACTOR_ IS
+'为空时从任务授权里查找';
+
+/*==============================================================*/
+/* Table: FLOW_TASK_ASSIGN                                      */
+/*==============================================================*/
+CREATE TABLE FLOW_TASK_ASSIGN  (
+   ASSIGN_ID_           VARCHAR2(36)                    NOT NULL,
+   TASK_ID_             VARCHAR2(36),
+   TYPE_                CHAR(1),
+   ASSIGN_KEY_          VARCHAR2(128),
+   CONSTRAINT PK_FLOW_TASK_ASSIGN PRIMARY KEY (ASSIGN_ID_)
+);
+
+COMMENT ON COLUMN FLOW_TASK_ASSIGN.TYPE_ IS
+'0：用户
+1：角色
+2：机构';
+      
+ALTER TABLE FLOW_TASK_ASSIGN
+   ADD CONSTRAINT FK_TASKPOOLEDS_REF_TASKS FOREIGN KEY (TASK_ID_)
+      REFERENCES FLOW_TASK (TASK_ID_);
+      
+      
+      
+      
+      
+
+
+/* 流程全局变量 */
+insert into eapp_flow_var (VAR_ID_, FLOW_CLASS_, NAME_, DISPLAY_NAME_, TYPE_, NOT_NUL_, GLOBAL_FLAG_)
+	values ('1f5d226e816b493c9d517580d6d2b975', '', 'formId', '表单ID', 'DATATYPE_STRING', 1, 1);
+insert into eapp_flow_var (VAR_ID_, FLOW_CLASS_, NAME_, DISPLAY_NAME_, TYPE_, NOT_NUL_, GLOBAL_FLAG_)
+	values ('78bcd1676bb7421ba262f11de23f4a8d', '', 'userAccountId', '发起人帐号', 'DATATYPE_STRING', 1, 1);
+insert into eapp_flow_var (VAR_ID_, FLOW_CLASS_, NAME_, DISPLAY_NAME_, TYPE_, NOT_NUL_, GLOBAL_FLAG_)
+	values ('32114f345ebf433496c7b76c0602c690', '', 'taskDescription', '任务说明', 'DATATYPE_STRING', 0, 1);
+insert into eapp_flow_var (VAR_ID_, FLOW_CLASS_, NAME_, DISPLAY_NAME_, TYPE_, NOT_NUL_, GLOBAL_FLAG_)
+	values ('01568d3738ed4b7b900e6e73f8c75554', '', 'groupName', '发起人部门', 'DATATYPE_STRING', 0, 1);
+	
+/* 流程全局Handler */
+insert into eapp_flow_handler (HAND_ID_, FLOW_CLASS_, NAME_, HANDLER_CLASS_, TYPE_, GLOBAL_FLAG_)
+	values ('8a298226409a988001409ab0f08f0017', '', '同步创建任务数据', 'org.eapp.flow.handler.task.TaskCreateEvent', 'ACTION_TASKEVENT', 1);
+insert into eapp_flow_handler (HAND_ID_, FLOW_CLASS_, NAME_, HANDLER_CLASS_, TYPE_, GLOBAL_FLAG_)
+	values ('8a29822641a05a480141a05bdd5e0001', '', '同步分配任务数据', 'org.eapp.flow.handler.task.TaskNotifyEvent', 'ACTION_TASKEVENT', 1);
+insert into eapp_flow_handler (HAND_ID_, FLOW_CLASS_, NAME_, HANDLER_CLASS_, TYPE_, GLOBAL_FLAG_)
+	values ('8a298226409a988001409aab9ab50006', '', '同步认领任务数据', 'org.eapp.flow.handler.task.TaskAssignEvent', 'ACTION_TASKEVENT', 1);
+insert into eapp_flow_handler (HAND_ID_, FLOW_CLASS_, NAME_, HANDLER_CLASS_, TYPE_, GLOBAL_FLAG_)
+	values ('8a298226409a988001409aab9ab40005', '', '同步开始任务数据', 'org.eapp.flow.handler.task.TaskStartEvent', 'ACTION_TASKEVENT', 1);
+insert into eapp_flow_handler (HAND_ID_, FLOW_CLASS_, NAME_, HANDLER_CLASS_, TYPE_, GLOBAL_FLAG_)
+	values ('8a298226409a988001409aab9ab40004', '', '同步放弃任务数据', 'org.eapp.flow.handler.task.TaskGiveUpEvent', 'ACTION_TASKEVENT', 1);
+insert into eapp_flow_handler (HAND_ID_, FLOW_CLASS_, NAME_, HANDLER_CLASS_, TYPE_, GLOBAL_FLAG_)
+	values ('8a298226409a988001409aab9ab40003', '', '同步结束任务数据', 'org.eapp.flow.handler.task.TaskEndEvent', 'ACTION_TASKEVENT', 1);
+insert into eapp_flow_handler (HAND_ID_, FLOW_CLASS_, NAME_, HANDLER_CLASS_, TYPE_, GLOBAL_FLAG_)
+	values ('8a298226409a988001409aab9ab30002', '', '授权给部门的领导', 'org.eapp.flow.handler.common.DeptLeaderAssign', 'ASSIGN', 1);
+insert into eapp_flow_handler (HAND_ID_, FLOW_CLASS_, NAME_, HANDLER_CLASS_, TYPE_, GLOBAL_FLAG_)
+	values ('8a298226409a988001409aaf94e10012', '', '授权给部门的分管领导', 'org.eapp.flow.handler.common.DeptChargerAssign', 'ASSIGN', 1);
+insert into eapp_flow_handler (HAND_ID_, FLOW_CLASS_, NAME_, HANDLER_CLASS_, TYPE_, GLOBAL_FLAG_)
+	values ('8a2982264080c700014080cc11820009', '', '授权给用户的领导', 'org.eapp.flow.handler.common.UserLeaderAssign', 'ASSIGN', 1);
+insert into eapp_flow_handler (HAND_ID_, FLOW_CLASS_, NAME_, HANDLER_CLASS_, TYPE_, GLOBAL_FLAG_)
+	values ('4028818249e6642e0149e737f7d8004e', '', '授权给用户的分管领导', 'org.eapp.flow.handler.common.UserChargerAssign', 'ASSIGN', 1);
+insert into eapp_flow_handler (HAND_ID_, FLOW_CLASS_, NAME_, HANDLER_CLASS_, TYPE_, GLOBAL_FLAG_)
+	values ('4028818249e6642e0149e6ec05b7003c', '', '是否部门的领导', 'org.eapp.flow.handler.common.DeptLeaderDecision', 'DECISION', 1);
+insert into eapp_flow_handler (HAND_ID_, FLOW_CLASS_, NAME_, HANDLER_CLASS_, TYPE_, GLOBAL_FLAG_)
+	values ('40288a86460914520146091bfb4d000c', '', '是否部门的分管领导', 'org.eapp.flow.handler.common.DeptChargerDecision', 'DECISION', 1);
+insert into eapp_flow_handler (HAND_ID_, FLOW_CLASS_, NAME_, HANDLER_CLASS_, TYPE_, GLOBAL_FLAG_)
+	values ('40288a86460914520146091c4400000d', '', '是否用户的领导', 'org.eapp.flow.handler.common.UserLeaderDecision', 'DECISION', 1);
+insert into eapp_flow_handler (HAND_ID_, FLOW_CLASS_, NAME_, HANDLER_CLASS_, TYPE_, GLOBAL_FLAG_)
+	values ('40288a86460914520146091c6f44000e', '', '是否用户的分管领导', 'org.eapp.flow.handler.common.UserChargerDecision', 'DECISION', 1);
+	
+	
+/* 流程分类字典 */	
+insert into EAPP_DATA_DICTIONART (DICT_ID_, SUB_SYSTEM_ID_, PARENT_DICT_ID_, DICT_NAME_, DICT_CODE_, CEIL_VALUE_, FLOOR_VALUE_, DISPLAY_SORT_, DICT_TYPE_, TREE_LEVEL_, DESCRIPTION_)
+	values ('c0f52f61cebf4c6aa7b5f6381fa01456', 'a3e67054-b593-4887-998e-d8955eaf4ebb', null, '流程分类', 'FLOW_CLASS', null, null, 4, 'FLOW_CLASS', 1, null);
+	
+	
+insert into EAPP_MODULE (MODULE_ID_, PARENT_MODULE_ID_, MODULE_KEY_, NAME_, DISPLAY_ORDER_, URL_, TREE_LEVEL_, DESCRIPTION_, QUOTE_MODULE_ID_, SUB_SYSTEM_ID_)
+	values ('4028818249d2b7be0149d2d41a1c0000', null, 'flow_manage', '流程管理', 6, null, 1, null, null, 'a3e67054-b593-4887-998e-d8955eaf4ebb');
+insert into eapp_module (MODULE_ID_, PARENT_MODULE_ID_, MODULE_KEY_, NAME_, DISPLAY_ORDER_, URL_, TREE_LEVEL_, DESCRIPTION_, QUOTE_MODULE_ID_, SUB_SYSTEM_ID_)
+	values ('4028818249fbda620149fc8e4ac20000', '4028818249d2b7be0149d2d41a1c0000', 'flow_var', '流程变量', 1, 'm/flow_var/initquery', 2, null, null, 'a3e67054-b593-4887-998e-d8955eaf4ebb');
+insert into eapp_module (MODULE_ID_, PARENT_MODULE_ID_, MODULE_KEY_, NAME_, DISPLAY_ORDER_, URL_, TREE_LEVEL_, DESCRIPTION_, QUOTE_MODULE_ID_, SUB_SYSTEM_ID_)
+	values ('4028818249fbda620149fc8f73750001', '4028818249d2b7be0149d2d41a1c0000', 'flow_handler', '处理程序', 2, 'm/flow_handler/initquery', 2, null, null, 'a3e67054-b593-4887-998e-d8955eaf4ebb');
+insert into EAPP_MODULE (MODULE_ID_, PARENT_MODULE_ID_, MODULE_KEY_, NAME_, DISPLAY_ORDER_, URL_, TREE_LEVEL_, DESCRIPTION_, QUOTE_MODULE_ID_, SUB_SYSTEM_ID_)
+	values ('4028818249d2b7be0149d2d5d5340001', '4028818249d2b7be0149d2d41a1c0000', 'flow_draft', '流程草稿', 3, 'm/flow_draft/initquery', 2, null, null, 'a3e67054-b593-4887-998e-d8955eaf4ebb');
+insert into EAPP_MODULE (MODULE_ID_, PARENT_MODULE_ID_, MODULE_KEY_, NAME_, DISPLAY_ORDER_, URL_, TREE_LEVEL_, DESCRIPTION_, QUOTE_MODULE_ID_, SUB_SYSTEM_ID_)
+	values ('4028818249d2b7be0149d2d63a850002', '4028818249d2b7be0149d2d41a1c0000', 'flow_pub', '正式流程', 4, 'm/flow_pub/initquery', 2, null, null, 'a3e67054-b593-4887-998e-d8955eaf4ebb');
+insert into EAPP_MODULE (MODULE_ID_, PARENT_MODULE_ID_, MODULE_KEY_, NAME_, DISPLAY_ORDER_, URL_, TREE_LEVEL_, DESCRIPTION_, QUOTE_MODULE_ID_, SUB_SYSTEM_ID_)
+	values ('4028818249d2b7be0149d2d798350003', '4028818249d2b7be0149d2d41a1c0000', 'flow_inst', '任务实例', 5, 'm/flow_inst/initquery', 2, null, null, 'a3e67054-b593-4887-998e-d8955eaf4ebb');
+insert into EAPP_MODULE (MODULE_ID_, PARENT_MODULE_ID_, MODULE_KEY_, NAME_, DISPLAY_ORDER_, URL_, TREE_LEVEL_, DESCRIPTION_, QUOTE_MODULE_ID_, SUB_SYSTEM_ID_)
+	values ('4028818249d2b7be0149d2d7e18d0004', '4028818249d2b7be0149d2d41a1c0000', 'flow_data', '历史数据', 6, 'm/flow_data/initpage', 2, null, null, 'a3e67054-b593-4887-998e-d8955eaf4ebb');
+
+
+
+insert into eapp_module_action (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249fbda620149fc90d0140002', '4028818249fbda620149fc8e4ac20000', '7a173067-7ca6-4330-a0d6-d486bf3cdf28', 'flow_var', 'delete', 1, 0, 1);
+insert into eapp_module_action (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249fbda620149fc90d0140003', '4028818249fbda620149fc8e4ac20000', '2410e029-e674-4108-a524-e1555cdd3509', 'flow_var', 'query', 1, 0, 1);
+insert into eapp_module_action (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249fbda620149fc90d0140004', '4028818249fbda620149fc8e4ac20000', 'b75aa44c-0bcb-47a8-8896-339efc018497', 'flow_var', 'add', 1, 0, 1);
+insert into eapp_module_action (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249fbda620149fc90d0140005', '4028818249fbda620149fc8e4ac20000', '22708456-b358-4084-a1ba-3b17015f63f7', 'flow_var', 'view', 1, 0, 1);
+insert into eapp_module_action (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249fbda620149fc90d0140006', '4028818249fbda620149fc8e4ac20000', '83523f2e-a57c-4eda-8948-d196afee898b', 'flow_var', 'modify', 1, 0, 1);
+insert into eapp_module_action (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249fbda620149fc912b0c0007', '4028818249fbda620149fc8f73750001', 'b75aa44c-0bcb-47a8-8896-339efc018497', 'flow_handler', 'add', 1, 0, 1);
+insert into eapp_module_action (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249fbda620149fc912b0c0008', '4028818249fbda620149fc8f73750001', '7a173067-7ca6-4330-a0d6-d486bf3cdf28', 'flow_handler', 'delete', 1, 0, 1);
+insert into eapp_module_action (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249fbda620149fc912b0c0009', '4028818249fbda620149fc8f73750001', '2410e029-e674-4108-a524-e1555cdd3509', 'flow_handler', 'query', 1, 0, 1);
+insert into eapp_module_action (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249fbda620149fc912b0c000a', '4028818249fbda620149fc8f73750001', '22708456-b358-4084-a1ba-3b17015f63f7', 'flow_handler', 'view', 1, 0, 1);
+insert into eapp_module_action (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249fbda620149fc912b0c000b', '4028818249fbda620149fc8f73750001', '83523f2e-a57c-4eda-8948-d196afee898b', 'flow_handler', 'modify', 1, 0, 1);
+insert into EAPP_MODULE_ACTION (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249d2b7be0149d2d821fc0005', '4028818249d2b7be0149d2d5d5340001', '2410e029-e674-4108-a524-e1555cdd3509', 'fow_draf', 'query', 1, 0, 1);
+insert into EAPP_MODULE_ACTION (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249f194840149f19f42f40002', '4028818249d2b7be0149d2d5d5340001', '22708456-b358-4084-a1ba-3b17015f63f7', 'flow_draft', 'view', 1, 0, 1);
+insert into EAPP_MODULE_ACTION (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249f194840149f19f42f40003', '4028818249d2b7be0149d2d5d5340001', '7a173067-7ca6-4330-a0d6-d486bf3cdf28', 'flow_draft', 'delete', 1, 0, 1);
+insert into EAPP_MODULE_ACTION (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249f194840149f19f42f40004', '4028818249d2b7be0149d2d5d5340001', 'b75aa44c-0bcb-47a8-8896-339efc018497', 'flow_draft', 'add', 1, 0, 1);
+insert into EAPP_MODULE_ACTION (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249f194840149f19f42f50005', '4028818249d2b7be0149d2d5d5340001', '83523f2e-a57c-4eda-8948-d196afee898b', 'flow_draft', 'modify', 1, 0, 1);
+insert into EAPP_MODULE_ACTION (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249f194840149f19f42f50006', '4028818249d2b7be0149d2d5d5340001', 'c9588033-7122-4412-b5e8-ff10060cb254', 'flow_draft', 'enable', 1, 0, 1);
+insert into EAPP_MODULE_ACTION (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249d2b7be0149d2d833cd0006', '4028818249d2b7be0149d2d63a850002', '2410e029-e674-4108-a524-e1555cdd3509', 'flow_pub', 'query', 1, 0, 1);
+insert into EAPP_MODULE_ACTION (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249f194840149f1a110690007', '4028818249d2b7be0149d2d63a850002', '22708456-b358-4084-a1ba-3b17015f63f7', 'flow_pub', 'view', 1, 0, 1);
+insert into EAPP_MODULE_ACTION (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249f194840149f1a110690008', '4028818249d2b7be0149d2d63a850002', '83523f2e-a57c-4eda-8948-d196afee898b', 'flow_pub', 'modify', 1, 0, 1);
+insert into EAPP_MODULE_ACTION (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249f194840149f1a110690009', '4028818249d2b7be0149d2d63a850002', '5b8d7894-06f1-41af-bb97-2262ce7b52b9', 'flow_pub', 'disable', 1, 0, 1);
+insert into EAPP_MODULE_ACTION (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249d2b7be0149d2d84b7c0007', '4028818249d2b7be0149d2d798350003', '2410e029-e674-4108-a524-e1555cdd3509', 'flow_inst', 'query', 1, 0, 1);
+insert into EAPP_MODULE_ACTION (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('b074c17e9cb64a99b6591cbda4097e93', '4028818249d2b7be0149d2d798350003', '22708456-b358-4084-a1ba-3b17015f63f7', 'flow_inst', 'view', 1, 0, 1);
+insert into EAPP_MODULE_ACTION (MODULE_ACTION_ID_, MODULE_ID_, ACTION_ID_, MODULE_KEY_, ACTION_KEY_, IS_VALID_, IS_RPC_, IS_HTTP_)
+	values ('4028818249d2b7be0149d2d8e2d40008', '4028818249d2b7be0149d2d7e18d0004', '7a173067-7ca6-4330-a0d6-d486bf3cdf28', 'flow_data', 'delete', 1, 0, 1);
+
+	
+	
+insert into EAPP_ROLE_RIGHT (ROLE_ID_,MODULE_ACTION_ID_) values ('administrators','4028818249d2b7be0149d2d821fc0005');
+insert into EAPP_ROLE_RIGHT (ROLE_ID_,MODULE_ACTION_ID_) values ('administrators','4028818249f194840149f19f42f40002');
+insert into EAPP_ROLE_RIGHT (ROLE_ID_,MODULE_ACTION_ID_) values ('administrators','4028818249f194840149f19f42f40003');
+insert into EAPP_ROLE_RIGHT (ROLE_ID_,MODULE_ACTION_ID_) values ('administrators','4028818249f194840149f19f42f40004');
+insert into EAPP_ROLE_RIGHT (ROLE_ID_,MODULE_ACTION_ID_) values ('administrators','4028818249f194840149f19f42f50005');
+insert into EAPP_ROLE_RIGHT (ROLE_ID_,MODULE_ACTION_ID_) values ('administrators','4028818249f194840149f19f42f50006');
+insert into EAPP_ROLE_RIGHT (ROLE_ID_,MODULE_ACTION_ID_) values ('administrators','4028818249d2b7be0149d2d833cd0006');
+insert into EAPP_ROLE_RIGHT (ROLE_ID_,MODULE_ACTION_ID_) values ('administrators','4028818249f194840149f1a110690007');
+insert into EAPP_ROLE_RIGHT (ROLE_ID_,MODULE_ACTION_ID_) values ('administrators','4028818249f194840149f1a110690008');
+insert into EAPP_ROLE_RIGHT (ROLE_ID_,MODULE_ACTION_ID_) values ('administrators','4028818249f194840149f1a110690009');
+insert into EAPP_ROLE_RIGHT (ROLE_ID_,MODULE_ACTION_ID_) values ('administrators','4028818249d2b7be0149d2d84b7c0007');
+insert into EAPP_ROLE_RIGHT (ROLE_ID_,MODULE_ACTION_ID_) values ('administrators','b074c17e9cb64a99b6591cbda4097e93');
+insert into EAPP_ROLE_RIGHT (ROLE_ID_,MODULE_ACTION_ID_) values ('administrators','4028818249d2b7be0149d2d8e2d40008');
+
+
+
+
+
+
+/*==============================================================*/
+/* Table: WF_TRACEPOINT                                         */
+/*==============================================================*/
+CREATE TABLE WF_TRACEPOINT  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   FLOWDEFINE_          VARCHAR2(36),
+   FLOWINSTANCE_        VARCHAR2(36),
+   ELEMENT_             VARCHAR2(36),
+   ELEMENTTYPE_         VARCHAR2(50),
+   ACTIONTYPE_          VARCHAR2(50),
+   REFGRAPHKEY_         VARCHAR2(100),
+   SNAPTIME_            DATE                            NOT NULL,
+   CONSTRAINT PK_WF_TRACEPOINT PRIMARY KEY (ID_)
+);
+
+COMMENT ON TABLE WF_TRACEPOINT IS
+'记录流程轨迹';
+
+COMMENT ON COLUMN WF_TRACEPOINT.ELEMENTTYPE_ IS
+'NODE/TRANSITION';
+
+COMMENT ON COLUMN WF_TRACEPOINT.ACTIONTYPE_ IS
+'ENTER/LEAVE';

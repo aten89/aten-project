@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	<bean id="actorLoginService" class="org.eapp.rpc.imp.ActorLoginService">
+		<property name="sessionAccountInfoBiz" ref="sessionAccountInfoBiz"/>
+	</bean>
+	<bean name="/actorlogin" class="org.springframework.remoting.caucho.HessianServiceExporter">  
+    	<property name="service" ref="actorLoginService"/> 
+    	<property name="serviceInterface" value="org.eapp.rpc.IActorLoginService"/>  
+	</bean>
+	
+	<bean id="dataDictionaryService" class="org.eapp.rpc.imp.DataDictionaryService">
+		<property name="dataDictionaryBiz" ref="dataDictionaryBiz"/>
+	</bean>
+	<bean name="/datadictionary" class="org.springframework.remoting.caucho.HessianServiceExporter">  
+    	<property name="service" ref="dataDictionaryService"/> 
+    	<property name="serviceInterface" value="org.eapp.rpc.IDataDictionaryService"/>  
+	</bean>
+	
+	<bean id="groupService" class="org.eapp.rpc.imp.GroupService">
+		<property name="groupBiz" ref="groupBiz"/>
+	</bean>
+	<bean name="/group" class="org.springframework.remoting.caucho.HessianServiceExporter">  
+    	<property name="service" ref="groupService"/> 
+    	<property name="serviceInterface" value="org.eapp.rpc.IGroupService"/>  
+	</bean>
+	
+	<bean id="logService" class="org.eapp.rpc.imp.LogService">
+		<property name="actionLogBiz" ref="actionLogBiz"/>
+	</bean>
+	<bean name="/log" class="org.springframework.remoting.caucho.HessianServiceExporter">  
+    	<property name="service" ref="logService"/> 
+    	<property name="serviceInterface" value="org.eapp.rpc.ILogService"/>  
+	</bean>
+	
+	<bean id="postService" class="org.eapp.rpc.imp.PostService">
+		<property name="postBiz" ref="postBiz"/>
+	</bean>
+	<bean name="/post" class="org.springframework.remoting.caucho.HessianServiceExporter">  
+    	<property name="service" ref="postService"/> 
+    	<property name="serviceInterface" value="org.eapp.rpc.IPostService"/>  
+	</bean>
+	
+	<bean id="sessionAccountService" class="org.eapp.rpc.imp.SessionAccountService">
+		<property name="sessionAccountInfoBiz" ref="sessionAccountInfoBiz"/>
+		<property name="moduleBiz" ref="moduleBiz"/>
+	</bean>
+	<bean name="/user_right" class="org.springframework.remoting.caucho.HessianServiceExporter">  
+    	<property name="service" ref="sessionAccountService"/> 
+    	<property name="serviceInterface" value="org.eapp.rpc.ISessionAccountService"/>  
+	</bean>
+	
+	<bean id="userAccountService" class="org.eapp.rpc.imp.UserAccountService">
+		<property name="userAccountBiz" ref="userAccountBiz"/>
+		<property name="groupBiz" ref="groupBiz"/>
+		<property name="postBiz" ref="postBiz"/>
+		<property name="roleBiz" ref="roleBiz"/>
+		<property name="sysMsgBiz" ref="sysMsgBiz"/>
+	</bean>
+	<bean name="/user" class="org.springframework.remoting.caucho.HessianServiceExporter">  
+    	<property name="service" ref="userAccountService"/> 
+    	<property name="serviceInterface" value="org.eapp.rpc.IUserAccountService"/>  
+	</bean>
+	
+	<bean id="subSystemService" class="org.eapp.rpc.imp.SubSystemService">
+		<property name="subSystemBiz" ref="subSystemBiz"/>
+		<property name="serverStartupInit" ref="serverStartupInit"/>
+	</bean>
+	<bean name="/subsystem" class="org.springframework.remoting.caucho.HessianServiceExporter">  
+    	<property name="service" ref="subSystemService"/> 
+    	<property name="serviceInterface" value="org.eapp.rpc.ISubSystemService"/>  
+	</bean>
+	
+	<bean id="flowConfigService" class="org.eapp.rpc.imp.FlowConfigService">
+		<property name="flowConfigBiz" ref="flowConfigBiz"/>
+	</bean>
+	<bean name="/flow" class="org.springframework.remoting.caucho.HessianServiceExporter">  
+    	<property name="service" ref="flowConfigService"/> 
+    	<property name="serviceInterface" value="org.eapp.rpc.IFlowConfigService"/>  
+	</bean>
+	
+</beans>

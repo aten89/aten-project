@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-Transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>DEMO</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	
+	<script language="javascript">
+		var BASE_PATH = "/";
+	</script>
+	<link rel="stylesheet" href="/themes/blue/style.css" type="text/css" />
+	<script type="text/javascript" src="/jqueryui/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/jqueryui/dialog/jquery.wbox.js"></script> 
+	<script type="text/javascript" src="/jqueryui/eapp.common.js"></script> 
+	<script type="text/javascript" src="dialog.user.js"></script>
+	<script type="text/javascript" src="dialog.dept.js"></script>
+	<script type="text/javascript" src="dialog.post.js"></script>
+	<script type="text/javascript" src="dialog.module.js"></script>
+	<script type="text/javascript" src="dialog.dict.js"></script>
+	
+	<script language="javascript">
+		function selectSingleUser(){
+			var selector = new UserDialog("http://127.0.0.1:8080/","http://127.0.0.1:8080/");
+			selector.setCallbackFun(function(retVal){
+				if (retVal != null) {
+					$("#userids").val(retVal.id);
+					$("#usernames").val(retVal.name);
+				}
+			});
+			selector.openDialog("single");
+		}
+		
+		function selectMultiUser(){
+			var selector = new UserDialog("http://127.0.0.1:8080/","http://127.0.0.1:8080/");
+			
+			var selectedIds = $("#userids").text().split(",");
+			var selectedNames = $("#usernames").text().split(",");
+			for (var i=0 ; i<selectedIds.length ; i++){
+				if (selectedIds[i] != ""){
+					selector.appendSelected({id:selectedIds[i], name:selectedNames[i]});
+				}
+			}
+			
+			selector.setCallbackFun(function(retVal){
+				if (retVal != null) {
+					var ids = "";
+					var names = "";
+					for (var i=0 ; i<retVal.length ; i++){
+						ids += retVal[i].id + ",";
+						names += retVal[i].name + ",";
+					}
+					$("#userids").val(ids);
+					$("#usernames").val(names);
+				}
+			});
+			
+			selector.openDialog("multi");
+		}
+		
+		function selectSingleDept(){
+			var selector = new DeptDialog("http://127.0.0.1:8080/","http://127.0.0.1:8080/");
+			selector.setCallbackFun(function(retVal){
+				if (retVal != null) {
+					$("#deptids").val(retVal.id);
+				$("#deptnames").val(retVal.name);
+				}
+			});
+			selector.openDialog("single");
+			
+		}
+		
+		function selectMultiDept(){
+			var selector = new DeptDialog("http://127.0.0.1:8080/","http://127.0.0.1:8080/");
+			
+			var selectedIds = $("#deptids").text().split(",");
+			var selectedNames = $("#deptnames").text().split(",");
+			for (var i=0 ; i<selectedIds.length ; i++){
+				if (selectedIds[i] != ""){
+					selector.appendSelected({id:selectedIds[i], name:selectedNames[i]});
+				}
+			}
+			
+			selector.setCallbackFun(function(retVal){
+				if (retVal != null) {
+					var ids = "";
+					var names = "";
+					for (var i=0 ; i<retVal.length ; i++){
+						ids += retVal[i].id + ",";
+						names += retVal[i].name + ",";
+					}
+					$("#deptids").val(ids);
+					$("#deptnames").val(names);
+				}
+			});
+			selector.openDialog("multi");
+		}
+		
+		function selectSinglePost(){
+			var selector = new PostDialog("http://127.0.0.1:8080/","http://127.0.0.1:8080/");
+			selector.setCallbackFun(function(retVal){
+				if (retVal != null) {
+					$("#postids").val(retVal.id);
+					$("#postnames").val(retVal.name);
+				}
+			});
+			selector.openDialog("single");
+		}
+		
+		function selectMultiPost(){
+			var selector = new PostDialog("http://127.0.0.1:8080/","http://127.0.0.1:8080/");
+			
+			var selectedIds = $("#postids").text().split(",");
+			var selectedNames = $("#postnames").text().split(",");
+			
+			for (var i=0 ; i<selectedIds.length ; i++){
+				if (selectedIds[i] != ""){
+					selector.appendSelected({id:selectedIds[i], name:selectedNames[i]});
+				}
+			}
+			
+			selector.setCallbackFun(function(retVal){
+				if (retVal != null) {
+					var ids = "";
+					var names = "";
+					for (var i=0 ; i<retVal.length ; i++){
+						ids += retVal[i].id + ",";
+						names += retVal[i].name + ",";
+					}
+					$("#postids").val(ids);
+					$("#postnames").val(names);
+				}
+			});
+			selector.openDialog("multi");
+		}
+		
+		function selectSingleModule(){
+			var selector = new ModuleDialog("http://127.0.0.1:8080/","http://127.0.0.1:8080/");
+			selector.setCallbackFun(function(retVal){
+				if (retVal) {
+					$("#moduleids").val(retVal.id);
+					$("#modulenames").val(retVal.name);
+				}
+			});
+			selector.openDialog("single");
+		}
+		
+		function selectSubSystemModule(){
+			var selector = new ModuleDialog("http://127.0.0.1:8080/","http://127.0.0.1:8080/");
+			selector.setSubSystemId("a3e67054-b593-4887-998e-d8955eaf4ebb");
+			selector.setCallbackFun(function(retVal){
+				if (retVal) {
+					$("#moduleids").val(retVal.id);
+					$("#modulenames").val(retVal.name);
+				}
+			});
+			selector.openDialog("single");
+		}
+		
+		function selectSingleDict(){
+			var selector = new DictDialog("http://127.0.0.1:8080/","http://127.0.0.1:8080/");
+			selector.setCallbackFun(function(retVal){
+				if (retVal) {
+					$("#dictids").val(retVal.id);
+					$("#dictnames").val(retVal.name);
+				}
+			});
+			selector.openDialog("single");
+			
+		}
+		
+		function selectSubSystemDict(){
+			var selector = new DictDialog("http://127.0.0.1:8080/","http://127.0.0.1:8080/");
+			selector.setSubSystemId("a3e67054-b593-4887-998e-d8955eaf4ebb");
+			selector.setCallbackFun(function(retVal){
+				if (retVal) {
+					$("#dictids").val(retVal.id);
+					$("#dictnames").val(retVal.name);
+				}
+			});
+			selector.openDialog("single");
+		}
+	</script>
+	
+</head>
+<body class="bdNone">
+	<div class="blank" style="height:30px"></div>
+	<div id="jkzhMain">
+		<div>
+			<br/>用户ID：<textarea id="userids" style="width:200px;height:40px"></textarea><input type="button" value="选择单个用户" onclick="selectSingleUser();"/>
+			<br/>姓名：<textarea id="usernames" style="width:200px;height:40px"></textarea><input type="button" value="选择多个用户" onclick="selectMultiUser();"/>
+			<br/>部门ID：<textarea id="deptids" style="width:200px;height:40px"></textarea><input type="button" value="选择单个部门" onclick="selectSingleDept();"/>
+			<br/>部门名称：<textarea id="deptnames" style="width:200px;height:40px"></textarea><input type="button" value="选择多个部门" onclick="selectMultiDept();"/>
+			<br/>职位ID：<textarea id="postids" style="width:200px;height:40px"></textarea><input type="button" value="选择单个职位" onclick="selectSinglePost();"/>
+			<br/>职位名称：<textarea id="postnames" style="width:200px;height:40px"></textarea><input type="button" value="选择多个职位" onclick="selectMultiPost();"/>
+			<br/>模块ID：<textarea id="moduleids" style="width:200px;height:40px"></textarea><input type="button" value="选择单个模块" onclick="selectSingleModule();"/>
+			<br/>模块名称：<textarea id="modulenames" style="width:200px;height:40px"></textarea><input type="button" value="选择指定子系统模块" onclick="selectSubSystemModule();"/>
+			<br/>数据字典ID：<textarea id="dictids" style="width:200px;height:40px"></textarea><input type="button" value="选择单个数据字典" onclick="selectSingleDict();"/>
+			<br/>数据字典名称：<textarea id="dictnames" style="width:200px;height:40px"></textarea><input type="button" value="选择指定子系统数据字典" onclick="selectSubSystemDict();"/>
+		</div>
+	</div>
+</body>
+</html>

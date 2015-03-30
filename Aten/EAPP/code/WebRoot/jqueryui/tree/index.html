@@ -1,0 +1,546 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title> Tree</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/tree-pack.js" type="text/javascript"></script>
+<style type="text/css">
+body
+{
+	font: normal 12px arial, tahoma, helvetica, sans-serif;
+}
+</style>
+<link rel="stylesheet" href="css/tree_xp/style.css" />
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#tree1').SimpleTree();
+	$('#tree2').SimpleTree({animate: true});
+	$('#tree3').SimpleTree({animate: true,autoclose:true});
+	$('#tree4').SimpleTree({
+		animate: true,
+		autoclose:true,
+		click:function(el){
+			alert($(el).text());
+		}
+	});
+	
+});
+</script>
+</head>
+
+<body>
+<p><b>SimpleTree Plugin</b> is intended for displaying tree structures.<br />
+&nbsp;</p>
+<p><b>SimpleTree key features:</b></p>
+<ul>
+	<li>animate - this parameter has a value &quot;true/false&quot; (enable/disable 
+	animation for expanding/collapsing menu items) 
+	</li>
+	<li>autoclose - this parameter has a value &quot;true/false&quot; (enable/disable 
+	collapse of neighbor branches) 
+	</li>
+	<li>click - this parameter defines function, which is executed after item 
+	clicked (set to &quot;false&quot; by default) 
+	</li>
+	<li>success - this parameter defines function, which executes after ajax is 
+	loaded (set to &quot;false&quot; by default)
+	</li>
+</ul>
+<p><b>AJAX upload method:</b><br />
+If there is a need in AJAX upload, then place <font color="#CC3300"><b>UL</b></font> 
+with <font color="#CC3300"><b>&quot;ajax&quot;</b></font> class and tag <font color="#008080"><b>
+LI</b></font> with <font color="#008080"><b>URL</b></font> for a loadable item.<br><br />
+<b>example:</b><br />
+&lt;li&gt;&lt;span class=&quot;text&quot;&gt;Tree Node 1-1&lt;/span&gt;<br />
+<span lang="ru">&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;ul <font color="#CC3300"><b>
+class=&quot;ajax&quot;</b></font>&gt;<br />
+<span lang="ru">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+&lt;li&gt;<font color="#008080"><b>{url:tree_load.php?tree_id=1}</b></font>&lt;/li&gt;<br />
+<span lang="ru">&nbsp;&nbsp;&nbsp;&nbsp; </span>&lt;/ul&gt;<br />
+&lt;/li&gt;</p>
+<table border="0" cellspacing="4" cellpadding="2">
+	<tr>
+		<td width="350" valign="bottom">
+		<b>Example 1.</b><p>This example 
+		demonstrates this script (all values set by default)<p><b>
+		$('#tree1').simpleTree();</b>
+		</td>
+		<td width="350" valign="bottom"><b>Example 2.</b><p>This example 
+		demonstrates animation.</p>
+		<p><b>
+		$('#tree2').simpleTree({animate: true});</b></td>
+	</tr>
+	<tr>
+		<td width="350">
+			<div id="tree1" class="tree">
+				<ul>
+					<li class="root">Tree Root
+						<ul>
+							<li><span class="text">Tree Node 1</span>
+								<ul>
+									<li><span class="text">Tree Node 1-1</span>
+										<ul class="ajax">
+											<li>{url:tree_load.php?tree_id=1}</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><span class="text">Tree Node 2</span>
+								<ul>
+									<li><span class="text">Tree Node 2-1</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											2-1-1</span></li>
+											<li><span class="text">Tree Node 
+											2-1-2</span></li>
+											<li><span class="text">Tree Node 
+											2-1-3</span></li>
+											<li><span class="text">Tree Node 
+											2-1-4</span>
+												<ul class="ajax">
+													<li>
+													{url:tree_load.php?tree_id=1}</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 2-2</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											2-2-1</span></li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 2-3</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											2-3-1</span>
+													<ul>
+														<li><span class="text">
+														Tree Node 2-3-1-1</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-2</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-3</span>
+															<ul>
+																<li><span class="text">
+																Tree Node 
+																2-3-1-3-1</span></li>
+															</ul>
+														</li>
+														<li><span class="text">
+														Tree Node 2-3-1-4</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-5</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-6</span>
+															<ul>
+																<li><span class="text">
+																Tree Node 
+																2-3-1-6-1</span></li>
+															</ul>
+														</li>
+														<li><span class="text">
+														Tree Node 2-3-1-7</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-8</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-9</span>
+															<ul>
+																<li><span class="text">
+																Tree Node 
+																2-3-1-9-1</span></li>
+															</ul>
+														</li>
+													</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><span class="text">Tree Node 3</span>
+								<ul>
+									<li><span class="text">Tree Node 3-1</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											3-1-1</span></li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 3-2</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											3-2-1</span></li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 3-3</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											3-3-1</span></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>		
+		</td>
+		<td width="350">
+			<div id="tree2" class="tree">
+				<ul>
+					<li class="root">Tree Root
+						<ul>
+							<li><span class="text">Tree Node 1</span>
+								<ul>
+									<li><span class="text">Tree Node 1-1</span>
+										<ul class="ajax">
+											<li>{url:tree_load.php?tree_id=1}</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><span class="text">Tree Node 2</span>
+								<ul>
+									<li><span class="text">Tree Node 2-1</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											2-1-1</span></li>
+											<li><span class="text">Tree Node 
+											2-1-2</span></li>
+											<li><span class="text">Tree Node 
+											2-1-3</span></li>
+											<li><span class="text">Tree Node 
+											2-1-4</span>
+												<ul class="ajax">
+													<li>
+													{url:tree_load.php?tree_id=1}</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 2-2</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											2-2-1</span></li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 2-3</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											2-3-1</span>
+													<ul>
+														<li><span class="text">
+														Tree Node 2-3-1-1</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-2</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-3</span>
+															<ul>
+																<li><span class="text">
+																Tree Node 
+																2-3-1-3-1</span></li>
+															</ul>
+														</li>
+														<li><span class="text">
+														Tree Node 2-3-1-4</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-5</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-6</span>
+															<ul>
+																<li><span class="text">
+																Tree Node 
+																2-3-1-6-1</span></li>
+															</ul>
+														</li>
+														<li><span class="text">
+														Tree Node 2-3-1-7</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-8</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-9</span>
+															<ul>
+																<li><span class="text">
+																Tree Node 
+																2-3-1-9-1</span></li>
+															</ul>
+														</li>
+													</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><span class="text">Tree Node 3</span>
+								<ul>
+									<li><span class="text">Tree Node 3-1</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											3-1-1</span></li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 3-2</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											3-2-1</span></li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 3-3</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											3-3-1</span></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td width="700" height="44" colspan="2"><hr size=1 color="#ececec"></td>
+	</tr>
+	<tr>
+		<td width="350" valign="bottom"><b>Example 3.</b><p>This example shows 
+		animation and branches collapse.</p>
+		<p><b>
+		$('#tree3').simpleTree({animate: true,autoclose:true});</b></td>
+		<td width="350" valign="bottom"><b>Example 4.</b><br />Example of using 
+		expanded branches loaded prior to menu is generated. Just assign a class 
+		for tag LI, i.e. &lt;li class=<b><font color="#CC3300">&quot;open&quot;</font></b>&gt;<p><b>
+		$('#tree3').simpleTree({animate: true,autoclose:true});</b></td>
+	</tr>
+	<tr>
+		<td width="350">
+			<div id="tree3" class="tree">
+				<ul>
+					<li class="root">Tree Root
+						<ul>
+							<li><span class="text">Tree Node 1</span>
+								<ul>
+									<li><span class="text">Tree Node 1-1</span>
+										<ul class="ajax">
+											<li>{url:tree_load.php?tree_id=1}</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><span class="text">Tree Node 2</span>
+								<ul>
+									<li><span class="text">Tree Node 2-1</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											2-1-1</span></li>
+											<li><span class="text">Tree Node 
+											2-1-2</span></li>
+											<li><span class="text">Tree Node 
+											2-1-3</span></li>
+											<li><span class="text">Tree Node 
+											2-1-4</span>
+												<ul class="ajax">
+													<li>
+													{url:tree_load.php?tree_id=1}</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 2-2</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											2-2-1</span></li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 2-3</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											2-3-1</span>
+													<ul>
+														<li><span class="text">
+														Tree Node 2-3-1-1</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-2</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-3</span>
+															<ul>
+																<li><span class="text">
+																Tree Node 
+																2-3-1-3-1</span></li>
+															</ul>
+														</li>
+														<li><span class="text">
+														Tree Node 2-3-1-4</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-5</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-6</span>
+															<ul>
+																<li><span class="text">
+																Tree Node 
+																2-3-1-6-1</span></li>
+															</ul>
+														</li>
+														<li><span class="text">
+														Tree Node 2-3-1-7</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-8</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-9</span>
+															<ul>
+																<li><span class="text">
+																Tree Node 
+																2-3-1-9-1</span></li>
+															</ul>
+														</li>
+													</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><span class="text">Tree Node 3</span>
+								<ul>
+									<li><span class="text">Tree Node 3-1</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											3-1-1</span></li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 3-2</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											3-2-1</span></li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 3-3</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											3-3-1</span></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</td>
+		<td width="350">
+			<div id="tree4" class="tree">
+				<ul>
+					<li class="root">Tree Root
+						<ul>
+							<li><span class="text">Tree Node 1</span>
+								<ul>
+									<li><span class="text">Tree Node 1-1</span>
+										<ul class="ajax">
+											<li>{url:tree_load.php?tree_id=1}</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="open"><span class="text">Tree Node 2</span>
+								<ul>
+									<li class="open"><span class="text">Tree 
+									Node 2-1</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											2-1-1</span></li>
+											<li><span class="text">Tree Node 
+											2-1-2</span></li>
+											<li><span class="text">Tree Node 
+											2-1-3</span></li>
+											<li><span class="text">Tree Node 
+											2-1-4</span>
+												<ul class="ajax">
+													<li>
+													{url:tree_load.php?tree_id=1}</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 2-2</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											2-2-1</span></li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 2-3</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											2-3-1</span>
+													<ul>
+														<li><span class="text">
+														Tree Node 2-3-1-1</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-2</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-3</span>
+															<ul>
+																<li><span class="text">
+																Tree Node 
+																2-3-1-3-1</span></li>
+															</ul>
+														</li>
+														<li><span class="text">
+														Tree Node 2-3-1-4</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-5</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-6</span>
+															<ul>
+																<li><span class="text">
+																Tree Node 
+																2-3-1-6-1</span></li>
+															</ul>
+														</li>
+														<li><span class="text">
+														Tree Node 2-3-1-7</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-8</span></li>
+														<li><span class="text">
+														Tree Node 2-3-1-9</span>
+															<ul>
+																<li><span class="text">
+																Tree Node 
+																2-3-1-9-1</span></li>
+															</ul>
+														</li>
+													</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="open"><span class="text">Tree Node 3</span>
+								<ul>
+									<li><span class="text">Tree Node 3-1</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											3-1-1</span></li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 3-2</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											3-2-1</span></li>
+										</ul>
+									</li>
+									<li><span class="text">Tree Node 3-3</span>
+										<ul>
+											<li><span class="text">Tree Node 
+											3-3-1</span></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

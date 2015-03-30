@@ -1,0 +1,9 @@
+<public:component lightWeight="true">
+<public:attach event="onpropertychange" onevent="propertyChanged()" />
+<public:attach event="onbeforeprint" onevent="beforePrint()" for="window"/>
+<public:attach event="onafterprint" onevent="afterPrint()" for="window"/>
+<script>
+this.style.width = this.width;
+
+</script>
+</public:component>
