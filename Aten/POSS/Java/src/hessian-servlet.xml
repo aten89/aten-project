@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	<!-- Hessian服务端用户名与密码配置 -->
+	<bean id="authentication" class="org.eapp.rmi.util.hession.authentication.SimpleAuthenticationHandler">
+		<property name="userName" value="poss_user"/>
+		<property name="password" value="poss_hessian_key"/>
+	</bean>
+
+	<bean id="messagePoint" class="org.eapp.poss.rmi.hessian.imp.MessagePoint">
+		<property name="messageBiz" ref="messageBiz" />
+	</bean>
+	<bean name="/messagePoint" class="org.eapp.rmi.util.hession.SecureHessianServiceExporter">
+    	<property name="service" ref="messagePoint"/> 
+    	<property name="serviceInterface" value="org.eapp.poss.rmi.hessian.IMessagePoint"/>  
+		<property name="authentication" ref="authentication"/>
+	</bean>
+	
+	<bean id="transactionPoint" class="org.eapp.poss.rmi.hessian.imp.TransactionPoint">
+		<property name="custPaymentBiz" ref="custPaymentBiz" />
+	</bean>
+	<bean name="/transactionPoint" class="org.eapp.rmi.util.hession.SecureHessianServiceExporter">
+    	<property name="service" ref="transactionPoint"/> 
+    	<property name="serviceInterface" value="org.eapp.poss.rmi.hessian.ITransactionPoint"/>  
+		<property name="authentication" ref="authentication"/>
+	</bean>
+	
+</beans>

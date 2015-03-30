@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+<struts>
+	<!-- 编码 -->
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<!-- 文件上传大小限制 限制1024M -->
+	<constant name="struts.multipart.maxSize" value="1024000000"/> 
+	<!-- 全局结果集 -->
+	<package name="json-result" extends="json-default">
+		<global-results>
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param><!-- 输出父类属性 -->
+				<param name="excludeNullProperties">true</param><!-- 排除空属性 -->
+				<param name="callbackParameter">jsoncallback</param><!-- 跨域 -->
+				<param name="contentType">text/html</param><!--application/json类型使用 ajaxFileUpload 下载时用IE时会变成下载 -->
+			</result>
+			<result name="error" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">msg,msg.code,msg.text</param>
+				<param name="callbackParameter">jsoncallback</param>
+				<param name="contentType">text/html</param>
+			</result> 
+		</global-results>
+    </package>
+    
+    <!-- 数据字典 -->
+    <package name="dict" namespace="/l/dict" extends="json-result">
+		<action name="initProdStatusSel" class="dictAction" method="initProdStatusSel"/>
+		<action name="initSellRankSel" class="dictAction" method="initSellRankSel"/>
+	</package>
+    
+     <!-- 运营管理  -->
+	<package name="operationsManage" namespace="/m/operationsManage" extends="json-result">
+		<action name="queryCustPaymentList" class="custPaymentAction" method="queryCustPaymentList"/>
+		<action name="addCustPayment" class="custPaymentAction" method="addCustPayment"/>
+		<action name="paymentApprove" class="custPaymentAction" method="initPaymentApprove">
+			<result name="uploadSlip">/page/operationsManage/paymentRegister/uploadSlip.jsp</result>
+			<result name="confirmPayment">/page/operationsManage/paymentRegister/paymentApprove.jsp</result>
+			<result name="againModify">/page/operationsManage/paymentRegister/againModify.jsp</result>
+			<result name="paymentApprove">/page/operationsManage/paymentRegister/paymentApproveLeader.jsp</result>
+			<result name="viewInfo">/page/operationsManage/paymentRegister/paymentInfo.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		
+		<action name="viewPayment" class="custPaymentAction" method="viewPayment">
+			<result type="redirect">${viewUrl}</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<!-- 确认到款 -->
+		<action name="approvePayment" class="custPaymentAction" method="approvePayment" />
+		<!-- 归档列表查询 -->
+		<action name="queryArchiveCustPaymentList" class="custPaymentAction" method="queryArchiveCustPaymentList"/>
+		<!-- 跟踪列表查询 -->
+		<action name="queryTrackCustPaymentList" class="custPaymentAction" method="queryTrackCustPaymentList"/>
+		<!-- 所有列表查询 -->
+		<action name="queryAllCustPaymentList" class="custPaymentAction" method="queryAllCustPaymentList"/>
+		<!-- 处理划款任务-->
+		<action name="dealPayment" class="custPaymentAction" method="dealPayment"/>
+		<!-- 重新提交划款 -->
+		<action name="modifyPaymentAndEndTransition" class="custPaymentAction" method="modifyPaymentAndEndTransition"/>
+		<!-- 划款审批 -->
+		<action name="approvePaymentLeader" class="custPaymentAction" method="approvePaymentLeader"/>
+		<!-- 初始化划款登记下拉框 -->
+		<action name="initCustPaymentSel" class="custPaymentAction" method="initCustPaymentSel"/>
+		<!-- 划款详情 -->
+		<action name="initViewPayment" class="custPaymentAction" method="initViewPayment">
+			<result>/page/IssueManagement/Issue/IssueInfo.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="txModifyDealTask" class="custPaymentAction" method="txModifyDealTask"/>
+		<action name="save_attachment" class="custPaymentAction" method="saveAttachmentToTempDir"/>
+		
+		<action name="queryCustPaymentById" class="custPaymentAction" method="queryCustPaymentById"/>
+		<action name="initCustProdSel" class="custPaymentAction" method="initCustProdSel"/>
+		
+		<action name="initAddCustomerPay" class="custPaymentAction" method="initAddCustomerPay">
+			<result name="addOldCustomerPay">/page/operationsManage/paymentRegister/addOldCustPayment.jsp</result>
+			<result name="addNewCustomerPay">/page/operationsManage/paymentRegister/addNewCustPayment.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+	
+		<!-- 退款申请 START -->
+		
+		<!-- 列表查询 -->
+		<action name="queryRefuncNoticeListPage" class="refuncNoticeAction" method="queryRefuncNoticeListPage"/>
+		<!-- 初始化修改页面 -->
+		<action name="initEditRefuncNotice" class="refuncNoticeAction" method="initEditRefuncNotice">
+			<result>/page/operationsManage/refuncApplication/editRefuncNotice.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<!-- 初始化查看页面 -->
+		<action name="initViewRefuncNotice" class="refuncNoticeAction" method="initEditRefuncNotice">
+			<result>/page/operationsManage/refuncApplication/viewRefuncNotice.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<!-- 新增退款须知 -->
+		<action name="addRefuncNotice" class="refuncNoticeAction" method="addRefuncNotice"/>
+		<!-- 修改退款须知 -->
+		<action name="modifyRefuncNotice" class="refuncNoticeAction" method="modifyRefuncNotice"/>
+		<!-- 删除退款须知 -->
+		<action name="delRefuncNotice" class="refuncNoticeAction" method="delRefuncNotice"/>
+		<!-- 上传退款须知附件 -->
+		<action name="uploadRefuncNoticeFile" class="refuncNoticeAction" method="uploadRefuncNoticeFile"/>
+		<!-- 获取对应退款须知附件列表 -->
+		<action name="loadRefuncNoticeAttachments" class="refuncNoticeAction" method="loadRefuncNoticeAttachments"/>
+		
+		
+		<!-- 退款申请草稿列表 -->
+		<action name="queryCustRefundDraftList" class="custRefundAction" method="queryCustRefundDraftList"/>
+		<!-- 退款申请待办列表 -->
+		<action name="queryCustRefundDealList" class="custRefundAction" method="queryCustRefundDealList"/>
+		<!-- 退款申请跟踪列表 -->
+		<action name="queryCustRefundTrackList" class="custRefundAction" method="queryCustRefundTrackList"/>
+		<!-- 退款申请归档列表 -->
+		<action name="queryCustRefundArchiveList" class="custRefundAction" method="queryCustRefundArchiveList"/>
+		<!-- 新增退款申请 -->
+		<action name="addCustRefund" class="custRefundAction" method="addCustRefund"/>
+		<!-- 修改退款申请 -->
+		<action name="modifyCustRefund" class="custRefundAction" method="modifyCustRefund"/>
+		<!-- 退款申请详情 
+		<action name="viewCustRefund" class="custRefundAction" method="initEditCustRefund">
+			<result>/page/operationsManage/refuncApplication/viewRefuncApplication.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>-->
+		<!-- 初始化修改页面 -->
+		<action name="initEditCustRefund" class="custRefundAction" method="initEditCustRefund">
+			<result>/page/operationsManage/refuncApplication/editRefuncApplication.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<!-- 上传退款申请附件 -->
+		<action name="uploadCustRefundFile" class="custRefundAction" method="uploadCustRefundFile"/>
+		<!-- 获取对应退款申请附件列表 -->
+		<action name="loadCustRefundAttachments" class="custRefundAction" method="loadCustRefundAttachments"/>
+		<!-- 退款审批 -->
+		<action name="custRefundApprove" class="custRefundAction" method="initCustRefundApprove">
+			<!-- 运营审批 -->
+			<result name="custRefundApprove">/page/operationsManage/refuncApplication/custRefundApprove.jsp</result>
+			<!-- 驳回修改 -->
+			<result name="againModify">/page/operationsManage/refuncApplication/custRefundAgainModify.jsp</result>
+			<!-- 详情 -->
+			<result name="viewDetail">/page/operationsManage/refuncApplication/viewRefuncApplication.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="viewCustRefund" class="custRefundAction" method="viewCustRefund">
+			<result type="redirect">${viewUrl}</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<!-- 驳回修改 -->
+		<action name="rejectCustRefund" class="custRefundAction" method="rejectCustRefund" />
+		<!-- 驳回修改 -->
+		<action name="approveCustRefund" class="custRefundAction" method="approveCustRefund" />
+		<!-- 重新提交 -->
+		<action name="againCommitCustRefund" class="custRefundAction" method="againCommitCustRefund" />
+		<!-- 处理划款任务-->
+		<action name="dealCustRefund" class="custRefundAction" method="dealCustRefund"/>
+		
+		<!-- 退款申请 END   -->
+	</package>
+	
+	<!--产品信息-->
+	<package name="prod_info" namespace="/m/prod_info" extends="json-result">
+		<action name="query_prodInfoListPage" class="prodInfoAction" method="queryProdInfoListPage"/>
+		<action name="delete_prodInfo" class="prodInfoAction" method="delProdInfo"/>
+		<action name="initProdInfoSel" class="prodInfoAction" method="initProdInfoSel"/>
+		<action name="getProdInfoById" class="prodInfoAction" method="getProdInfoById"/>
+		<action name="init_prodInfoFrame" class="prodInfoAction" method="initProdInfoFrame">
+			<result>/page/ProdInfoManage/prodInfo/prodInfoFrame.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="view_prodInfo" class="prodInfoAction" method="viewProdInfo">
+			<result>/page/ProdInfoManage/prodInfo/viewProdInfo.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="init_addProdInfoPage" class="prodInfoAction" method="initAddProdInfo">
+			<result>/page/ProdInfoManage/prodInfo/editProdInfo.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="save_attachment" class="prodInfoAction" method="saveAttachmentToTempDir"/>
+		<action name="add_prodInfo" class="prodInfoAction" method="addProdInfo"/>
+		<action name="init_updateProdInfo" class="prodInfoAction" method="viewProdInfo">
+			<result>/page/ProdInfoManage/prodInfo/editProdInfo.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify_prodInfo" class="prodInfoAction" method="updateProdInfo"/>
+		<action name="queryProdInfoById" class="prodInfoAction" method="viewProdInfo"/>
+	
+	</package>
+	
+	<!--产品问答-->
+	<package name="prod_faq" namespace="/m/prod_faq" extends="json-result">
+		<action name="query_prodFaqListPage" class="prodFaqAction" method="queryProdFaqListPage"/>
+		<action name="view_prodFaq" class="prodFaqAction" method="viewProdFaq">
+			<result>/page/ProdInfoManage/prodFaq/viewProdFaq.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="init_editProdFaqPage" class="prodFaqAction" method="initEditProdFaqPage">
+			<result>/page/ProdInfoManage/prodFaq/editProdFaq.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add_prodFaq" class="prodFaqAction" method="addProdFaq"/>
+		<action name="modify_prodFaq" class="prodFaqAction" method="updateProdFaq"/>
+		<action name="delete_prodFaq" class="prodFaqAction" method="delProdFaq"/>
+		<action name="init_prodFaqCreatorSel" class="prodFaqAction" method="initCreatorSel"/>
+		<action name="view_prodFaqByProdInfoId" class="prodFaqAction" method="queryProdFaqListPage">
+			<result>/page/ProdInfoManage/prodInfo/prodInfoFaqList.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+	</package>
+	
+	<!--发行方案-->
+	<package name="prod_plan" namespace="/m/prod_plan" extends="json-result">
+		<action name="view" class="prodPlanAction" method="viewProdPlan">
+			<result>/page/ProdInfoManage/prodPlan/viewProdPlan.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="init_modify" class="prodPlanAction" method="initEditProdPaln">
+			<result>/page/ProdInfoManage/prodPlan/editProdPlan.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="prodPlanAction" method="editProdPlan"/>
+	</package>
+	
+	<!-- 参数设置 -->
+	<!--   产品分类 -->
+	<package name="prod_type" namespace="/m/prod_type" extends="json-result">
+		<!-- menu -->
+		<action name="initquery" class="prodTypeAction" method="initQuery">
+			<result>/page/ParaConf/query_prod_type.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<!-- query_prod_type.js -->
+		<action name="subProdTypes" class="prodTypeAction" method="loadProdTypesTree"/>
+		<action name="initadd" class="prodTypeAction" method="initAdd">
+			<result>/page/ParaConf/edit_prod_type.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="view" class="prodTypeAction" method="viewProdType">
+			<result>/page/ParaConf/edit_prod_type.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initmodify" class="prodTypeAction" method="viewProdType">
+			<result>/page/ParaConf/edit_prod_type.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initorder" class="prodTypeAction" method="initOrder">
+			<result>/page/ParaConf/sort_prod_type.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="prodTypeAction" method="addProdType"/>
+		<action name="delete" class="prodTypeAction" method="deleteProdType"/>
+		<!-- edit_prod_type.js -->
+		<action name="modify" class="prodTypeAction" method="modifyProdType"/>
+		<!-- sort_prod_type.js -->
+		<action name="xmlsubProdTypes" class="prodTypeAction" method="loadSubProdTypes"/>
+		<action name="order" class="prodTypeAction" method="saveProdTypeOrder"/>
+		<action name="initProdPortlet" class="prodTypeAction" method="initProdPortlet">
+			<result>/page/portlet/query_product.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query_prodTypeSel" class="prodTypeAction" method="initProdTypeSel"/>
+	</package>
+	<!-- 供应商   -->
+	<package name="supplier" namespace="/m/supplier" extends="json-result">
+		<action name="add" class="supplierAction" method="addSupplier" />
+		<action name="query" class="supplierAction" method="queryProdInfoListPage" />
+		<action name="modify" class="supplierAction" method="modifySupplier" />
+		<action name="delete" class="supplierAction" method="deleteSupplier" />
+		<action name="query_supplierSel" class="supplierAction" method="initSupplierSel" />
+	</package>
+	<!-- 短信管理   -->
+	<package name="message" namespace="/m/message" extends="json-result">
+		<action name="initAdd" class="messageAction" method="initAddMessage">
+			<result>/page/messagemanage/edit_message.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="messageAction" method="addMessage" />
+		<action name="query" class="messageAction" method="queryMessageListPage" />
+		<action name="view" class="messageAction" method="viewMessage">
+			<result>/page/messagemanage/view_message.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initcustchoose" class="messageAction" method="initCustChoose">
+			<result>/page/messagemanage/choose_customer.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query_customerList" class="messageAction" method="queryCustomerList" />
+		<action name="delete" class="messageAction" method="deleteMessage" />
+	</package>
+	
+	<!-- 空白合同   -->
+	<package name="cont_blank" namespace="/m/cont_blank" extends="json-result">
+		<action name="initadd" class="blankContractAction" method="initAddBlankContract">
+			<result>/page/contract/blank/add_cont.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="blankContractAction" method="addBlankContract" />
+		<action name="initquery" class="blankContractAction" method="initQueryBlankContract">
+			<result>/page/contract/blank/query_cont.jsp</result>
+		</action>
+		<action name="query" class="blankContractAction" method="queryBlankContractPage" />
+		<action name="initquerydetail" class="blankContractAction" method="initQueryContractRegDetail">
+			<result>/page/contract/blank/query_detail.jsp</result>
+		</action>
+		<action name="query_detail" class="blankContractAction" method="queryContractRegDetail" />
+		<action name="delete" class="blankContractAction" method="deleteBlankContract" />
+		<action name="delete_detail" class="blankContractAction" method="deleteContractRegDetail" />
+		<action name="loadbcon" class="blankContractAction" method="loadBlankContract" />
+		<action name="prodsel" class="blankContractAction" method="loadProdInfoSel" />
+	</package>
+	<!-- 合同需求   -->
+	<package name="cont_request" namespace="/m/cont_request" extends="json-result">
+		<action name="initedit" class="contractRequestAction" method="initEditContractRequest">
+			<result>/page/contract/request/edit_req.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="contractRequestAction" method="addContractRequest" />
+		<action name="modify" class="contractRequestAction" method="modifyContractRequest" />
+		<action name="initquery" class="contractRequestAction" method="initQueryContractRequest">
+			<result>/page/contract/request/query_req.jsp</result>
+		</action>
+		<action name="query" class="contractRequestAction" method="queryContractRequestPage" />
+		<action name="initquerydetail" class="contractRequestAction" method="initQueryContractRequestDetail">
+			<result>/page/contract/request/query_detail.jsp</result>
+		</action>
+		<action name="query_detail" class="contractRequestAction" method="queryContractRequestDetail" />
+		<action name="delete" class="contractRequestAction" method="deleteContractRequest" />
+		<action name="delete_all" class="contractRequestAction" method="deleteAllContractRequest" />
+		<action name="initquerycheck" class="contractRequestAction" method="initQueryCheckContractRequest">
+			<result>/page/contract/request/query_check.jsp</result>
+		</action>
+		<action name="initcheck" class="contractRequestAction" method="initCheckContractRequest">
+			<result>/page/contract/request/check_req.jsp</result>
+		</action>
+		<action name="check" class="contractRequestAction" method="checkContractRequest" />
+		<action name="confirm" class="contractRequestAction" method="confirmContractRequest" />
+	</package>
+	<!-- 合同上交   -->
+	<package name="cont_hand" namespace="/m/cont_hand" extends="json-result">
+		<action name="initedit" class="contractHandAction" method="initEditContractHand">
+			<result>/page/contract/hand/edit_hand.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="contractHandAction" method="addContractHand" />
+		<action name="modify" class="contractHandAction" method="modifyContractHand" />
+		<action name="initquery" class="contractHandAction" method="initQueryContractHand">
+			<result>/page/contract/hand/query_hand.jsp</result>
+		</action>
+		<action name="query" class="contractHandAction" method="queryContractHandPage" />
+		<action name="initquerydetail" class="contractHandAction" method="initQueryContractHandDetail">
+			<result>/page/contract/hand/query_detail.jsp</result>
+		</action>
+		<action name="query_detail" class="contractHandAction" method="queryContractHandDetail" />
+		<action name="delete" class="contractHandAction" method="deleteContractHand" />
+		<action name="delete_all" class="contractHandAction" method="deleteAllContractHand" />
+		<action name="initquerycheck" class="contractHandAction" method="initQueryCheckContractHand">
+			<result>/page/contract/hand/query_check.jsp</result>
+		</action>
+		<action name="initcheck" class="contractHandAction" method="initCheckContractHand">
+			<result>/page/contract/hand/check_hand.jsp</result>
+		</action>
+		<action name="check" class="contractHandAction" method="checkContractHand" />
+	</package>
+	<!-- 确认书发放   -->
+	<package name="confirm_ext" namespace="/m/confirm_ext" extends="json-result">
+		<action name="initedit" class="confirmExtendAction" method="initEditConfirmExtend">
+			<result>/page/contract/confirm/edit_conf.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="confirmExtendAction" method="addConfirmExtend" />
+		<action name="modify" class="confirmExtendAction" method="modifyConfirmExtend" />
+		<action name="initquery" class="confirmExtendAction" method="initQueryConfirmExtend">
+			<result>/page/contract/confirm/query_conf.jsp</result>
+		</action>
+		<action name="query" class="confirmExtendAction" method="queryConfirmExtend" />
+		<action name="delete" class="confirmExtendAction" method="deleteConfirmExtend" />
+		<action name="orgsel" class="confirmExtendAction" method="loadOrgNameSel" />
+	</package>
+	
+	<!-- 数据字典 -->
+    <package name="task" namespace="/l/task" extends="json-result">
+		<action name="dealingtasks" class="taskAction" method="loadDealingTasks"/>
+		<action name="dispose" class="taskAction" method="initDispose">
+			<result type="redirect">${viewUrl}</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+	</package>
+</struts>

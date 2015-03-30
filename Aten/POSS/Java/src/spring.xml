@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<!-- Spring 加载属文件 -->
+  	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name="locations">
+      		<value>classpath:config.properties</value>
+    	</property>
+		<property name="searchSystemEnvironment">
+			<value>true</value>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders">
+			<value>false</value>
+		</property>
+	</bean>
+	
+	<!-- 定义流程引擎数据源 -->
+	<bean id="wfDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${WF_DRIVER_CLASS}" />
+   		<property name="jdbcUrl" value="${WF_DB_JDBC_URL}" />
+   		<property name="maxIdleTime" value="600" />
+   		<property name="acquireIncrement" value="2" />
+   		<property name="maxPoolSize" value="10" />
+   		<property name="initialPoolSize" value="2" />
+   		<property name="minPoolSize" value="2" />
+   		<property name="maxStatements" value="100" />
+   		<property name="idleConnectionTestPeriod" value="120" />
+   		
+		<!-- c3p0密码配置 -->
+		<property name="properties">
+			<bean class="org.eapp.util.spring.C3p0Properties">
+				<property name="properties">
+					<props>
+						<prop key="user">${WF_DB_USER}</prop>
+					  	<prop key="encrypt">${WF_DB_PSW_ENCRYPT}</prop>
+						<prop key="password">${WF_DB_PASSWORD}</prop>
+					<!--	<prop key="encrypt">false</prop>
+						<prop key="password">db_paw</prop> -->
+					</props>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 定义Hibernate SessionFactory -->
+	<bean id="wfSessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> 
+	<!--	class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"> -->
+	 	
+		<!-- dataSource可以为任意的数据源 例如DBCP、C3P0 -->
+		<property name="dataSource" ref="wfDataSource"></property>
+		<!-- 其他的Hibernate常用配置 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${WF_HIBERNATE_DIALET}</prop>
+				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.show_sql">${HIBERNATE_SHOW_SQL}</prop>
+			</props>
+		</property>
+		<!-- 映射文件路径 -->
+		<property name="mappingResources">
+			<list>
+				<value>org/eapp/workflow/def/FlowDefine.hbm.xml</value>
+				<value>org/eapp/workflow/def/Node.hbm.xml</value>
+				<value>org/eapp/workflow/def/Transition.hbm.xml</value>
+				<value>org/eapp/workflow/def/Event.hbm.xml</value>
+				<value>org/eapp/workflow/def/Action.hbm.xml</value>
+				<value>org/eapp/workflow/def/TaskDefine.hbm.xml</value>
+				<value>org/eapp/workflow/def/ParallelTaskDefine.hbm.xml</value>
+				<value>org/eapp/workflow/def/SerialTaskDefine.hbm.xml</value>
+				<value>org/eapp/workflow/def/Delegation.hbm.xml</value>
+				<value>org/eapp/workflow/def/FlowDraft.hbm.xml</value>
+				<value>org/eapp/workflow/def/VariableDeclare.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/StartNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/EndNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/TaskNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/DecisionNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/ForkNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/JoinNode.hbm.xml</value>
+				<value>org/eapp/workflow/def/node/SubFlowNode.hbm.xml</value>
+				<value>org/eapp/workflow/asyn/AsynJob.hbm.xml</value>
+				<value>org/eapp/workflow/asyn/AsynNodeJob.hbm.xml</value>
+				<value>org/eapp/workflow/asyn/AsynActionJob.hbm.xml</value>
+				<value>org/eapp/workflow/exe/ContextVariable.hbm.xml</value>
+				<value>org/eapp/workflow/exe/FlowInstance.hbm.xml</value>
+				<value>org/eapp/workflow/exe/FlowToken.hbm.xml</value>
+				<value>org/eapp/workflow/exe/PooledActor.hbm.xml</value>
+				<value>org/eapp/workflow/exe/PooledRole.hbm.xml</value>
+				<value>org/eapp/workflow/exe/TaskInstance.hbm.xml</value>
+				<value>org/eapp/workflow/exe/OrderExecTaskInstance.hbm.xml</value>
+			<!-- 	<value>org/eapp/workflow/exe/log/NodeActionLog.hbm.xml</value> -->
+				<value>org/eapp/workflow/trace/TracePoint.hbm.xml</value>
+				<value>org/eapp/workflow/db/hibernate.queries.hbm.xml</value>
+	         </list>
+		</property>
+	</bean>
+	
+	<!-- 定义系统数据源 -->
+<!-- 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">      
+		<property name="jndiName" value="java:ORACLEDS_EAPP"/>      
+	</bean>  -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${DRIVER_CLASS}" />
+   		<property name="jdbcUrl" value="${DB_JDBC_URL}" />
+   		<property name="maxIdleTime" value="600" />
+   		<property name="acquireIncrement" value="2" />
+   		<property name="maxPoolSize" value="20" />
+   		<property name="initialPoolSize" value="2" />
+   		<property name="minPoolSize" value="2" />
+   		<property name="maxStatements" value="100" />
+   		<property name="idleConnectionTestPeriod" value="120" />
+   		
+		<!-- c3p0密码配置 -->
+		<property name="properties">
+			<bean class="org.eapp.util.spring.C3p0Properties">
+				<property name="properties">
+					<props>
+						<prop key="user">${DB_USER}</prop>
+					  	<prop key="encrypt">${DB_PSW_ENCRYPT}</prop>
+						<prop key="password">${DB_PASSWORD}</prop>
+					<!--	<prop key="encrypt">false</prop>
+						<prop key="password">db_paw</prop> -->
+					</props>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 定义Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> 
+	<!--	class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"> -->
+	 	
+		<!-- dataSource可以为任意的数据源 例如DBCP、C3P0 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 其他的Hibernate常用配置 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${HIBERNATE_DIALET}</prop>
+				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.show_sql">${HIBERNATE_SHOW_SQL}</prop>
+			</props>
+		</property>
+		<!-- 映射文件路径 -->
+		<property name="mappingResources">
+			<list>
+				<value>org/eapp/poss/hbean/Attachment.hbm.xml</value>
+				<value>org/eapp/poss/hbean/CustPayment.hbm.xml</value>
+				<value>org/eapp/poss/hbean/CustRefund.hbm.xml</value>
+				<value>org/eapp/poss/hbean/ExpectYearYield.hbm.xml</value>
+				<value>org/eapp/poss/hbean/Message.hbm.xml</value>
+				<value>org/eapp/poss/hbean/ProdFaq.hbm.xml</value>
+				<value>org/eapp/poss/hbean/ProdInfo.hbm.xml</value>
+				<value>org/eapp/poss/hbean/ProdPayDate.hbm.xml</value>
+				<value>org/eapp/poss/hbean/RefuncNotice.hbm.xml</value>
+				<value>org/eapp/poss/hbean/Supplier.hbm.xml</value>
+				<value>org/eapp/poss/hbean/Task.hbm.xml</value>
+				<value>org/eapp/poss/hbean/TaskAssign.hbm.xml</value>
+				<value>org/eapp/poss/hbean/ProdType.hbm.xml</value>
+				<value>org/eapp/poss/hbean/TaskComment.hbm.xml</value>
+				<value>org/eapp/poss/hbean/ProdIssuePlan.hbm.xml</value>
+				
+				<value>org/eapp/poss/hbean/BlankContract.hbm.xml</value>
+				<value>org/eapp/poss/hbean/ContractRegDetail.hbm.xml</value>
+				<value>org/eapp/poss/hbean/ContractRequest.hbm.xml</value>
+				<value>org/eapp/poss/hbean/ContractHand.hbm.xml</value>
+				<value>org/eapp/poss/hbean/ConfirmExtend.hbm.xml</value>
+	        </list>
+		</property>
+		
+		<!-- 注释映射路径
+		<property name="annotatedClasses">
+            <list>
+         		<value>org.eapp.hbean.UserAccount</value>
+            </list>
+        </property> -->
+	</bean>
+	
+	<!-- 事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 事务拦截器 -->
+	<bean id="transactionInterceptor" 
+ 		class="org.springframework.transaction.interceptor.TransactionInterceptor"> 
+      	<property name="transactionManager"> 
+       		<ref bean="transactionManager" /> 
+      	</property> 
+      	<!-- 配置事务属性 --> 
+      	<property name="transactionAttributes"> 
+       		<props> 
+       			<!-- 以下方法开头需要事务 --> 
+        		<prop key="delete*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="add*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="modify*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="tx*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="ntx*">PROPAGATION_REQUIRES_NEW,-Exception</prop> 
+		        <!-- 以下方法开头只查询无事务 --> 
+		        <prop key="get*">PROPAGATION_SUPPORTS,readOnly</prop> 
+		        <prop key="query*">PROPAGATION_SUPPORTS,readOnly</prop> 
+		       	<prop key="cs*">PROPAGATION_SUPPORTS,readOnly</prop>
+       		</props> 
+      	</property> 
+	</bean> 
+	
+	<!-- 自动代理 凡是开头是tx的bean都进入事务管理 -->
+	<bean id="preformanceThresholdProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>*Biz</value><!-- 拦截Bean名称为Service结尾的所有方法，方法嵌套时支持同一事务或同一Session -->
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<value>transactionInterceptor</value>
+		</property>
+	</bean>
+	
+	<!-- 获取SPRING的ApplicationContext对象-->
+	<bean class="org.eapp.util.spring.SpringHelper"></bean>
+  
+  	<!-- WEB服务器启动初始化内容  -->
+  	<bean id="serverStartupInit" class="org.eapp.poss.util.ServerStartupInit" init-method="init" destroy-method="destroy">
+  		<property name="uploadConfig" ref="uploadConfig" />
+  		<property name="mailConfig" ref="mailConfig" />
+  		<property name="wfSessionFactory" ref="wfSessionFactory" />
+	</bean>
+  
+	<!-- 文件管理 -->
+	<bean id="uploadConfig" class="org.eapp.util.web.upload.UploadConfig">
+		<property name="rootFolder" value="upload/" />
+	  	<property name="tempFolder" value="temp/" />
+	  	<property name="imgExt" value=".jpg.jpeg.gif.bmp.png" />
+	  	<property name="enableUploadPath" value="true" />
+	  	<property name="savePath" value="${FILE_SAVE_PATH}" />
+	</bean>
+	<!-- 邮件服务 -->
+  	<bean id="mailConfig" class="org.eapp.util.mail.MailConfig">
+  		<property name="sendAddress" value="${MAIL_SEND_ADDRESS}" />
+  		<property name="username" value="${MAIL_USERNAME}" />
+  		<property name="password" value="${MAIL_PASSWORD}" />
+  		<property name="props">
+  	  		<value>
+  	  			${MAIL_SMTP_PROPS}
+  	  		</value>
+    	</property>
+  	</bean>
+  	
+  	<!-- Hession from OA -->
+	<bean id="oaRMIClientConfig" class="org.eapp.rmi.util.hession.RMIClientConfig">
+		<property name="serviceBasePath" value="${OA_HESSIAN_URL}"/>
+		<property name="userName" value="oa_user"/>
+		<property name="password" value="oa_hessian_key"/>
+	</bean>
+	<bean id="addressListPoint" class="org.eapp.rmi.util.hession.SecureHessianProxyFactoryBean">
+		<property name="servicePath" value="hs/addrlist"/>
+		<property name="serviceInterface" value="org.eapp.oa.rmi.hessian.IAddressListPoint"/>
+		<property name="rmiClientConfig" ref="oaRMIClientConfig"/>
+	</bean>
+	<bean id="flowConfigPoint" class="org.eapp.rmi.util.hession.SecureHessianProxyFactoryBean">
+		<property name="servicePath" value="hs/flowcfg"/>
+		<property name="serviceInterface" value="org.eapp.oa.rmi.hessian.IFlowConfigPoint"/>
+		<property name="rmiClientConfig" ref="oaRMIClientConfig"/>
+	</bean>
+	
+	<!-- Hession from CRM -->
+	<bean id="crmRMIClientConfig" class="org.eapp.rmi.util.hession.RMIClientConfig">
+		<property name="serviceBasePath" value="${CRM_HESSIAN_URL}"/>
+		<property name="userName" value="crm_user"/>
+		<property name="password" value="crm_hessian_key"/>
+	</bean>
+	<bean id="custInfoPoint" class="org.eapp.rmi.util.hession.SecureHessianProxyFactoryBean">
+		<property name="servicePath" value="hs/customerInfoPoint"/>
+		<property name="serviceInterface" value="org.eapp.crm.rmi.hessian.ICustomerInfoPoint"/>
+		<property name="rmiClientConfig" ref="crmRMIClientConfig"/>
+	</bean>
+	
+	<!-- BaseDAO -->
+	<bean id="baseDAO" class="org.eapp.poss.dao.imp.BaseHibernateDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 数据字典Action-->
+	<bean name="dictAction" class="org.eapp.poss.action.DictAction" scope="prototype"/>
+	
+	<!-- 以下为DAO Service ...，都要继承baseDAO -->
+	<!-- 任务处理意见 -->
+	<bean id="taskCommentDAO" class="org.eapp.poss.dao.imp.TaskCommentDAO" parent="baseDAO"/>
+	<bean id="taskCommentBiz" class="org.eapp.poss.blo.imp.TaskCommentBiz">
+		<property name="taskCommentDAO" ref="taskCommentDAO"/>
+		<property name="taskDAO" ref="taskDAO"/>
+	</bean>
+	
+	<!-- 流程任务 -->
+	<bean name="taskAction" class="org.eapp.poss.action.TaskAction" scope="prototype">
+		<property name="taskBiz" ref="taskBiz"/>
+	</bean>
+	<bean id="taskBiz" class="org.eapp.poss.blo.imp.TaskBiz">
+		<property name="taskDAO" ref="taskDAO"/>
+		<property name="addressListPoint" ref="addressListPoint" />
+		<property name="noticeFlowTask" value="${IS_NOTICE_FLOW_TASK}" />
+		<property name="noticeSubject" value="${TASK_NOTICE_SUBJECT}" />
+		<property name="noticeContent" value="${TASK_NOTICE_CONTENT}" />
+	</bean>
+	<bean id="taskDAO" class="org.eapp.poss.dao.imp.TaskDAO" parent="baseDAO"/>
+  
+  	<!-- 退款须知 -->
+  	<bean id="refuncNoticeAction" class="org.eapp.poss.action.RefuncNoticeAction" scope="prototype">
+    	<property name="refuncNoticeBiz" ref="refuncNoticeBiz"/>
+    </bean>
+    <bean id="refuncNoticeBiz" class="org.eapp.poss.blo.imp.RefuncNoticeBiz">
+		<property name="refuncNoticeDAO" ref="refuncNoticeDAO" />
+	</bean>
+	<bean id="refuncNoticeDAO" class="org.eapp.poss.dao.imp.RefuncNoticeDAO" parent="baseDAO"/>
+  
+  	<!-- 退款表单 -->
+  	<bean id="custRefundAction" class="org.eapp.poss.action.CustRefundAction" scope="prototype">
+    	<property name="custRefundBiz" ref="custRefundBiz"/>
+    	<property name="taskBiz" ref="taskBiz"></property>
+    </bean>
+    <bean id="custRefundBiz" class="org.eapp.poss.blo.imp.CustRefundBiz">
+		<property name="custRefundDAO" ref="custRefundDAO" />
+		<property name="custPaymentDAO" ref="custPaymentDAO" />
+		<property name="flowConfigPoint" ref="flowConfigPoint" />
+		<property name="taskCommentBiz" ref="taskCommentBiz" />
+		<property name="taskDAO" ref="taskDAO" />
+		<property name="taskBiz" ref="taskBiz" />
+		<property name="customerInfoPoint" ref="custInfoPoint" />
+	</bean>
+	<bean id="custRefundDAO" class="org.eapp.poss.dao.imp.CustRefundDAO" parent="baseDAO"/>
+  
+  	<!-- 划款登记  -->
+    <bean id="custPaymentAction" class="org.eapp.poss.action.CustPaymentAction" scope="prototype">
+    	<property name="custPaymentBiz" ref="custPaymentBiz"/>
+    	<property name="taskBiz" ref="taskBiz"></property>
+    </bean>
+    <bean id="custPaymentBiz" class="org.eapp.poss.blo.imp.CustPaymentBiz">
+		<property name="custPaymentDAO" ref="custPaymentDAO" />
+		<property name="flowConfigPoint" ref="flowConfigPoint" />
+		<property name="taskCommentBiz" ref="taskCommentBiz" />
+		<property name="taskDAO" ref="taskDAO" />
+		<property name="taskBiz" ref="taskBiz" />
+		<property name="prodInfoBiz" ref="prodInfoBiz" />
+		<property name="customerInfoPoint" ref="custInfoPoint" />
+	</bean>
+	<bean id="custPaymentDAO" class="org.eapp.poss.dao.imp.CustPaymentDAO" parent="baseDAO"/>
+	
+	<!-- 产品管理-->
+	<bean id="prodInfoAction" class="org.eapp.poss.action.ProdInfoAction" scope="prototype">
+		<property name="prodInfoBiz" ref="prodInfoBiz"/>
+	</bean>
+	<bean id="prodInfoBiz" class="org.eapp.poss.blo.imp.ProdInfoBiz">
+		<property name="prodInfoDAO" ref="prodInfoDAO" />
+		<property name="prodTypeDAO" ref="prodTypeDAO" />
+		<property name="prodIssuePlanDAO" ref="prodIssuePlanDAO" />
+		<property name="blankContractDAO" ref="blankContractDAO" />
+		<property name="contractRequestDAO" ref="contractRequestDAO" />
+		<property name="contractHandDAO" ref="contractHandDAO" />
+		<property name="confirmExtendDAO" ref="confirmExtendDAO" />
+	</bean>
+	<bean id="prodInfoDAO" class="org.eapp.poss.dao.imp.ProdInfoDAO" parent="baseDAO"/>
+	
+	<!--产品问答-->
+	<bean id="prodFaqAction" class="org.eapp.poss.action.ProdFaqAction" scope="prototype">
+		<property name="prodFaqBiz" ref="prodFaqBiz"></property>
+	</bean>
+	<bean id="prodFaqBiz" class="org.eapp.poss.blo.imp.ProdFaqBiz">
+		<property name="prodFaqDAO" ref="prodFaqDAO"/>
+	</bean>
+	<bean id="prodFaqDAO" class="org.eapp.poss.dao.imp.ProdFaqDAO" parent="baseDAO"/>
+	
+	<!--产品发行方案-->
+	<bean id="prodPlanAction" class="org.eapp.poss.action.ProdIssuePlanAction" scope="prototype">
+		<property name="prodInfoBiz" ref="prodInfoBiz"/>
+		<property name="prodIssuePlanBiz" ref="prodIssuePlanBiz"></property>
+	</bean>
+	<bean id="prodIssuePlanBiz" class="org.eapp.poss.blo.imp.ProdIssuePlanBiz">
+		<property name="prodIssuePlanDAO" ref="prodIssuePlanDAO"/>
+		<property name="prodInfoDAO" ref="prodInfoDAO" />
+	</bean>
+	<bean id="prodIssuePlanDAO" class="org.eapp.poss.dao.imp.ProdIssuePlanDAO" parent="baseDAO"/>
+	
+    <!--产品分类-->
+	<bean id="prodTypeAction" class="org.eapp.poss.action.ProdTypeAction" scope="prototype">
+		<property name="prodTypeBiz" ref="prodTypeBiz"></property>
+	</bean>
+	<bean id="prodTypeBiz" class="org.eapp.poss.blo.imp.ProdTypeBiz">
+		<property name="prodTypeDAO" ref="prodTypeDAO"/>
+	</bean>
+	<bean id="prodTypeDAO" class="org.eapp.poss.dao.imp.ProdTypeDAO" parent="baseDAO"/>
+	
+	<!-- 供应商  -->
+	<bean id="supplierDAO" class="org.eapp.poss.dao.imp.SupplierDAO" parent="baseDAO"/>
+	<bean id="supplierBiz" class="org.eapp.poss.blo.imp.SupplierBiz">
+		<property name="supplierDAO" ref="supplierDAO"/>
+	</bean>
+	<bean id="supplierAction" class="org.eapp.poss.action.SupplierAction" scope="prototype">
+		<property name="supplierBiz" ref="supplierBiz"></property>
+	</bean>
+	<!-- 短信管理 -->
+	<bean id="messageDAO" class="org.eapp.poss.dao.imp.MessageDAO" parent="baseDAO"/>
+	<bean id="messageBiz" class="org.eapp.poss.blo.imp.MessageBiz">
+		<property name="messageDAO" ref="messageDAO"/>
+	</bean>
+	<bean id="messageAction" class="org.eapp.poss.action.MessageAction" scope="prototype">
+		<property name="messageBiz" ref="messageBiz"></property>
+		<property name="prodInfoBiz" ref="prodInfoBiz"></property>
+		<property name="custInfoPoint" ref="custInfoPoint"></property>
+	</bean>
+	
+	<!-- 空白合同  -->
+	<bean id="blankContractDAO" class="org.eapp.poss.dao.imp.BlankContractDAO" parent="baseDAO"/>
+	<bean id="blankContractBiz" class="org.eapp.poss.blo.imp.BlankContractBiz">
+		<property name="blankContractDAO" ref="blankContractDAO"/>
+		<property name="prodInfoDAO" ref="prodInfoDAO"/>
+	</bean>
+	<bean id="blankContractAction" class="org.eapp.poss.action.BlankContractAction" scope="prototype">
+		<property name="blankContractBiz" ref="blankContractBiz"></property>
+	</bean>
+	<!-- 合同需求  -->
+	<bean id="contractRequestDAO" class="org.eapp.poss.dao.imp.ContractRequestDAO" parent="baseDAO"/>
+	<bean id="contractRequestBiz" class="org.eapp.poss.blo.imp.ContractRequestBiz">
+		<property name="contractRequestDAO" ref="contractRequestDAO"/>
+		<property name="contractHandDAO" ref="contractHandDAO"/>
+		<property name="blankContractDAO" ref="blankContractDAO"/>
+		<property name="prodInfoDAO" ref="prodInfoDAO"/>
+	</bean>
+	<bean id="contractRequestAction" class="org.eapp.poss.action.ContractRequestAction" scope="prototype">
+		<property name="contractRequestBiz" ref="contractRequestBiz"></property>
+	</bean>
+	<!-- 合同上交  -->
+	<bean id="contractHandDAO" class="org.eapp.poss.dao.imp.ContractHandDAO" parent="baseDAO"/>
+	<bean id="contractHandBiz" class="org.eapp.poss.blo.imp.ContractHandBiz">
+		<property name="contractHandDAO" ref="contractHandDAO"/>
+		<property name="contractRequestDAO" ref="contractRequestDAO"/>
+		<property name="blankContractDAO" ref="blankContractDAO"/>
+		<property name="prodInfoDAO" ref="prodInfoDAO"/>
+	</bean>
+	<bean id="contractHandAction" class="org.eapp.poss.action.ContractHandAction" scope="prototype">
+		<property name="contractHandBiz" ref="contractHandBiz"></property>
+	</bean>
+	<!-- 确认书发放  -->
+	<bean id="confirmExtendDAO" class="org.eapp.poss.dao.imp.ConfirmExtendDAO" parent="baseDAO"/>
+	<bean id="confirmExtendBiz" class="org.eapp.poss.blo.imp.ConfirmExtendBiz">
+		<property name="confirmExtendDAO" ref="confirmExtendDAO"/>
+		<property name="prodInfoDAO" ref="prodInfoDAO"/>
+	</bean>
+	<bean id="confirmExtendAction" class="org.eapp.poss.action.ConfirmExtendAction" scope="prototype">
+		<property name="confirmExtendBiz" ref="confirmExtendBiz"></property>
+	</bean>
+</beans>

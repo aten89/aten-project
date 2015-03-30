@@ -1,0 +1,87 @@
+
+DECLARE
+	V_COUNT int;
+BEGIN
+	SELECT count(1) INTO V_COUNT FROM OA_FLOWMETA where ID_ = '27';
+IF V_COUNT  = 0  THEN 
+    insert into OA_FLOWMETA (ID_, FLOWCLASS_, NAME_, DISPLAYNAME_, TYPE_, NOTNULL_)
+values ('27', 'HKLC', 'formId', '表单号', 'DATATYPE_STRING', 1);
+END IF;
+END;
+/
+
+DECLARE
+	V_COUNT int;
+BEGIN
+	SELECT count(1) INTO V_COUNT FROM OA_FLOWMETA where ID_ = '28';
+IF V_COUNT  = 0  THEN 
+    insert into OA_FLOWMETA (ID_, FLOWCLASS_, NAME_, DISPLAYNAME_, TYPE_, NOTNULL_)
+values ('28', 'HKLC', 'userAccountId', '起草人', 'DATATYPE_STRING', 1);
+END IF;
+END;
+/
+
+DECLARE
+	V_COUNT int;
+BEGIN
+	SELECT count(1) INTO V_COUNT FROM OA_FLOWMETA where ID_ = '29';
+IF V_COUNT  = 0  THEN 
+   insert into OA_FLOWMETA (ID_, FLOWCLASS_, NAME_, DISPLAYNAME_, TYPE_, NOTNULL_)
+values ('29', 'HKLC', 'appointTo', '指定审批人', 'DATATYPE_STRING', 0);
+END IF;
+END;
+/
+
+DECLARE
+	V_COUNT int;
+BEGIN
+	SELECT count(1) INTO V_COUNT FROM OA_FLOWMETA where ID_ = '30';
+IF V_COUNT  = 0  THEN 
+   insert into OA_FLOWMETA (ID_, FLOWCLASS_, NAME_, DISPLAYNAME_, TYPE_, NOTNULL_)
+values ('30', 'FBYYLC', 'formId', '表单号', 'DATATYPE_STRING', 1);
+END IF;
+END;
+/
+
+DECLARE
+	V_COUNT int;
+BEGIN
+	SELECT count(1) INTO V_COUNT FROM OA_FLOWMETA where ID_ = '31';
+IF V_COUNT  = 0  THEN 
+   insert into OA_FLOWMETA (ID_, FLOWCLASS_, NAME_, DISPLAYNAME_, TYPE_, NOTNULL_)
+values ('31', 'FBYYLC', 'userAccountId', '起草人', 'DATATYPE_STRING', 1);
+END IF;
+END;
+/
+
+--退款申请流程环境变量
+DECLARE
+	V_COUNT int;
+BEGIN
+	SELECT count(1) INTO V_COUNT FROM OA_FLOWMETA where ID_ = '35';
+IF V_COUNT  = 0  THEN 
+   insert into OA_FLOWMETA (ID_, FLOWCLASS_, NAME_, DISPLAYNAME_, TYPE_, NOTNULL_) values ('35', 'TKLC', 'userAccountId', '起草人', 'DATATYPE_STRING', 1);
+END IF;
+END;
+/
+
+DECLARE
+	V_COUNT int;
+BEGIN
+	SELECT count(1) INTO V_COUNT FROM OA_FLOWMETA where ID_ = '36';
+IF V_COUNT  = 0  THEN 
+   insert into OA_FLOWMETA (ID_, FLOWCLASS_, NAME_, DISPLAYNAME_, TYPE_, NOTNULL_) values ('36', 'TKLC', 'appointTo', '指定审批人', 'DATATYPE_STRING', 0);
+END IF;
+END;
+/
+
+DECLARE
+	V_COUNT int;
+BEGIN
+	SELECT count(1) INTO V_COUNT FROM OA_FLOWMETA where ID_ = '37';
+IF V_COUNT  = 0  THEN 
+   insert into OA_FLOWMETA (ID_, FLOWCLASS_, NAME_, DISPLAYNAME_, TYPE_, NOTNULL_) values ('37', 'TKLC', 'formId', '表单号', 'DATATYPE_STRING', 1);
+END IF;
+END;
+/
+
