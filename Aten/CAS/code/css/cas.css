@@ -1,0 +1,70 @@
+@charset "utf-8";
+
+#cas{ width:100%; margin:0; padding:0;height:100%;background:#F3F7FC repeat-x top left; overflow:auto; color:#fff; font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif}
+#cas form {display:block; margin:0; padding:0; width:100%;}
+#cas fieldset {border:0; margin:0; padding:0; float:left; clear:none; width:auto;}
+#cas fieldset legend {display:none;}
+
+#cas #login {width:466px; margin:0 auto;top:395px; position:relative}
+#cas #login h2 {border-bottom:0 solid #ddd; padding:3px 0; font:normal 400 17px Georgia, "Times New Roman", Times, serif; color:#333;}
+#cas #login label {font-size:11px}
+#cas #login label span.accesskey {text-decoration:underline;}
+#cas #login input {letter-spacing:1px;}
+#cas #login .check input {position:relative; left:-4px; height:auto;}
+#cas #login .check label {float:none; xwidth:auto; line-height:1.8;}
+#cas #login .btn-row {position:relative;  border-top:0 solid #ddd;}
+* html #cas #login .btn-row {top:2px;} /* IE6 */
+#cas #login .btn-submit {float:none; clear:none; display:inline; letter-spacing:0;}
+* html #cas #login .btn-submit {margin:0;padding:0; border:none; width:63px; height:24px;background:url(../images/loginBtn.gif) no-repeat; cursor:pointer; font-size:12px;_margin-left:-13px}
+#cas #login .btn-reset {float:none; clear:none; margin-left:5px; border:0; border-left:0 solid #ddd; background:transparent; color:#777; text-transform:lowercase; letter-spacing:0;}
+#cas #login .row .fl-label {color: #fff; font-size:14px;}
+
+/* RESET --------------------------------- */
+/* reset some properties for elements since defaults are not crossbrowser - http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/ */
+html,body,div,span,h1,h2,h3,p,a,img,ul,li,fieldset,form,label,legend {margin:0; padding:0; border:0; outline:0; font-weight:inherit; font-style:inherit; font-size:100%; font-family:inherit; vertical-align:baseline; _overflow:auto}
+:focus {outline:0;}
+ul {list-style:none; font-size:1.1em; padding:0 0 18px 40px;}
+
+/*
+ - used to clear or contain floats within a non-floated container
+ - this ruleset is used by UAs that handle :after - not IE - see ie_cas.css for IE fix
+http://www.positioniseverything.net/easyclearing.html and http://www.ejeliot.com/blog/59 */
+#header:after, #content:after, #footer:after, .clearfix:after {content:"."; clear:both; display:block; height:0; visibility:hidden;}
+
+
+/* CONTENT --------------------------------- */
+#content {clear:both;margin:0 auto;width:950px; height:560px;background:url(../images/login.png) no-repeat; font-size:14px; color:#fff; position:relative}
+
+/* MESSAGES --------------------------------- */
+.info, .errors, .success {padding:10px 0 10px 50px; font-size:14px; position:absolute; top:218px; left:483px;font-weight:bold }
+.info {background:url(../images/error.gif) no-repeat 10px center;color:#f00;}
+.errors {position:absolute; top:334px; left:380px;background:url(../images/error.gif) no-repeat 10px center; color:#f00}
+.success { color:#333; position:absolute;top:345px; left:320px; width:260px;background:url(../images/confirm.gif) no-repeat 16px 13px;color:#f60; font-size:12px; font-weight:bold}
+#content .errors h2, #content .success h2 {font-size:12px; line-height:48px; font-weight:400; margin:0 18px 0 0;padding:0; color:#000}
+#content .success h2 {color:#060 !important;line-height:20px; font-weight:bold;font-size:14px;}
+#content .success p{padding-left:130px;}
+#content .errors h2 {color:#b00 !important;font-size:14px; font-weight:bold;}
+    
+
+/* static messages */
+#content #msg p {padding:0;}
+
+
+/* FORMS --------------------------------- */
+label {cursor:pointer; font-size:12;}
+input {border-width:1px; font-family:Verdana,sans-serif; font-size:1.1em; color:#000;}
+input.btn-submit {border-width:2px}
+
+
+.fm-v div.row {float:left; margin:0; padding:0; width:100%; color:#fff}
+.fm-v div.row label {float:left; width:100%;  color:#fff;}
+.btn-submit {display:block; margin:0; padding:0; border:none; width:63px; height:24px;background:url(../images/loginBtn.gif) no-repeat; cursor:pointer; font-size:14px;font-family:inherit }
+
+
+/* highlight errors */
+input.error {width:118px; height:22px; border:1px solid #ccc; line-height:18px; font-size:14px; padding:0; margin:0}
+
+/* mark as required */
+.required {width:118px; height:22px; border:1px solid #ccc; line-height:18px; font-size:14px; padding:0; margin:0}
+.error {}
+input.required {}
