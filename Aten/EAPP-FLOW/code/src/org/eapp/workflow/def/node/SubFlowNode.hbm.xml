@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <subclass name="org.eapp.workflow.def.node.SubFlowNode" 
+            extends="org.eapp.workflow.def.Node"
+            discriminator-value="SUB">
+            
+    <property name="subFlowName" column="SUBFLOWNAME_" type="string" />
+	<many-to-one name="subFlowDefine" class="org.eapp.workflow.def.FlowDefine" fetch="select">
+            <column name="SUBFLOWDEFINE_" length="36" />
+	</many-to-one>           
+  </subclass>
+</hibernate-mapping>

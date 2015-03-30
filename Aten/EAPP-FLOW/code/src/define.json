@@ -1,0 +1,145 @@
+{
+	"title" : "流程名称",
+	"category" : "分类",
+	"description" : "流程说明",
+	"metas" : [{
+				"name" : "变量名称",
+				"displayName" : "显示名称",
+				"type" : "DATATYPE_STRING | DATATYPE_BOOLEAN | DATATYPE_INT | DATATYPE_LONG | DATATYPE_FLOAT | DATATYPE_DOUBLE | DATATYPE_DATE",
+				"notNull" : true
+			}],
+	"events" : {
+		"FLOW_START | FLOW_END" : "org.eapp.text.action.ActionTest"
+	}
+	"nodes" : {
+		"START_NODE" : {
+			"type" : "start round",
+			"name" : "开始",
+			"description" : "节点说明"，
+			"events" : {
+				"NODE_LEAVE" : "org.eapp.text.action.ActionTest"
+			}
+		},
+		"END_NODE" : {
+			"type" : "end round",
+			"name" : "结束",
+			"description" : "节点说明"，
+			"endFlow" : "false",
+			"events" : {
+				"NODE_ENTER" : "org.eapp.text.action.ActionTest"
+			}
+		},
+		"flowEditDiv_node_1" : {
+			"type" : "task",
+			"name" : "任务节点",
+			"description" : "任务说明"，
+			"multiType" : "single | parallel | serial",
+			"assignAction" : "wfm.test.AssignHandler",
+			"assignExpression" : "返回值为String,表达式格式如：\"ROLES:001,002;ACTORS:003,004\"",
+			"viewExpression" : "返回值为String,表达式格式如：\"m/view.do\"",
+			"viewAction" : "wfm.test.TestHandler",
+			"events" : {
+				"TASK_CREATE | TASK_NOTIFY | TASK_ASSIGN | TASK_START | TASK_GIVEUP | TASK_END" : "org.eapp.flow.handler.task.TaskCreateEvent"
+			}
+		},
+		"flowEditDiv_node_2" : {
+			"type" : "node",
+			"name" : "机器节点",
+			"description" : "节点说明",
+			"action" : "org.eapp.action.Action1",
+			"events" : {
+				"NODE_ENTER | NODE_LEAVE" : "org.eapp.text.action.ActionTest"
+			}
+		},
+		"flowEditDiv_node_7" : {
+			"type" : "fork",
+			"name" : "分支节点",
+			"description" : "节点说明"
+			"conditions" : {
+				"flowEditDiv_line_16" : "离开线的表达式（属性为线ID），返回值必须是true或false，如：formId  != null"
+			},
+			"events" : {
+				"NODE_ENTER | NODE_LEAVE" : "org.eapp.text.action.ActionTest"
+			}
+		},
+		"flowEditDiv_node_9" : {
+			"type" : "chat rhombus",
+			"name" : "判断节点",
+			"description" : "节点说明",
+			"expression" : "返回离开线的名称，如：formId  ==  null ? \"审批通过\" : \"驳回修改\"",
+			"action" : "wfm.test.DecisionHandler",
+			"events" : {
+				"NODE_ENTER | NODE_LEAVE" : "org.eapp.text.action.ActionTest"
+			}
+		},
+		"flowEditDiv_node_11" : {
+			"type" : "join",
+			"name" : "联合节点",
+			"description" : "节点说明",
+			"events" : {
+				"NODE_ENTER | NODE_LEAVE" : "org.eapp.text.action.ActionTest"
+			}
+		},
+		"flowEditDiv_node_12" : {
+			"type" : "complex",
+			"name" : "子流程节点",
+			"description" : "节点说明",
+			"subFlowInitial" : "runtime",
+			"subFlowName" : "子流程名称",
+			"subFlowVersion" : "123"
+			"events" : {
+				"NODE_ENTER | NODE_LEAVE" : "org.eapp.text.action.ActionTest"
+			}			
+		}
+	},
+	"lines" : {
+		"flowEditDiv_line_3" : {
+			"name" : "提交",
+			"from" : "START_NODE",
+			"to" : "flowEditDiv_node_1",
+			"description" : "路径说明",
+			"action" : "org.eapp.text.action.ActionTest",
+			"condition" : "返回值必须是true或false，如：formId  != null"
+		},
+		"flowEditDiv_line_14" : {
+			"name" : "任务节点离开线"
+			"from" : "flowEditDiv_node_1",
+			"to" : "flowEditDiv_node_7"
+		},
+		"flowEditDiv_line_16" : {
+			"name" : "分支节点离开线1",
+			"from" : "flowEditDiv_node_7",
+			"to" : "flowEditDiv_node_2"
+		},
+		"flowEditDiv_line_17" : {
+			"name" : "机器节点离开线",
+			"from" : "flowEditDiv_node_2",
+			"to" : "flowEditDiv_node_11"
+		},
+		"flowEditDiv_line_18" : {
+			"name" : "分支节点离开线2",
+			"from" : "flowEditDiv_node_7",
+			"to" : "flowEditDiv_node_9"
+		},
+		"flowEditDiv_line_19" : {
+			"name" : "判断节点离开线1",
+			"from" : "flowEditDiv_node_9",
+			"to" : "flowEditDiv_node_12"
+		},
+		"flowEditDiv_line_20" : {
+			"name" : "子流程节点离开线",
+			"from" : "flowEditDiv_node_12",
+			"to" : "flowEditDiv_node_11"
+		},
+		"flowEditDiv_line_21" : {
+			"name" : "判断节点离开线2",
+			"from" : "flowEditDiv_node_9",
+			"to" : "flowEditDiv_node_11"
+		},
+		"flowEditDiv_line_22" : {
+			"name" : "联合节点离开线",
+			"from" : "flowEditDiv_node_11",
+			"to" : "END_NODE"
+		}
+	}
+}
