@@ -1,0 +1,94 @@
+
+
+@charset "utf-8";
+/* CSS Document */
+
+
+.login_L{width:452px;float:left;}
+.login_1{float:left;background:url(images/login_xian.png) no-repeat left 36px;width:300px;color:#FFF;height:145px;}
+.login_1 li{width:277px;float:left;height:12px;padding:12px 0px 12px 23px;}
+.time{font-size:14px;font-weight:bold;}
+.l_y_y_1 img{cursor:pointer;float:left;margin:2px 5px 0px 0px;margin:0px 5px 0px 0px\9;margin:0px 5px 0px 0px\0;_margin:0px 5px 0px 0px;display:inline;}
+.login_1 li span{float:left;width:60px;}
+.login_1 .l_sty_1{padding:10px 0px 10px 23px;position:relative;}
+.login_1 .l_sty_1 span{line-height:25px;}
+#l_y_y_1{float:left;background:url(images/login_y_y_bg_1.png) no-repeat;width:100px;height:25px;padding:6px 10px 0px 10px;color:#656565;cursor:pointer;}
+#l_y_y_1 img{float:left;margin-right:5px;}
+#l_y_y_2{float:left;position:absolute;left:83px;top:10px;width:100px;height:80px;}
+#l_y_y_2 dd{width:92px;float:left;padding:6px 0px 6px 8px;color:#656565;cursor:pointer;}
+#l_y_y_2 dd img{float:left;margin-right:5px;}
+
+/*.time{float:left;margin-left:5px}*/
+.login_2{float:left;margin-top:70px;background:url(images/login_s_y.png) no-repeat;width:427px;height:110px;color:#FFF;padding:10px 15px;line-height:22px;}
+.login_2 strong{display:block;font-size:18px;font-family:'Microsoft YaHei';padding-bottom:5px;}
+
+.login_R{ background:#fff; border:1px solid #cfd6dc;width:330px;height:430px;float:right;padding:0 0 0px 0; margin-top:20px;}
+.l_logo{float:left;}
+.m1_head{ height:28px; font-size:20px; color:#0094da;padding:25px 25px 0 25px; font-family:"微软雅黑","黑体","宋体"}
+.login_R ul{float:left;padding:0 25px;}
+.login_R li{ width:100%;float:left;padding-top:25px;}
+.login_R li span{width:60px;float:left;line-height:30px;font-weight:bold;color:#616161;font-size:14px;}
+.TextField{float:left;border:1px solid #b9cbdd;height:40px;line-height:40px;background:#eef3f8;padding:0 5px;width:100%;}
+.TextField_checkImg {float:left;border:1px solid #B1BCC3;height:28px;line-height:28px;background:url(images/login_inp_bg.gif) repeat-x;padding:0px 2px;width:86px;}
+.l_inp_2{float:left;border:1px solid #B1BCC3;height:28px;line-height:28px;background:url(images/login_inp_bg.gif) repeat-x;padding:0px 2px;width:66px;}
+.login_R li img{float:left;margin-left:0px;display:inline;}
+
+.login_3{width:100%;float:left;padding-top:55px;text-align:center;background:url(images/login_footer.png) no-repeat center bottom;padding-bottom:28px;color:#9FC6DA;line-height:24px;}
+.login_3 a{margin-left:15px;padding-left:20px;color:#0286CA;display:inline-block;}
+.login_3_span{margin-left:15px;padding-left:20px;color:#0286CA;display:inline-block;cursor: pointer;}
+.checkImg{height:28px;cursor:hand;width:75}
+
+body,table,textarea,input{font-size:12px;font-family:Arial, Helvetica, sans-serif;}
+.f_14{font-size:14px;}
+
+.bbs_list_1 .gray{color:#727272;}
+.bbs_list_1 .yellow_1{color:#F09018;}
+.bbs_list_1 .green{color:#6A9400;}
+
+.blue_d_1{color:#2480C9;padding-left:10px;}
+.blue_d_1 img{margin-right:3px;}
+
+.yellow_d_1{color:#EF9119;padding-left:40px;}
+.yellow_d_1 img{margin-right:3px;}
+
+.blue_d_2{color:#2480C9;padding-left:40px;}
+.blue_d_2 img{margin-right:3px;}
+
+.yellow_d_2{color:#EF9119;padding-left:54px;}
+
+.red{color:#FF0000;}
+.green{color:#6A9400;}
+.bg_1{}
+.bg_top{height:100%}
+.bg_middle{background:url(images/loginBg.jpg) repeat-x center top; height:480px}
+.bg_foot{color:#000000};
+.tableheight{height:100%}
+.login{width:856px;margin-top:5px; auto: 0px auto;}
+.browesPosition{position:absolute;width:100%}
+
+
+body, div, dl, dt, dd, ul, ol, li,h1, h2, h3, h4, h5, h6, pre, code,form, fieldset, legend, input, button,
+textarea, p, blockquote, th, td { margin: 0px; padding: 0px;}
+body{text-align:left;color:#38749C;}
+em,u{font-style: normal;}
+dl,ul,ol,li{list-style:none;}
+img{ border:0px;}
+a{color:#38749C;text-decoration: none;}
+a:hover{text-decoration: underline;}
+
+.fl {float: left;}
+.fr {float: right;}
+.clear{clear:both;}
+.xiangDui{ position:relative;}
+.hidden{display:none;}
+
+html, body {height:100%; }
+
+.login_R_Down{float:left;margin-bottom:0px;padding-right:10px;margin-top:5px;padding-left:20px;background:url(images/login_down.gif) no-repeat left center;line-height:30px;color:#38749c; !important;}
+.login_R_p{float:left;margin-bottom:5px;padding-right:20px;margin-top:10px;padding-left:20px;background:url(images/login_pic_1.png) no-repeat left center;line-height:30px;color:#006AB1;}
+.login_4_span{display:inline-block;cursor: pointer;}
+.downTable{float:right !important;}
+
+.ml_clear{ clear:both; height:84px;}
+.ml_tip{ padding:0 25px; height:28px;}
+.ml_bot{padding:0 25px; height:40px; line-height:40px; text-align:left; background:#f5f5f5; border-top:1px solid #eee}
