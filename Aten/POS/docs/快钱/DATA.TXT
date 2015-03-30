@@ -1,0 +1,10 @@
+﻿https://mrs.99bill.com/Mrs/captcha
+
+https://mrs.99bill.com/Mrs/login.do?loginController=1&userName=001&loginPassword=99bill@99bill&captcheCode=N5HR
+
+
+https://mrs.99bill.com/Mrs/cardPayTxnList/search_s?statmentTypes=ALL&max=20&pageNo=1&startTxnDate=2015-03-27 00:00:00&endTxnDate=2015-03-27 23:59:59
+
+<a href="#nulllink" onclick="showeditDiv('979364595');" id="linkdialog_979364595" >明细</a>
+
+https://mrs.99bill.com/Mrs/cardPayTxnList/show/979364595?idTxnCtrl=979364595&orSettleMerchant=

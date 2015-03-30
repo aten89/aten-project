@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        ">
+	
+	<!-- Spring 加载属文件 -->
+  	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name="locations">
+      		<value>classpath:config.properties</value>
+    	</property>
+		<property name="searchSystemEnvironment">
+			<value>true</value>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders">
+			<value>false</value>
+		</property>
+	</bean>
+
+	<!-- 定义数据源 -->
+<!-- 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">      
+		<property name="jndiName" value="java:ORACLEDS_EAPP"/>      
+	</bean>  -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${DRIVER_CLASS}" />
+   		<property name="jdbcUrl" value="${DB_JDBC_URL}" />
+   		<property name="maxIdleTime" value="600" />
+   		<property name="acquireIncrement" value="2" />
+   		<property name="maxPoolSize" value="20" />
+   		<property name="initialPoolSize" value="2" />
+   		<property name="minPoolSize" value="2" />
+   		<property name="maxStatements" value="100" />
+   		<property name="idleConnectionTestPeriod" value="120" />
+   		
+		<!-- c3p0密码配置 -->
+		<property name="properties">
+			<bean class="org.eapp.util.spring.C3p0Properties">
+				<property name="properties">
+					<props>
+						<prop key="user">${DB_USER}</prop>
+					  	<prop key="encrypt">${DB_PSW_ENCRYPT}</prop>
+						<prop key="password">${DB_PASSWORD}</prop>
+					<!--	<prop key="encrypt">false</prop>
+						<prop key="password">db_paw</prop> -->
+					</props>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 定义Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> 
+	<!--	class="org.springframework.orm.hibernate4.annotation.AnnotationSessionFactoryBean"> -->
+	 	
+		<!-- dataSource可以为任意的数据源 例如DBCP、C3P0 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 其他的Hibernate常用配置 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${HIBERNATE_DIALET}</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop> 
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.show_sql">${HIBERNATE_SHOW_SQL}</prop>
+			</props>
+		</property>
+		<!-- 映射文件路径 -->
+		<property name="mappingResources">
+			<list>
+				<!--<value>org/eapp/hbean/Action.hbm.xml</value>-->
+	         </list>
+		</property>
+		
+		<!-- 注释映射路径
+		<property name="annotatedClasses">
+            <list>
+         		<value>org.eapp.hbean.UserAccount</value>
+            </list>
+        </property> -->
+	</bean>
+	
+	<!-- 事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 事务拦截器 -->
+	<bean id="transactionInterceptor" 
+ 		class="org.springframework.transaction.interceptor.TransactionInterceptor"> 
+      	<property name="transactionManager"> 
+       		<ref bean="transactionManager" /> 
+      	</property> 
+      	<!-- 配置事务属性 --> 
+      	<property name="transactionAttributes"> 
+       		<props> 
+       			<!-- 以下方法开头需要事务 --> 
+        		<prop key="delete*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="add*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="modify*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="tx*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="ntx*">PROPAGATION_REQUIRES_NEW,-Exception</prop> 
+		        <!-- 以下方法开头只查询无事务 --> 
+		        <prop key="get*">PROPAGATION_SUPPORTS,readOnly</prop> 
+		        <prop key="query*">PROPAGATION_SUPPORTS,readOnly</prop> 
+		       	<prop key="cs*">PROPAGATION_SUPPORTS,readOnly</prop>
+       		</props> 
+      	</property> 
+	</bean> 
+	
+	<!-- 自动代理 凡是开头是tx的bean都进入事务管理 -->
+	<bean id="preformanceThresholdProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="proxyTargetClass" value="true"></property> <!-- 强制使用cglib的方式生成代理对象，这样Bean可以没有对接口如FlowTaskBiz -->
+		<property name="beanNames">
+			<list>
+				<value>*Biz</value><!-- 拦截Bean名称为Service结尾的所有方法，方法嵌套时支持同一事务或同一Session -->
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<value>transactionInterceptor</value>
+		</property>
+	</bean>
+	
+	<!-- 获取SPRING的ApplicationContext对象-->
+	<bean class="org.eapp.util.spring.SpringHelper"></bean>
+  
+  	<!-- WEB服务器启动初始化内容  -->
+  	<bean id="serverStartupInit" class="org.eapp.pos.util.ServerStartupInit" init-method="init" destroy-method="destroy">
+  		<property name="uploadConfig" ref="uploadConfig" />
+  		<property name="mailConfig" ref="mailConfig" />
+	</bean>
+  
+	<!-- 文件管理 -->
+	<bean id="uploadConfig" class="org.eapp.util.web.upload.UploadConfig">
+		<property name="rootFolder" value="upload/" />
+	  	<property name="tempFolder" value="temp/" />
+	  	<property name="imgExt" value=".jpg.jpeg.gif.bmp.png" />
+	  	<property name="enableUploadPath" value="true" />
+	  	<property name="savePath" value="${FILE_SAVE_PATH}" />
+	</bean>
+	<!-- 邮件服务 -->
+  	<bean id="mailConfig" class="org.eapp.util.mail.MailConfig">
+  		<property name="sendAddress" value="${MAIL_SEND_ADDRESS}" />
+  		<property name="username" value="${MAIL_USERNAME}" />
+  		<property name="password" value="${MAIL_PASSWORD}" />
+  		<property name="props">
+  	  		<value>
+  	  			${MAIL_SMTP_PROPS}
+  	  		</value>
+    	</property>
+  	</bean>
+	
+	<!-- BaseDAO -->
+	<bean id="baseDAO" class="org.eapp.pos.dao.imp.BaseHibernateDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 以下为DAO Service ...，都要继承baseDAO -->
+	<!--<bean id="actionLogDAO" class="org.eapp.dao.imp.ActionLogDAO" parent="baseDAO"></bean>
+	<bean id="actionLogBiz" class="org.eapp.blo.imp.ActionLogBiz">
+		<property name="actionLogDAO" ref="actionLogDAO" />
+	</bean>-->
+	
+	
+	<!-- 以下为struts Action，大多应该设为非单例模式 -->
+	
+    <!-- ======动作管理======
+    <bean name="actionAction" class="org.eapp.action.ActionAction" scope="prototype">
+    	<property name="actionBiz" ref="actionBiz"/>
+    </bean>-->
+</beans>
