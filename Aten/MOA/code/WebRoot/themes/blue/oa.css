@@ -1,0 +1,106 @@
+@charset "utf-8";
+@import "../comm/oaComm.css";
+
+/*启动流程*/
+.costsBg{background:#fff url(../blue/images/costsNavLine.gif) repeat-y left top;}
+.costsBgTip{background:url(../blue/images/costsBg.gif) no-repeat left bottom}
+.costsNav h1{background:url(../blue/images/thList.gif) repeat-x; color:#000;border-left:1px solid #ABC7EB;border-top:1px solid #ABC7EB; border-bottom:1px solid #ABC7EB;}
+.costsNav .mb li{border:1px solid #fff;color:#000}
+.costsNav .mb li.current{border:1px solid #CCE1F8;background:url(../blue/images/costsLine.gif) repeat-x; }
+.costsNav .mb li.over{ border:1px solid #CCE1F8;background:url(../blue/images/costsLine.gif) repeat-x; }
+.costsListHead{border:1px solid #ABC7EB;}
+.costsListHead span{color:#f00;}
+.costsLog h1{color:#000;background:#F1F5FE url(../blue/images/costsArrowClose.gif) no-repeat 2px center}
+.costsLog .logArrow{color:#000;background:#F1F5FE url(../blue/images/costsArrowOpen.gif) no-repeat 2px center}
+.costsLog .mb{border:1px solid #ABC7EB; color:#666}
+.qdPic{color:#666;border:1px solid #ABC7EB;}
+.qdPic b{color:#000}
+.costsNewFlow .costsOver{background:#F1F5FE;}
+.costsBm{color:#f60}
+.costsBm b{color:#000}
+.costsBk{border:1px solid #ABC7EB}
+
+/*预算审批*/
+.ysspTh{border:1px solid #ABC7EB; border:1px solid #ABC7EB}
+.ysspTh th{ background:#D6EDFC url(../blue/images/thList.gif) repeat-x;border:1px solid #ABC7EB}
+.ysspTh th.double{background:#D6EDFC url(../blue/images/thList2.gif)}
+.ysspTab{background:#ABC7EB;}
+.ysspTab td .cbxj td{border-top:1px solid #ABC7EB;border-right:1px solid #ABC7EB}
+.ysspTab td .cbxj tr.over{background:#F1F5FE}
+	
+/*新增信息类型---浮动层*/
+.newType{border:1px solid #ABC7EB}
+.newType li.current{background:#F1F5FE}
+
+/*安装申请单*/
+.arrowOpen{background:url(../blue/images/costsArrowOpen.gif) no-repeat}
+.arrowClose{background:url(../blue/images/costsArrowClose.gif) no-repeat}
+
+/*选项卡*/
+.allTabs ul{background:url(../blue/images/tabsDot.gif) repeat-x bottom}
+.allTabs li{background:url(../blue/images/tabs.png) no-repeat;}
+.allTabs li div{background:url(../blue/images/tabs.png) no-repeat right 0;}
+.allTabs li.current{background:url(../blue/images/tabs.png) no-repeat 0 -27px;}
+.allTabs li.current div{background:url(../blue/images/tabs.png) no-repeat right -27px }
+
+/*其他*/
+.zjfy th{border:1px solid #ABC7EB}
+.addTit01{border-left:1px solid #ABC7EB;border-right:1px solid #ABC7EB;border-top:1px solid #ABC7EB;}
+
+/*会议内容*/
+.meetingConBk{background:#fff url(../blue/images/mTit01.gif) repeat-y -7px top;border:1px solid #ABC7EB;}
+
+/*OA 审批*/
+.feesSp{border:1px solid #ABC7EB;border-top:none;background:#fff}
+.feesSp th.addHeader{background:#D6EDFC url(../blue/images/thList.gif) repeat-x;border-bottom:1px solid #ABC7EB;}
+.feesSp .tabLine{ border:1px solid #fff; border-top:1px solid #ABC7EB;border-right:none; border-left:none}
+.feesSp td{background:#F1F5FE; color:#888;}
+.feesSp td.spTit{color:#333;}
+.feesSp td.spOpW a{background:url(../blue/images/spBtn.gif)}
+.feesSp td.spOpW a:hover{background:url(../blue/images/spBtnOver.gif);color:#333}
+.feesSp td.spDot span{background:url(../blue/images/spDot.gif) no-repeat left top}
+.feesSp td.feesList{background:#fff;background:url(../blue/images/spLine.gif) repeat-x left top}
+.feesSp td.feesList th{background:#F3F3F3;color:#000;}
+.feesSp td.feesList td{background:#F9F9F9;color:#888;}
+.fsMar{border-top:1px solid #ABC7EB;}
+
+.boxShadow .shadowPadd{border-top:1px solid #F1F5FE;border-left:1px solid #ABC7EB; border-botttom:1px solid #ABC7EB; border-right:1px solid #ABC7EB}
+
+/*处理结果 审批 form crm.css*/ 
+.addCon td.tipList{background:#F1F5FE}
+
+.crmList th{background:url(../blue/images/thList2.gif) repeat-x;border:1px solid #ABC7EB;}
+.crmList td{border:1px solid #ABC7EB;}
+.crmList tr.over{background:#F1F5FE}
+.crmList tr.sum td{background:#F1F5FE;}
+.crmList tr.subtotal td{background:#F1F5FE;}
+
+/*三级框架*/
+.crmSubNav h1{background:url(../blue/images/thList.gif) repeat-x; color:#000;border-left:1px solid #ABC7EB;border-top:1px solid #ABC7EB; border-bottom:1px solid #ABC7EB;}
+.crmSubNav .mb li{color:#000;border:1px solid #fff;}
+.crmSubNav .mb li div{ float:left;border:1px solid #fff}
+.crmSubNav .mb li.current{border:1px solid #CCE1F8;background-color:#F1F5FE;}
+.crmSubNav .mb li.current div{ border:1px solid #CCE1F8; background:#F1F5FE}
+.crmSubNav .mb li.over{ border:1px solid #CCE1F8;background-color:#F1F5FE; }
+.crmSubNav .mb li.over div{ border:1px solid #CCE1F8; background:#F1F5FE}
+.crmSubNav .mb li.submb{background:url(../comm/images/crmSubNavLine02.gif) no-repeat 12px center; border:none;}
+.crmSubNav .mb li.subLast{background:url(../comm/images/crmSubNavLine03.gif) no-repeat 12px center; border:none}
+.crmFrameHead{background:url(../blue/images/thList.gif) repeat-x;border:1px solid #ABC7EB; }
+
+/*内嵌表格的样式*/
+.ywjgList table{background:#fff}
+.ywjgList th{background:#eee}
+.ywjgList th.ywglTit{background:#fff; border-top:1px dashed #ddd; color:#f60;}
+.ywjgList td{background:#F6F6F6}
+.ywjgList td.tit{background:#eee;}
+
+/*----------2011-01-21 --------------------*/
+/*工单 办理 详情页面*/
+.clyj .tit01{background:#F3F7FC; border:1px dashed #ABC7EB;}
+.clyjEditBg{ background:#f8f8f8}
+.clgcTit{background:#F3F7FC; border-left:2px solid #ABC7EB;}
+.taskTit span{color:#999; border-right:1px solid #ABC7EB;}
+.taskTit font{color:#ABC7EB}
+.handleCon{color:#000}
+.sqBk{border:1px dashed #ccc;}
+.ckspgc a{color:#ABC7EB}

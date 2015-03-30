@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="custser_kfqk" language="groovy" pageWidth="864" pageHeight="734" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="864" leftMargin="0" rightMargin="0" topMargin="7" bottomMargin="7" isIgnorePagination="true" uuid="fe72ec94-a367-4215-aae1-a2aaa1480072">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="22"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1" mode="Opaque" isBlankWhenNull="true" fontName="null" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[($V{COLUMN_COUNT}.intValue() % 2 ) == 0 ? true : false]]></conditionExpression>
+			<style backcolor="#F8F8F8" fontName="null" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="EXE_SQL" class="java.lang.String"/>
+	<parameter name="BGN_SUBMIT_TIME" class="java.lang.String"/>
+	<parameter name="END_SUBMIT_TIME" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[$P!{EXE_SQL}]]>
+	</queryString>
+	<field name="ACCOUNT_ID_" class="java.lang.String"/>
+	<field name="DISPLAY_NAME_" class="java.lang.String"/>
+	<field name="POST_NAME_" class="java.lang.String"/>
+	<field name="GROUP_NAME_PATH" class="java.lang.String"/>
+	<field name="RESIGN_COUNT" class="java.math.BigDecimal"/>
+	<field name="ENTRY_DATE" class="java.sql.Timestamp"/>
+	<field name="ALL_CUST" class="java.math.BigDecimal"/>
+	<field name="COMM_CUST" class="java.math.BigDecimal"/>
+	<field name="PASS_CUST" class="java.math.BigDecimal"/>
+	<variable name="SUM_QKLRS" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{ALL_CUST}]]></variableExpression>
+	</variable>
+	<variable name="SUM_TJKHS" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{COMM_CUST}]]></variableExpression>
+	</variable>
+	<variable name="SUM_HGQKS" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{PASS_CUST}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="84e02474-7616-4a68-982c-819b7e079a1e" x="400" y="0" width="125" height="40"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<topPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<leftPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<bottomPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<rightPen lineWidth="0.0" lineColor="#B1C9EB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="黑体" size="16" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[客服潜客统计]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c1aa9090-16ae-445d-8842-e82741e329ea" stretchType="RelativeToBandHeight" x="525" y="0" width="220" height="40" forecolor="#FF0000"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<topPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<leftPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<bottomPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<rightPen lineWidth="0.0" lineColor="#B1C9EB"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{BGN_SUBMIT_TIME}
+    + ($P{BGN_SUBMIT_TIME} != "" && $P{END_SUBMIT_TIME} != ""  ? "到" : "")
+    + $P{END_SUBMIT_TIME}
+    + ($P{BGN_SUBMIT_TIME} != "" && $P{END_SUBMIT_TIME} || $P{BGN_SUBMIT_TIME} == "" && $P{END_SUBMIT_TIME} == ""
+           ? "" : ($P{BGN_SUBMIT_TIME} != "" ? "之后" : "之前"))]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c997abdf-e7ca-434a-950b-d1721638cfe7" mode="Opaque" x="280" y="0" width="60" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[员工工号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1c028c3a-efed-40b3-8310-b0184ba4e868" mode="Opaque" x="0" y="0" width="280" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[所属机构]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="59d4fc64-a873-45a0-8c42-7bd67690bf19" mode="Opaque" x="400" y="0" width="60" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[是否在职]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="08547157-7891-4e3f-891c-2ee990dd22f2" mode="Opaque" x="525" y="0" width="80" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[岗位]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="afdea773-30cf-4025-ad06-3a569a1158ff" mode="Opaque" x="605" y="0" width="70" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[潜客录入数]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0de0d6e-9deb-48f0-ba53-6cdace734268" mode="Opaque" x="460" y="0" width="65" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[入职日期]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7a4b358c-634c-4ca3-b8d4-0c690a07fc13" mode="Opaque" x="340" y="0" width="60" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[客户经理]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ff485dd8-f85b-4396-810b-2eeffaf5318a" mode="Opaque" x="675" y="0" width="70" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[提交客户数]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ced1125e-fe2a-4fdd-8587-846a2f65ae70" mode="Opaque" x="745" y="0" width="70" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[合格潜客数]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e5a4f7f5-36e0-402c-b778-1a044318ae36" mode="Opaque" x="815" y="0" width="50" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[合格率]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a6c858dc-d81c-48a9-afbc-c28fa16880e6" style="style1" stretchType="RelativeToBandHeight" x="0" y="0" width="280" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GROUP_NAME_PATH}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="dce65101-5655-45a7-a292-fb6e40650f23" style="style1" stretchType="RelativeToBandHeight" x="280" y="0" width="60" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ACCOUNT_ID_}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="daed4417-c7e0-4595-a737-9b07972596d2" style="style1" stretchType="RelativeToBandHeight" x="400" y="0" width="60" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RESIGN_COUNT} > 0 ? "否" : "是"]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="6ba8e720-1fb4-43f9-8a8e-2b941ff51c21" style="style1" stretchType="RelativeToBandHeight" x="340" y="0" width="60" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DISPLAY_NAME_}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="b35267b8-6a60-4838-bfd0-89fa502d6ada" style="style1" stretchType="RelativeToBandHeight" x="525" y="0" width="80" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isUnderline="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{POST_NAME_}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement uuid="5522daf7-608b-4fc3-b0b1-8d653164fa9d" style="style1" stretchType="RelativeToBandHeight" x="605" y="0" width="70" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ALL_CUST}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement uuid="64fb320c-85fc-4df7-9102-fc8d5f8433c5" style="style1" stretchType="RelativeToBandHeight" x="675" y="0" width="70" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COMM_CUST}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement uuid="493d5fd5-5293-4c22-8354-a74425e3b563" style="style1" stretchType="RelativeToBandHeight" x="745" y="0" width="70" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PASS_CUST}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00%" isBlankWhenNull="true">
+				<reportElement uuid="6a4e5513-e0d3-4db8-96c2-94ba90b71e4c" style="style1" stretchType="RelativeToBandHeight" x="815" y="0" width="50" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PASS_CUST}/$F{ALL_CUST}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement uuid="addfe7ff-9730-46bd-a3f9-66a68edd4f7a" style="style1" stretchType="RelativeToBandHeight" x="460" y="0" width="65" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ENTRY_DATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="25">
+			<staticText>
+				<reportElement uuid="2f98a4dd-19fd-4e54-91f7-76e42fa9d3cb" mode="Transparent" x="0" y="0" width="605" height="25" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[合计：]]></text>
+			</staticText>
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement uuid="bbd78fec-5b02-44b1-912f-243260cd8aaf" x="605" y="0" width="70" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM_QKLRS} == null ? 0 : $V{SUM_QKLRS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement uuid="03683dcc-93e9-4f64-8204-d2d20d54ffce" x="675" y="0" width="70" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM_TJKHS} == null ? 0 : $V{SUM_TJKHS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement uuid="42f67dc3-5295-43f9-93bc-4fbf1b9089ce" x="745" y="0" width="70" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM_HGQKS} == null ? 0 : $V{SUM_HGQKS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00%" isBlankWhenNull="true">
+				<reportElement uuid="4251350f-a70e-4967-8aef-d768573eb970" stretchType="RelativeToBandHeight" x="815" y="0" width="50" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM_HGQKS}/$V{SUM_QKLRS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

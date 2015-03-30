@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.eapp.oa.lucene.IndexTask" table="OA_IndexTask">
+        <id name="id" type="java.lang.String">
+            <column name="ID_" length="36" />
+			<generator class="uuid.hex"></generator>
+        </id>
+
+		 <property name="action" type="java.lang.String">
+            <column name="ACTION_" length="36" />
+        </property>
+
+		 <property name="documentId" type="java.lang.String">
+            <column name="DOCUMENTID_" length="36" />
+        </property>
+
+		 <property name="documentType" type="java.lang.String">
+            <column name="DOCUMENTTYPE_" length="36" />
+        </property>
+
+		 <property name="createDate" type="java.util.Date">
+            <column name="CREATEDATE_" length="8" />
+        </property>
+    </class>
+</hibernate-mapping>
+
+

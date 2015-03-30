@@ -1,0 +1,14 @@
+﻿@charset "utf-8";
+.holiday{ margin:0 auto; width:483px; height:352px; padding:45px 0 0 38px;background:url(../comm/images/holiday.jpg) no-repeat left top}
+.todyaColor {background:aqua;font-weight:bold}
+.ymbg{background:#ff0; color:#f0f0f0; font-family:'Arial Black'}
+.week td{font-size:14px; color:#000;padding:16px 0 0;text-align:center;vertical-align:top}
+.dataInfo{font-size:14px; color:#f00;padding:6px 0 0;text-align:center}
+.calendarBtn{ border:none; color:#666; width:50px; height:22px;background:url(../comm/images/calendarBtn.gif)}
+.yearSel{font-size:14px;height:18px; vertical-align:middle}
+.weekBlank{font-size:1px;height:8px}
+.holiTipBk{clear:both;text-align:center;padding:22px 0 0;color:#888}
+.holiTip{background:#EFEFCA;border:none;background:#EFEFCA;width:10px;height:10px;margin:0 5px 0 5px;vertical-align:middle}
+
+.jrPadd{width:100px; text-align:center}
+.jrPadd a{text-decoration:underline}

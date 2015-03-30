@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+<struts>
+	<!-- 编码 -->
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<!-- 全局结果集 -->
+	<package name="json-result" extends="json-default">
+		<global-results>
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param><!-- 输出父类属性 -->
+				<param name="excludeNullProperties">true</param><!-- 排除空属性 -->
+				<param name="callbackParameter">jsoncallback</param><!-- 跨域 -->
+			</result>
+			<result name="error" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">msg,msg.code,msg.text</param>
+				<param name="callbackParameter">jsoncallback</param>
+			</result> 
+		</global-results>
+    </package>
+    
+    <!-- 退出 -->
+	<package name="comm" namespace="/p/comm" extends="json-result">
+		<action name="logout" class="publicAction" method="logoutCAS">
+			<result type="redirect">${casLogoutUrl}</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 主页框架 -->
+	<package name="frame" namespace="/l/frame" extends="json-result">
+		<action name="index" class="mainFrameAction" method="initFramePage">
+			<result>/page/index.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initindex" class="mainFrameAction" method="initIndexPage">
+			<result>${indexPageUrl}</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="xmlmodules" class="mainFrameAction" method="loadModuleMenuXml"/>
+		<action name="xmlfixedmodules" class="mainFrameAction" method="loadFixedModuleMenuXml"/>
+		<action name="portals" class="mainFrameAction" method="loadMyPortals"/>
+		<action name="myshortcuts" class="mainFrameAction" method="loadMyShortCuts"/>
+		<action name="favorites" class="mainFrameAction" method="loadMyFavorites"/>
+		<action name="delshortcut" class="mainFrameAction" method="deleteUserShortCut"/>
+		<action name="addshortcut" class="mainFrameAction" method="addUserShortCutMenu"/>
+		<!-- 我的首页定制 -->
+		<action name="initportal" class="mainFrameAction" method="initMyPortal">
+			<result>/page/usercenter/portlet/custom_home.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="allportals" class="mainFrameAction" method="loadMyAllPortals"/>
+		<action name="saveportals" class="mainFrameAction" method="saveMyPortalConf"/>
+		<!-- 我的快捷菜单 -->
+		<action name="initscm" class="mainFrameAction" method="initMyShortcutMenu">
+			<result>/page/usercenter/shortcut/custom_scut.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initedit" class="mainFrameAction" method="initEditUserShortCutMenu">
+			<result>/page/usercenter/shortcut/edit_scut.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modshortcut" class="mainFrameAction" method="modifyUserShortCutMenu"/>
+		<action name="savescms" class="mainFrameAction" method="saveMyShortCutMenuConf"/>
+		<!-- 皮肤更换 -->
+		<action name="initskin" class="mainFrameAction" method="initMySkin">
+			<result>/page/usercenter/skin/change_skin.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="setskin" class="mainFrameAction" method="changeSkin"/>
+		<!-- 密码修改 -->
+		<action name="initpsw" class="mainFrameAction" method="initMyPassword">
+			<result>/page/usercenter/password/modify_psw.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="setpsw" class="mainFrameAction" method="changePasswrod"/>
+		<!-- 系统信息 -->
+		<action name="initmsg" class="mainFrameAction" method="initMySysMsg">
+			<result>/page/usercenter/msg/query_msg.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="mymsgs" class="mainFrameAction" method="queryMySysMsgs"/>
+		<action name="newmsg" class="mainFrameAction" method="loadMyLastNoView"/>
+		<action name="delmsg" class="mainFrameAction" method="deleteMySysMsgs"/>
+		<action name="viewmsg" class="mainFrameAction" method="ViewMySysMsg"/>
+	</package>
+	
+	<!-- 动作管理 -->
+	<package name="action" namespace="/m/action" extends="json-result">
+		<action name="initquery" class="actionAction" method="initQueryPage">
+			<result>/page/systemconf/action/query_action.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="actionAction" method="queryAction"/>
+		<action name="initframe" class="actionAction" method="initFrame">
+			<result>/page/systemconf/action/frame_action.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initadd" class="actionAction" method="initAdd">
+			<result>/page/systemconf/action/edit_action.jsp?act=add</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="actionAction" method="addAction"/>
+		<action name="initmodify" class="actionAction" method="initModify">
+			<result>/page/systemconf/action/edit_action.jsp?act=modify</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="actionAction" method="modifyAction"/>
+		<action name="delete" class="actionAction" method="deleteAction"/>
+		<action name="view" class="actionAction" method="viewAction">
+			<result>/page/systemconf/action/edit_action.jsp?act=view</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="excacts" class="actionAction" method="loadExcludeActions"/>
+		<action name="actions" class="actionAction" method="loadActionSelect"/>
+	</package>
+	<!-- 子系统管理 -->
+	<package name="subsystem" namespace="/m/subsystem" extends="json-result">
+		<action name="initquery" class="subSystemAction" method="initQueryPage">
+			<result>/page/systemconf/system/query_sys.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="subSystemAction" method="querySubSystem"/>
+		<action name="initframe" class="subSystemAction" method="initFrame">
+			<result>/page/systemconf/system/frame_sys.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initadd" class="subSystemAction" method="initAdd">
+			<result>/page/systemconf/system/edit_sys.jsp?act=add</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="subSystemAction" method="addSubSystem"/>
+		<action name="initmodify" class="subSystemAction" method="initModify">
+			<result>/page/systemconf/system/edit_sys.jsp?act=modify</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="subSystemAction" method="modifySubSystem"/>
+		<action name="delete" class="subSystemAction" method="deleteSubSystem"/>
+		<action name="view" class="subSystemAction" method="viewSubSystem">
+			<result>/page/systemconf/system/edit_sys.jsp?act=view</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initorder" class="subSystemAction" method="initOrder">
+			<result>/page/systemconf/system/sort_sys.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="order" class="subSystemAction" method="orderSubSystem"/>
+		<action name="allsystem" class="subSystemAction" method="loadSubSystemSelect"/>
+	</package>
+	<!-- 模块管理 -->
+	<package name="module" namespace="/m/module" extends="json-result">
+		<action name="initquery" class="moduleAction" method="initQueryPage">
+			<result>/page/systemconf/module/query_mod.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="moduleAction" method="queryModule"/>
+		<action name="initadd" class="moduleAction" method="initAdd">
+			<result>/page/systemconf/module/edit_mod.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="moduleAction" method="addModule"/>
+		<action name="initmodify" class="moduleAction" method="initModify">
+			<result>/page/systemconf/module/edit_mod.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="moduleAction" method="modifyModule"/>
+		<action name="delete" class="moduleAction" method="deleteModule"/>
+		<action name="view" class="moduleAction" method="viewModule">
+			<result>/page/systemconf/module/edit_mod.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initorder" class="moduleAction" method="initOrder">
+			<result>/page/systemconf/module/sort_mod.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="order" class="moduleAction" method="orderModule"/>
+		<action name="initbinding" class="moduleAction" method="initBindAction">
+			<result>/page/systemconf/module/bind_mod.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="bindaction" class="moduleAction" method="bindAction"/>
+		<action name="parentlist" class="moduleAction" method="loadParentPath"/>
+		<action name="subsystemtree" class="moduleAction" method="loadSubSystemTree"/>
+		<action name="moduletree" class="moduleAction" method="loadModuleTree"/>
+	</package>
+	<!-- 模块服务管理 -->
+	<package name="module_action" namespace="/m/module_action" extends="json-result">
+		<action name="initquery" class="moduleActionAction" method="initQueryPage">
+			<result>/page/systemconf/moduleservice/edit_mser.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="moduleActionAction" method="saveModuleActionConfig"/>
+		<action name="findmas" class="moduleActionAction" method="queryModuleAction"/>
+	</package>
+	<!-- 系统缓存 -->
+	<package name="systemdata" namespace="/m/systemdata" extends="json-result">
+		<action name="initpage" class="systemDataAction" method="initPage">
+			<result>/page/systemconf/cachedata/reset_data.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="redeploy" class="systemDataAction" method="redeployCacheData"/>
+	</package>
+	
+	<!-- 字典管理 -->
+	<package name="datadict" namespace="/m/datadict" extends="json-result">
+		<action name="initquery" class="dataDictionaryAction" method="initQueryPage">
+			<result>/page/systemconf/dictionary/query_dict.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="dataDictionaryAction" method="queryDataDict"/>
+		<action name="initadd" class="dataDictionaryAction" method="initAdd">
+			<result>/page/systemconf/dictionary/edit_dict.jsp</result>
+			<result name="error">/page/systemconf/dictionary/edit_dicttype.jsp</result>
+		</action>
+		<action name="add" class="dataDictionaryAction" method="addDataDict"/>
+		<action name="initmodify" class="dataDictionaryAction" method="initModify">
+			<result>/page/systemconf/dictionary/edit_dict.jsp</result>
+			<result name="error">/page/systemconf/dictionary/edit_dicttype.jsp</result>
+		</action>
+		<action name="modify" class="dataDictionaryAction" method="modifyDataDict"/>
+		<action name="delete" class="dataDictionaryAction" method="deleteDataDict"/>
+		<action name="view" class="dataDictionaryAction" method="viewDataDict">
+			<result>/page/systemconf/dictionary/edit_dict.jsp</result>
+			<result name="error">/page/systemconf/dictionary/edit_dicttype.jsp</result>
+		</action>
+		<action name="initorder" class="dataDictionaryAction" method="initOrder">
+			<result>/page/systemconf/dictionary/sort_dict.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="order" class="dataDictionaryAction" method="orderDataDict"/>
+		
+		<action name="initbinding" class="dataDictionaryAction" method="initBindAction">
+			<result>/page/systemconf/module/bind_mod.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="dictsel" class="dataDictionaryAction" method="loadDictSelect"/>
+		<action name="parentlist" class="dataDictionaryAction" method="loadParentPath"/>
+		<action name="listdata" class="dataDictionaryAction" method="bindAction"/>
+		
+		<action name="expandsubsystem" class="dataDictionaryAction" method="loadSubSystemTree"/>
+		<action name="expanddatadict" class="dataDictionaryAction" method="loadDataDictTree"/>
+	</package>
+    <!-- 快捷菜单 -->
+	<package name="shortcutmenu" namespace="/m/shortcutmenu" extends="json-result">
+		<action name="initframe" class="shortCutMenuAction" method="initFrame">
+			<result>/page/systemconf/shortcut/frame_scut.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initquery" class="shortCutMenuAction" method="initQueryPage">
+			<result>/page/systemconf/shortcut/query_scut.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="shortCutMenuAction" method="queryShortCutMenu"/>
+		<action name="initadd" class="shortCutMenuAction" method="initAdd">
+			<result>/page/systemconf/shortcut/edit_scut.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="shortCutMenuAction" method="addShortCutMenu"/>
+		<action name="initmodify" class="shortCutMenuAction" method="initModify">
+			<result>/page/systemconf/shortcut/edit_scut.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="shortCutMenuAction" method="modifyShortCutMenu"/>
+		<action name="view" class="shortCutMenuAction" method="viewShortCutMenu">
+			<result>/page/systemconf/shortcut/edit_scut.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="delete" class="shortCutMenuAction" method="deleteShortCutMenu"/>
+		<action name="enable" class="shortCutMenuAction" method="enableShortCutMenu"/>
+		<action name="disable" class="shortCutMenuAction" method="disableShortCutMenu"/>
+		<action name="initorder" class="shortCutMenuAction" method="initOrder">
+			<result>/page/systemconf/shortcut/sort_scut.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="order" class="shortCutMenuAction" method="orderShortCutMenu"/>
+	</package>
+	<!-- 门户管理 -->
+	<package name="portlet" namespace="/m/portlet" extends="json-result">
+		<action name="initframe" class="portletAction" method="initFrame">
+			<result>/page/systemconf/portlet/frame_portlet.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initquery" class="portletAction" method="initQuery">
+			<result>/page/systemconf/portlet/query_portlet.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="portletAction" method="queryPortlet"/>
+		<action name="initadd" class="portletAction" method="initAdd">
+			<result>/page/systemconf/portlet/edit_portlet.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="portletAction" method="addPortlet"/>
+		<action name="initmodify" class="portletAction" method="initModify">
+			<result>/page/systemconf/portlet/edit_portlet.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="portletAction" method="modifyPortlet"/>
+		<action name="view" class="portletAction" method="viewPortlet">
+			<result>/page/systemconf/portlet/edit_portlet.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="delete" class="portletAction" method="deletePortlet"/>
+		<action name="showdefault" class="portletAction" method="initDefaulePortal">
+			<result>/page/systemconf/portlet/default_portlet.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="allportal" class="portletAction" method="loadAllPortal"/>
+		<action name="defaultportal" class="portletAction" method="loadDefaultPortal"/>
+		<action name="setdefault" class="portletAction" method="setDefaultPortal"/>
+		<action name="initbindrole" class="portletAction" method="initBindRole">
+			<result>/page/systemconf/portlet/bind_role.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="bindedroles" class="portletAction" method="loadBindedRoles"/>
+		<action name="bindrole" class="portletAction" method="saveBindRole"/>
+	</package>
+	<!-- 接口账号 -->
+	<package name="actor_account" namespace="/m/actor_account" extends="json-result">
+		<action name="initframe" class="actorAccountAction" method="initFrame">
+			<result>/page/interface/account/frame_aacc.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initquery" class="actorAccountAction" method="initQuery">
+			<result>/page/interface/account/query_aacc.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="actorAccountAction" method="queryActor"/>
+		<action name="initadd" class="actorAccountAction" method="initAdd">
+			<result>/page/interface/account/edit_aacc.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="actorAccountAction" method="addActor"/>
+		<action name="initmodify" class="actorAccountAction" method="initModify">
+			<result>/page/interface/account/edit_aacc.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="actorAccountAction" method="modifyActor"/>
+		<action name="delete" class="actorAccountAction" method="deleteActors"/>
+		<action name="view" class="actorAccountAction" method="viewActor">
+			<result>/page/interface/account/edit_aacc.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initbindserver" class="actorAccountAction" method="initBindService">
+			<result>/page/interface/account/bind_service.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="bindedservices" class="actorAccountAction" method="loadBindedServices"/>
+		<action name="xmlactors" class="actorAccountAction" method="loadActors"/>
+		<action name="bindservice" class="actorAccountAction" method="saveBindService"/>
+	</package>
+	<!-- 接口服务 -->
+	<package name="service" namespace="/m/service" extends="json-result">
+		<action name="initframe" class="serviceAction" method="initFrame">
+			<result>/page/interface/service/frame_service.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initquery" class="serviceAction" method="initQuery">
+			<result>/page/interface/service/query_service.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="serviceAction" method="queryService"/>
+		<action name="initadd" class="serviceAction" method="initAdd">
+			<result>/page/interface/service/edit_service.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="serviceAction" method="addService"/>
+		<action name="initmodify" class="serviceAction" method="initModify">
+			<result>/page/interface/service/edit_service.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="serviceAction" method="modifyService"/>
+		<action name="delete" class="serviceAction" method="deleteServices"/>
+		<action name="view" class="serviceAction" method="viewService">
+			<result>/page/interface/service/edit_service.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initbindactor" class="serviceAction" method="initBindActor">
+			<result>/page/interface/service/bind_actor.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="bindedactors" class="serviceAction" method="loadBindedActors"/>
+		<action name="xmlservices" class="serviceAction" method="loadUserServices"/>
+		<action name="bindactor" class="serviceAction" method="saveBindActor"/>
+		
+		<action name="initbindright" class="serviceAction" method="initBindRight">
+			<result>/page/interface/service/bind_right.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="bindedrights" class="serviceAction" method="loadBindedRights"/>
+		<action name="bindright" class="serviceAction" method="saveBindRight"/>
+	</package>
+	<!-- 用户账号 -->
+	<package name="user_account" namespace="/m/user_account" extends="json-result">
+		<action name="initframe" class="userAccountAction" method="initFrame">
+			<result>/page/usermanage/account/frame_uacc.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initquery" class="userAccountAction" method="initQuery">
+			<result>/page/usermanage/account/query_uacc.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="userAccountAction" method="queryUser"/>
+		<action name="initadd" class="userAccountAction" method="initAdd">
+			<result>/page/usermanage/account/edit_uacc.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="userAccountAction" method="addUser"/>
+		<action name="initmodify" class="userAccountAction" method="initModify">
+			<result>/page/usermanage/account/edit_uacc.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="userAccountAction" method="modifyUser"/>
+		<action name="delete" class="userAccountAction" method="deleteUsers"/>
+		<action name="view" class="userAccountAction" method="viewUser">
+			<result>/page/usermanage/account/edit_uacc.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="setpassword" class="userAccountAction" method="resetPassword"/>
+		<action name="initbindrole" class="userAccountAction" method="initBindRole">
+			<result>/page/usermanage/account/bind_role.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="bindedroles" class="userAccountAction" method="loadBindedRoles"/>
+		<action name="bindrole" class="userAccountAction" method="saveBindRole"/>
+		<action name="initbindgroup" class="userAccountAction" method="initBindGroup">
+			<result>/page/usermanage/account/bind_group.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="bindedgroups" class="userAccountAction" method="loadBindedGroups"/>
+		<action name="bindgroup" class="userAccountAction" method="saveBindGroup"/>
+		<action name="initsetportlet" class="userAccountAction" method="initSetPortlet">
+			<result>/page/usermanage/account/set_portlet.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="userportal" class="userAccountAction" method="loadUserPortals"/>
+		<action name="userallportal" class="userAccountAction" method="loadUserAllPortals"/>
+		<action name="setdefault" class="userAccountAction" method="saveUserPortal"/>
+		<action name="xmlusers" class="userAccountAction" method="loadUsers"/>
+	</package>
+	<!-- 用户角色 -->
+	<package name="rbac_role" namespace="/m/rbac_role" extends="json-result">
+		<action name="initframe" class="roleAction" method="initFrame">
+			<result>/page/usermanage/role/frame_role.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initquery" class="roleAction" method="initQuery">
+			<result>/page/usermanage/role/query_role.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="roleAction" method="queryRole"/>
+		<action name="initadd" class="roleAction" method="initAdd">
+			<result>/page/usermanage/role/edit_role.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="roleAction" method="addRole"/>
+		<action name="initmodify" class="roleAction" method="initModify">
+			<result>/page/usermanage/role/edit_role.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="roleAction" method="modifyRole"/>
+		<action name="delete" class="roleAction" method="deleteRoles"/>
+		<action name="view" class="roleAction" method="viewRole">
+			<result>/page/usermanage/role/edit_role.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		
+		<action name="initbindgroup" class="roleAction" method="initBindGroup">
+			<result>/page/usermanage/role/bind_group.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="bindedgroups" class="roleAction" method="loadBindedGroups"/>
+		<action name="bindgroup" class="roleAction" method="saveBindGroup"/>
+		
+		<action name="initbinduser" class="roleAction" method="initBindUser">
+			<result>/page/usermanage/role/bind_user.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="bindedusers" class="roleAction" method="loadBindedUsers"/>
+		<action name="binduser" class="roleAction" method="saveBindUser"/>
+		
+		<action name="initbindright" class="roleAction" method="initBindRight">
+			<result>/page/usermanage/role/bind_right.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="bindedrights" class="roleAction" method="loadBindedRights"/>
+		<action name="bindright" class="roleAction" method="saveBindRight"/>
+		
+		<action name="xmlroles" class="roleAction" method="loadUserRoles"/>
+	</package>
+	<!-- 群主管理 -->
+	<package name="rbac_group" namespace="/m/rbac_group" extends="json-result">
+		<action name="initquery" class="groupAction" method="initQuery">
+			<result>/page/usermanage/group/query_group.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="groupAction" method="queryGroup"/>
+		<action name="initadd" class="groupAction" method="initAdd">
+			<result>/page/usermanage/group/edit_group.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="groupAction" method="addGroup"/>
+		<action name="initmodify" class="groupAction" method="initModify">
+			<result>/page/usermanage/group/edit_group.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="groupAction" method="modifyGroup"/>
+		<action name="delete" class="groupAction" method="deleteGroups"/>
+		<action name="view" class="groupAction" method="viewGroup">
+			<result>/page/usermanage/group/edit_group.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		
+		<action name="initorder" class="groupAction" method="initOrder">
+			<result>/page/usermanage/group/sort_group.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="xmlsubgroups" class="groupAction" method="loadSubGroups"/>
+		<action name="order" class="groupAction" method="saveGroupOrder"/>
+		
+		<action name="initbindrole" class="groupAction" method="initBindRole">
+			<result>/page/usermanage/group/bind_role.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="bindedroles" class="groupAction" method="loadBindedRoles"/>
+		<action name="bindrole" class="groupAction" method="saveBindRole"/>
+		
+		<action name="initbinduser" class="groupAction" method="initBindUser">
+			<result>/page/usermanage/group/bind_user.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="bindedusers" class="groupAction" method="loadBindedUsers"/>
+		<action name="binduser" class="groupAction" method="saveBindUser"/>
+		
+		<action name="initbindpost" class="groupAction" method="initBindPost">
+			<result>/page/usermanage/group/bind_post.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="bindedposts" class="groupAction" method="loadBindedPosts"/>
+		<action name="bindpost" class="groupAction" method="saveBindPost"/>
+		
+		<action name="postlist" class="groupAction" method="loadGroupPosts"/>
+		<action name="subgroups" class="groupAction" method="loadGroupTree"/>
+		<action name="groupselect" class="groupAction" method="loadGroupSelect"/>
+	</package>
+	<!-- 职位管理 -->
+	<package name="post" namespace="/m/post" extends="json-result">
+		<action name="initquery" class="postAction" method="initQuery">
+			<result>/page/usermanage/post/query_post.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="postAction" method="queryPost"/>
+		<action name="initadd" class="postAction" method="initAdd">
+			<result>/page/usermanage/post/edit_post.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="postAction" method="addPost"/>
+		<action name="initmodify" class="postAction" method="initModify">
+			<result>/page/usermanage/post/edit_post.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="postAction" method="modifyPost"/>
+		<action name="delete" class="postAction" method="deletePosts"/>
+		<action name="view" class="postAction" method="viewPost">
+			<result>/page/usermanage/post/edit_post.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		
+		<action name="initorder" class="postAction" method="initOrder">
+			<result>/page/usermanage/post/sort_post.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="xmlsubposts" class="postAction" method="loadSubPosts"/>
+		<action name="order" class="postAction" method="savePostOrder"/>
+		
+		<action name="initbinduser" class="postAction" method="initBindUser">
+			<result>/page/usermanage/post/bind_user.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="bindedusers" class="postAction" method="loadBindedUsers"/>
+		<action name="binduser" class="postAction" method="saveBindUser"/>
+		<action name="xmlposts" class="postAction" method="loadPosts"/>
+		<action name="subposts" class="postAction" method="loadPostTree"/>
+	</package>
+	
+    <!-- 日志管理 -->
+	<package name="action_log" namespace="/m/action_log" extends="json-result">
+		<action name="initquery" class="actionLogAction" method="initQueryPage">
+			<result>/page/logquery/action/query_alog.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="actionLogAction" method="queryLog"/>
+		<action name="export" class="actionLogAction" method="exportLog"/>
+		<action name="view" class="actionLogAction" method="viewLog">
+			<result>/page/logquery/action/view_alog.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+	</package>
+	<package name="interface_log" namespace="/m/interface_log" extends="json-result">
+		<action name="initquery" class="actionLogAction" method="initQueryPage">
+			<result>/page/logquery/interface/query_ilog.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="actionLogAction" method="queryLog"/>
+		<action name="export" class="actionLogAction" method="exportLog"/>
+		<action name="view" class="actionLogAction" method="viewLog">
+			<result>/page/logquery/interface/view_ilog.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 登录日志管理 -->
+	<package name="login_log" namespace="/m/login_log" extends="json-result">
+		<action name="initquery" class="loginLogAction" method="initQueryPage">
+			<result>/page/logquery/login/query_llog.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="loginLogAction" method="queryLog"/>
+		<action name="export" class="loginLogAction" method="exportLog"/>
+	</package>
+	<!-- 在线用户管理 -->
+	<package name="online_user" namespace="/m/online_user" extends="json-result">
+		<action name="initquery" class="loginLogAction" method="initQueryOnlinePage">
+			<result>/page/logquery/online/query_online.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="loginLogAction" method="queryOnlineLog"/>
+	</package>
+	
+	<!-- 流程变量 -->
+	<package name="flow_var" namespace="/m/flow_var" extends="json-result">
+		<action name="initquery" class="flowVarAction" method="initQueryPage">
+			<result>/page/flowmanage/var/query_var.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="flowVarAction" method="queryFlowVar"/>
+		<action name="initframe" class="flowVarAction" method="initFrame">
+			<result>/page/flowmanage/var/frame_var.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initadd" class="flowVarAction" method="initAdd">
+			<result>/page/flowmanage/var/edit_var.jsp?act=add</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="flowVarAction" method="addFlowVar"/>
+		<action name="initmodify" class="flowVarAction" method="initModify">
+			<result>/page/flowmanage/var/edit_var.jsp?act=modify</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="flowVarAction" method="modifyFlowVar"/>
+		<action name="delete" class="flowVarAction" method="deleteFlowVar"/>
+		<action name="view" class="flowVarAction" method="viewFlowVar">
+			<result>/page/flowmanage/var/edit_var.jsp?act=view</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="loadvars" class="flowVarAction" method="loadFlowVars"/>
+		<action name="validexp" class="flowVarAction" method="validExpression"/>
+	</package>
+	<!-- 处理程序 -->
+	<package name="flow_handler" namespace="/m/flow_handler" extends="json-result">
+		<action name="initquery" class="flowHandlerAction" method="initQueryPage">
+			<result>/page/flowmanage/handler/query_handler.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="flowHandlerAction" method="queryFlowHandler"/>
+		<action name="initframe" class="flowHandlerAction" method="initFrame">
+			<result>/page/flowmanage/handler/frame_handler.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="initadd" class="flowHandlerAction" method="initAdd">
+			<result>/page/flowmanage/handler/edit_handler.jsp?act=add</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="add" class="flowHandlerAction" method="addFlowHandler"/>
+		<action name="initmodify" class="flowHandlerAction" method="initModify">
+			<result>/page/flowmanage/handler/edit_handler.jsp?act=modify</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="modify" class="flowHandlerAction" method="modifyFlowHandler"/>
+		<action name="delete" class="flowHandlerAction" method="deleteFlowHandler"/>
+		<action name="view" class="flowHandlerAction" method="viewFlowHandler">
+			<result>/page/flowmanage/handler/edit_handler.jsp?act=view</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="loadhandsel" class="flowHandlerAction" method="loadFlowHandlerSelect"/>
+	</package>
+	<!-- 流程草稿 -->
+	<package name="flow_draft" namespace="/m/flow_draft" extends="json-result">
+		<action name="initquery" class="flowConfigAction" method="initQueryPage">
+			<result>/page/flowmanage/draft/query_flow.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="flowConfigAction" method="queryFlowConfig"/>
+		<action name="add" class="flowConfigAction" method="addFlowConfig"/>
+		<action name="modify" class="flowConfigAction" method="modifyFlowConfig"/>
+		<action name="delete" class="flowConfigAction" method="deleteFlowConfig"/>
+		<action name="enable" class="flowConfigAction" method="enableFlowConfig"/>
+		<action name="loadflowstr" class="flowConfigAction" method="loadFlowAsString"/>
+	</package>
+	<!-- 正式流程 -->
+	<package name="flow_pub" namespace="/m/flow_pub" extends="json-result">
+		<action name="initquery" class="flowConfigAction" method="initQueryPage">
+			<result>/page/flowmanage/formal/query_flow.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="flowConfigAction" method="queryFlowConfig"/>
+		<action name="modify" class="flowConfigAction" method="copyFlowToDraft"/>
+		<action name="disable" class="flowConfigAction" method="disableFlowConfig"/>
+		<action name="loadflowstr" class="flowConfigAction" method="loadFlowAsStringByInst"/>
+		<action name="loadtrace" class="flowConfigAction" method="loadFlowTracePoints"/>
+	</package>
+	<!-- 流程实例管理 -->
+	<package name="flow_inst" namespace="/m/flow_inst" extends="json-result">
+		<action name="initquery" class="flowDataAction" method="initQueryTaskPage">
+			<result>/page/flowmanage/instance/query_inst.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="query" class="flowDataAction" method="queryFlowTask"/>
+	</package>
+	<!-- 流程历史数据 -->
+	<package name="flow_data" namespace="/m/flow_data" extends="json-result">
+		<action name="initpage" class="flowDataAction" method="initDelDataPage">
+			<result>/page/flowmanage/histdata/del_data.jsp</result>
+			<result name="error">/page/error.jsp</result>
+		</action>
+		<action name="delete" class="flowDataAction" method="deleteFlowData"/>
+	</package>
+</struts>

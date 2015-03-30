@@ -1,0 +1,86 @@
+设备领用申购流程
+
+部门领导审批
+"/m/dev_deal?act=view_approve&flag=v&id=" + formId
+驳回修改
+"/m/dev_deal?act=view_approve&flag=m&id=" + formId
+
+
+设备采购
+"/m/dev_deal?act=view_approve&flag=procure&id=" + formId
+设备验收
+"/m/dev_deal?act=view_approve&flag=accept&id=" + formId
+综合部设备复核
+"/m/dev_deal?act=view_approve&flag=comp&id=" + formId
+仓库管理员确认
+"/m/dev_deal?act=view_approve&flag=use&id=" + formId
+
+org.eapp.oa.flow.handler.device.ReciDataArchiveEvent
+org.eapp.oa.flow.handler.device.ReciCancellationEvent
+
+
+设备调拨流程
+调出者部门经理审批
+"/m/dev_deal?act=view_approve&flag=dept&id=" + formId
+驳回修改
+"/m/dev_deal?act=view_approve&flag=m&id=" + formId
+调入者审核
+"/m/dev_deal?act=view_approve&flag=incheck&id=" + formId
+调入者部门经理审批
+"/m/dev_deal?act=view_approve&flag=inDeptCheck&id=" + formId
+
+org.eapp.oa.flow.handler.device.AlloCancellationEvent
+org.eapp.oa.flow.handler.device.AlloDataArchiveEvent
+
+
+设备报废流程
+部门经理审批
+"/m/dev_deal?act=view_approve&flag=v&id=" + formId
+驳回修改
+"/m/dev_deal?act=view_approve&flag=m&id=" + formId
+财务部审批
+"/m/dev_deal?act=view_approve&flag=finance&id=" + formId
+财务部回购款确认
+"/m/dev_deal?act=view_approve&flag=payable&id=" + formId
+人力资源部审批
+"/m/dev_deal?act=view_approve&flag=hr&id=" + formId
+综合部回购审批
+"/m/dev_deal?act=view_approve&flag=backbuy&id=" + formId
+申请人回购确认
+"/m/dev_deal?act=view_approve&flag=useconfirm&id=" + formId
+总裁审批
+"/m/dev_deal?act=view_approve&flag=ceo&id=" + formId
+综合部复核
+"/m/dev_deal?act=view_approve&flag=compconfirm&id=" + formId
+
+org.eapp.oa.flow.handler.device.ScrapDataArchiveEvent
+org.eapp.oa.flow.handler.device.ScrapCancellationEvent
+
+设备离职处理流程
+部门经理审批
+"/m/dev_deal?act=view_approve&flag=v&id=" + formId
+设备使用人修改
+"/m/dev_deal?act=view_approve&flag=m&id=" + formId
+财务部审批
+"/m/dev_deal?act=view_approve&flag=finance&id=" + formId
+人力资源部审批
+"/m/dev_deal?act=view_approve&flag=hr&id=" + formId
+综合部回购审批
+"/m/dev_deal?act=view_approve&flag=comp&id=" + formId
+申请人回购确认
+"/m/dev_deal?act=view_approve&flag=backbuyconfirm&id=" + formId
+总裁审批
+"/m/dev_deal?act=view_approve&flag=ceo&id=" + formId+"&backBuySource=1"
+回购款确认
+"/m/dev_deal?act=view_approve&flag=backbuymoneyconfirm&id=" + formId
+申请人确认
+"/m/dev_deal?act=view_approve&flag=applymanconfirm&id=" + formId
+
+org.eapp.oa.flow.handler.device.ScrapDataArchiveEvent
+org.eapp.oa.flow.handler.device.ScrapCancellationEvent
+
+
+
+
+
+

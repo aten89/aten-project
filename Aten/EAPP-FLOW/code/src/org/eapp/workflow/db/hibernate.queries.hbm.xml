@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <!-- 清除流程实例数据：解除流程实例外键 -->
+  <sql-query name="FlowSession.clearFlowInstance-updateFlowInstance">
+    <![CDATA[
+     	update WF_FLOWINSTANCE fs set fs.FLOWTOKEN_ = null, fs.SUPERFLOWTOKEN_ = null where fs.ENDTIME_ < :date
+    ]]>
+  </sql-query>
+  <!-- 清除流程实例数据：解除执行令牌外键 -->
+  <sql-query name="FlowSession.clearFlowInstance-updateFlowToken">
+    <![CDATA[
+     	update WF_FLOWTOKEN ft set ft.PARENT_ = null where exists (select fi.ID_ from WF_FLOWINSTANCE fi where fi.ENDTIME_ < :date and fi.ID_ = ft.FLOWINSTANCE_)
+    ]]>
+  </sql-query>
+  <!-- 清除流程实例数据：删除流程轨迹点 -->
+  <sql-query name="FlowSession.clearFlowInstance-deleteTracePoint">
+    <![CDATA[
+     	delete from WF_TRACEPOINT where exists (select fi.ID_ from WF_FLOWINSTANCE fi where fi.ENDTIME_ < :date and fi.ID_ = FLOWINSTANCE_)
+    ]]>
+  </sql-query>
+  <!-- 清除流程实例数据：删除异步任务 -->
+  <sql-query name="FlowSession.clearFlowInstance-deleteAsynJob">
+    <![CDATA[
+     	delete from WF_ASYNJOB where exists (select fi.ID_ from WF_FLOWINSTANCE fi where fi.ENDTIME_ < :date and fi.ID_ = FLOWINSTANCE_)
+    ]]>
+  </sql-query>
+  <!-- 清除流程实例数据：删除流程上下文变量 -->
+  <sql-query name="FlowSession.clearFlowInstance-deleteContextVar">
+    <![CDATA[
+     	delete from WF_CONTEXTVARIABLE where exists (select fi.ID_ from WF_FLOWINSTANCE fi where fi.ENDTIME_ < :date and fi.ID_ = FLOWINSTANCE_)
+    ]]>
+  </sql-query>
+  <!-- 清除流程实例数据：删除集合操作者 -->
+  <sql-query name="FlowSession.clearFlowInstance-deletePoolActor">
+    <![CDATA[
+     	delete from WF_POOLEDACTOR where exists (select s.id_ from (select tp.id_ from WF_TASKINSTANCE tp where exists (select fi.ID_ from WF_FLOWINSTANCE fi where fi.ENDTIME_ < :date and fi.ID_ = tp.FLOWINSTANCE_ )) s where s.id_ = TASKINSTANCE_)
+    ]]>
+  </sql-query>
+  <!-- 清除流程实例数据：删除集合操作角色 -->
+  <sql-query name="FlowSession.clearFlowInstance-deletePoolRole">
+    <![CDATA[
+     	delete from WF_POOLEDROLE where exists (select s.id_ from (select tp.id_ from WF_TASKINSTANCE tp where exists (select fi.id_ from WF_FLOWINSTANCE fi where fi.ENDTIME_ < :date and fi.id_ = tp.FLOWINSTANCE_ )) s where s.id_ = TASKINSTANCE_)
+    ]]>
+  </sql-query>
+  <!-- 清除流程实例数据：删除任务实例 -->
+  <sql-query name="FlowSession.clearFlowInstance-deleteTaskInstance">
+    <![CDATA[
+     	delete from WF_TASKINSTANCE where exists (select fi.ID_ from WF_FLOWINSTANCE fi where fi.ENDTIME_ < :date and fi.ID_ = FLOWINSTANCE_)
+    ]]>
+  </sql-query>
+  <!-- 清除流程实例数据：删除执行令牌 -->
+  <sql-query name="FlowSession.clearFlowInstance-deleteFlowToken">
+    <![CDATA[
+     	delete from WF_FLOWTOKEN where exists (select fi.ID_ from WF_FLOWINSTANCE fi where fi.ENDTIME_ < :date and fi.ID_ = FLOWINSTANCE_)
+    ]]>
+  </sql-query>
+  <!-- 清除流程实例数据：删除流程实例 -->
+  <sql-query name="FlowSession.clearFlowInstance-deleteFlowInstance">
+    <![CDATA[
+     	delete from WF_FLOWINSTANCE where ENDTIME_ < :date
+    ]]>
+  </sql-query>
+  
+  <!-- 根据流程标识删除所有版本流程定义及实例，通过flowkey取得所有流程定义 -->
+  <query name="FlowSession.delFlowDefine-findAllByFlowKey">
+    <![CDATA[
+     	from FlowDefine as f where f.flowKey=:flowKey
+    ]]>
+  </query>
+  <!-- 删除异步任务 -->
+  <query name="FlowSession.delFlowDefine-deleteAsynJob">
+    <![CDATA[
+     	delete from AsynJob where flowInstance=:flowInstance
+    ]]>
+  </query>
+  <!-- 删除流程轨迹 -->
+  <query name="FlowSession.delFlowDefine-deleteTracePoint">
+    <![CDATA[
+     	delete from TracePoint where flowDefineId=:flowDefineId
+    ]]>
+  </query>
+  
+  <!-- 禁用流程定义 -->
+  <query name="FlowSession.disableFlowDefine">
+    <![CDATA[
+     	update FlowDefine as f set f.state = :state where f.flowKey=:flowKey and f.state != :state
+    ]]>
+  </query>
+  
+  <!-- 设置流程定义状态 -->
+  <query name="FlowSession.setFlowDefineState">
+    <![CDATA[
+     	update FlowDefine as f set f.state = :state where f.flowKey=:flowKey and f.version = :version
+    ]]>
+  </query>
+  
+  <!-- 根据流程标识查找最高版本，已启用状态的流程定义 -->
+  <query name="FlowSession.findFlowDefine">
+    <![CDATA[
+     	from FlowDefine as f where f.flowKey=:flowKey and f.state=:state order by f.version desc
+    ]]>
+  </query>
+  
+  <!-- 根据流程标识及版本号查找已启用状态的流程定义 -->
+  <query name="FlowSession.findFlowDefineWithVersion">
+    <![CDATA[
+     	from FlowDefine as f where f.flowKey=:flowKey and f.version = :version
+    ]]>
+  </query>
+  
+  <!-- 根据流程名称查找，已启用状态的流程定义 -->
+  <query name="FlowSession.findFlowDefineByName">
+    <![CDATA[
+     	from FlowDefine as f where f.name=:name and f.state=:state order by f.version desc
+    ]]>
+  </query>
+  
+  <!-- 根据流程名称及版本号查找已启用状态的流程定义 -->
+  <query name="FlowSession.findFlowDefineByNameWithVersion">
+    <![CDATA[
+     	from FlowDefine as f where f.name=:name and f.version = :version
+    ]]>
+  </query>
+
+  <!-- 根据流程标识查找流程草图 -->
+  <query name="FlowSession.findFlowDraft">
+    <![CDATA[
+     	from FlowDraft as f where f.flowKey=:flowKey
+    ]]>
+  </query>
+  
+  <!-- 通过流程定义ID取得所有流程实例 -->
+  <query name="FlowSession.findFlowInstances">
+    <![CDATA[
+     	from FlowInstance as fi where fi.flowDefine.id = :flowDefineId
+    ]]>
+  </query>
+  
+  <!-- 通过流程定义ID取得所有流程实例 -->
+  <query name="FlowSession.findFlowInstances-ByFlow">
+    <![CDATA[
+     	from FlowInstance as fi where fi.flowDefine.flowKey = :flowKey and fi.flowDefine.version=:version
+    ]]>
+  </query>
+  
+  
+  <!-- 通过取得所有等办任务列表 -->
+  <query name="TaskSession.getOpeningTasks">
+    <![CDATA[
+     	from TaskInstance as ti 
+     	where ti.createTime >= :startCreateTime and ti.createTime <= :endCreateTime 
+     	and ti.isSuspended = false and ti.isOpen = true
+    ]]>
+  </query>
+  <query name="TaskSession.getOpeningTasks-byName">
+    <![CDATA[
+     	from TaskInstance as ti 
+     	where ti.createTime >= :startCreateTime and ti.createTime <= :endCreateTime 
+     	and ti.taskName like :taskName
+     	and ti.isSuspended = false and ti.isOpen = true
+    ]]>
+  </query>
+  
+  <!-- 通过用户ID取得必办任务列表 -->
+  <query name="TaskSession.getCompulsoryTasks-ById">
+    <![CDATA[
+     	from TaskInstance as ti 
+     	where ti.actorId = :actorId 
+     	and ti.isSuspended = false
+     	and ti.isOpen = true
+    ]]>
+  </query>
+  
+  <!-- 通过用户ID集合取得必办任务列表 -->
+  <query name="TaskSession.getCompulsoryTasks-ByIds">
+    <![CDATA[
+     	from TaskInstance as ti 
+     	where ti.actorId in ( :actorIds ) 
+     	and ti.isSuspended = false
+     	and ti.isOpen = true
+    ]]>
+  </query>
+  
+  <!-- 通过用户ID取得待办任务列表 -->
+  <query name="TaskSession.getActorTasks-ById">
+    <![CDATA[
+     	select distinct pa.taskInstance 
+     	from PooledActor as pa 
+     	where pa.actorId = :actorId 
+     	and pa.taskInstance.actorId is null 
+     	and pa.taskInstance.isSuspended = false
+		and pa.taskInstance.isOpen = true
+     	order by pa.taskInstance.createTime desc
+    ]]>
+  </query>
+  
+  <!-- 通过用户ID集合取得待办任务列表 -->
+  <query name="TaskSession.getActorTasks-ByIds">
+    <![CDATA[
+     	select distinct pa.taskInstance 
+     	from PooledActor as pa 
+     	where pa.actorId in ( :actorIds ) 
+     	and pa.taskInstance.actorId is null 
+     	and pa.taskInstance.isSuspended = false
+		and pa.taskInstance.isOpen = true
+		order by pa.taskInstance.createTime desc
+    ]]>
+  </query>
+  
+  <!-- 通过角色ID取得待办任务列表 -->
+  <query name="TaskSession.getRoleTasks-ById">
+    <![CDATA[
+     	select distinct pr.taskInstance 
+     	from PooledRole as pr 
+     	where pr.actorRoleId = :roleId 
+     	and pr.taskInstance.actorId is null 
+     	and pr.taskInstance.isSuspended = false
+     	and pr.taskInstance.isOpen = true
+     	order by pr.taskInstance.createTime desc
+    ]]>
+  </query>
+  
+  <!-- 通过角色ID集取得待办任务列表 -->
+  <query name="TaskSession.getRoleTasks-ByIds">
+    <![CDATA[
+     	select distinct pr.taskInstance 
+     	from PooledRole as pr 
+     	where pr.actorRoleId in ( :roleIds ) 
+     	and pr.taskInstance.actorId is null 
+     	and pr.taskInstance.isSuspended = false
+     	and pr.taskInstance.isOpen = true
+		order by pr.taskInstance.createTime desc
+    ]]>
+  </query>
+  
+  <!-- 通过流程实例取得已结束的任务列表，按时间顺序排列 -->
+  <query name="TaskSession.getEndedTasks">
+    <![CDATA[
+     	select ti from TaskInstance as ti where ti.flowInstance.id = :flowInstanceId 
+     	and ti.processState = :processState order by ti.startTime 
+    ]]>
+  </query>
+  
+  <!-- 获取异步任务表中的待办任务，按到期时间顺序排列 -->
+  <query name="AsynJobSession.getFirstAcquirableJob">
+    <![CDATA[
+      select job
+      from org.eapp.workflow.asyn.AsynJob as job
+      where ( (job.lockOwner is null) or (job.lockOwner = :lockOwner) )
+      and job.retries > 0
+      and job.dueDate <= :now
+      and job.isSuspended != true
+      order by job.dueDate asc
+    ]]>
+  </query>
+  
+  <!-- 获取异步任务表中的最先到期的待办任务，按到期时间顺序排列 -->
+  <query name="AsynJobSession.getFirstDueJob">
+    <![CDATA[
+      select job
+      from org.eapp.workflow.asyn.AsynJob as job
+      where ( (job.lockOwner is null) or (job.lockOwner = :lockOwner) )
+      and job.retries > 0
+      and job.isSuspended != true
+      order by job.dueDate asc
+    ]]>
+  </query>
+
+  <!-- 获取异步任务表中的最先到期的待办任务，按到期时间顺序排列，不包括已认领的 -->
+  <query name="AsynJobSession.getFirstDueJobExlcMonitoredJobs">
+    <![CDATA[
+      select job
+      from org.eapp.workflow.asyn.AsynJob as job
+      where ( (job.lockOwner is null) or (job.lockOwner = :lockOwner) )
+      and job.id not in ( :jobIdsToIgnore )
+      and job.retries > 0
+      and job.isSuspended != true
+      order by job.dueDate asc
+    ]]>
+  </query>
+  
+  <!-- 挂起指定令牌关联的异步任务-->
+  <query name="AsynJobSession.suspendJobs">
+    <![CDATA[
+      update org.eapp.workflow.asyn.AsynJob job
+      set job.isSuspended = true
+      where job.flowToken = :token
+    ]]>
+  </query>
+  
+  <!-- 恢复指定令牌关联的异步任务-->
+  <query name="AsynJobSession.resumeJobs">
+    <![CDATA[
+      update org.eapp.workflow.asyn.AsynJob job
+      set job.isSuspended = false
+      where job.flowToken = :token
+    ]]>
+  </query>
+  
+  
+  <!-- 根据流程实例获取轨迹-->
+  <query name="TraceSession.getTracePoints">
+    <![CDATA[ 
+		from org.eapp.workflow.trace.TracePoint tp
+    	where tp.flowInstanceId = :flowInstanceId
+		order by tp.snapTime asc
+    ]]>
+  </query>
+    
+</hibernate-mapping>

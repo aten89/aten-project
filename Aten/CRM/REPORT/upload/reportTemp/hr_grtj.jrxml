@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hr_grtj" language="groovy" pageWidth="576" pageHeight="1015" whenNoDataType="AllSectionsNoDetail" columnWidth="576" leftMargin="0" rightMargin="0" topMargin="7" bottomMargin="7" isIgnorePagination="true" uuid="fe72ec94-a367-4215-aae1-a2aaa1480072">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\eappFiles\\upload\\reportTemp\\hr_grtj_sub.jasper"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="EXE_SQL" class="java.lang.String"/>
+	<parameter name="EXE_SQL_SUB" class="java.lang.String"/>
+	<parameter name="BGN_TRANSFER_DATE" class="java.lang.String"/>
+	<parameter name="END_TRANSFER_DATE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[$P!{EXE_SQL}]]>
+	</queryString>
+	<field name="DEPT_NAME_" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="84e02474-7616-4a68-982c-819b7e079a1e" x="220" y="0" width="90" height="40"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<topPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<leftPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<bottomPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<rightPen lineWidth="0.0" lineColor="#B1C9EB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="黑体" size="16" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[个人统计]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8435f074-f17a-4d9a-835d-ec2e670377c4" stretchType="RelativeToBandHeight" x="310" y="0" width="271" height="40" forecolor="#FF0000"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<topPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<leftPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<bottomPen lineWidth="0.0" lineColor="#B1C9EB"/>
+					<rightPen lineWidth="0.0" lineColor="#B1C9EB"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{BGN_TRANSFER_DATE}
+    + ($P{BGN_TRANSFER_DATE} != "" && $P{END_TRANSFER_DATE} != ""  ? "到" : "")
+    + $P{END_TRANSFER_DATE}
+    + ($P{BGN_TRANSFER_DATE} != "" && $P{END_TRANSFER_DATE} || $P{BGN_TRANSFER_DATE} == "" && $P{END_TRANSFER_DATE} == ""
+           ? "" : ($P{BGN_TRANSFER_DATE} != "" ? "之后" : "之前"))]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="45726d7b-421c-4e31-9300-410e1319f712" mode="Opaque" x="140" y="0" width="80" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[投顾工号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7a4b358c-634c-4ca3-b8d4-0c690a07fc13" mode="Opaque" x="220" y="0" width="90" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[投资顾问]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c997abdf-e7ca-434a-950b-d1721638cfe7" mode="Opaque" x="0" y="0" width="140" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[所属团队]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="59d4fc64-a873-45a0-8c42-7bd67690bf19" mode="Opaque" x="310" y="0" width="71" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[是否在职]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="afdea773-30cf-4025-ad06-3a569a1158ff" mode="Opaque" x="381" y="0" width="100" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.0" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[总金额（万）]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dec5c989-4cb0-4a65-8859-2bc6ae0c1f54" mode="Opaque" x="481" y="0" width="100" height="25" backcolor="#F6F6F6"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.0" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[年化金额（万）]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25">
+			<subreport>
+				<reportElement uuid="8f7f790b-00da-4605-a3af-d475af180a61" x="140" y="0" width="441" height="25"/>
+				<subreportParameter name="INNER_DEPT_NAME">
+					<subreportParameterExpression><![CDATA[$F{DEPT_NAME_}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="EXE_SQL">
+					<subreportParameterExpression><![CDATA[$P{EXE_SQL_SUB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportExpression>
+			</subreport>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="dce65101-5655-45a7-a292-fb6e40650f23" stretchType="RelativeToBandHeight" x="0" y="0" width="140" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEPT_NAME_}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

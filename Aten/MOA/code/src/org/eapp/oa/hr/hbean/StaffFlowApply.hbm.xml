@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.eapp.oa.hr.hbean.StaffFlowApply" table="OA_STAFFFLOWAPPLY">
+		
+		<id name="id" type="java.lang.String">
+			<column name="ID_" length="36" />
+			<generator class="assigned"></generator>
+		</id>
+		<property name="companyArea" type="java.lang.String">
+			<column name="COMPANYAREA_" length="36" />
+		</property>
+		<property name="groupName" type="java.lang.String">
+			<column name="GROUPNAME_" length="36" />
+		</property>
+		<property name="userAccountID" type="java.lang.String">
+			<column name="USERACCOUNTID_" length="128" />
+		</property>
+		<property name="post" type="java.lang.String">
+			<column name="POST_" length="128" />
+		</property>
+		<property name="employeeNumber" type="java.lang.String">
+			<column name="EMPLOYEENUMBER_" length="128" />
+		</property>
+		 <property name="userName" type="java.lang.String">
+            <column name="USERNAME_" length="36" />
+        </property>
+		<property name="sex" type="java.lang.Integer">
+			<column name="SEX_" />
+		</property>
+		<property name="idCard" type="java.lang.String">
+			<column name="IDCARD_" length="200" />
+		</property>
+		<property name="birthdate" type="java.util.Date">
+			<column name="BIRTHDATE_" length="11" />
+		</property>
+		<property name="description" type="java.lang.String">
+			<column name="DESCRIPTION_" length="200" />
+		</property>
+		<property name="applyType" type="java.lang.Integer">
+			<column name="APPLYTYPE_" />
+		</property>
+		<property name="entryDate" type="java.util.Date">
+			<column name="ENTRYDATE_" length="11" />
+		</property>
+		<property name="resignDate" type="java.util.Date">
+			<column name="RESIGNDATE_" length="11" />
+		</property>
+		<property name="applicant" type="java.lang.String">
+			<column name="APPLICANT_" length="36" />
+		</property>
+		<property name="applyDate" type="java.util.Date">
+			<column name="APPLYDATE_" length="11" />
+		</property>
+		<property name="archiveDate" type="java.util.Date">
+            <column name="ARCHIVEDATE_" length="11" />
+        </property>
+		<property name="passed" type="java.lang.Boolean">
+            <column name="PASSED_" />
+        </property>
+        <property name="flowInstanceId" type="java.lang.String">
+            <column name="FLOWINSTANCEID_" length="36" />
+        </property>
+       	<property name="applyStatus" type="java.lang.Integer">
+            <column name="APPLYSTATUS_" />
+        </property>
+        
+        <property name="staffStatus" column="STAFFSTATUS_" type="java.lang.String"/>
+        <property name="groupFullName" column="GROUPFULLNAME_" type="java.lang.String"/>
+        <property name="level" column="LEVEL_" type="java.lang.String"/>
+        <property name="formalDate" column="FORMALDATE_" type="java.util.Date"/>
+        <property name="age" column="AGE_" type="java.lang.Integer"/>
+        <property name="education" column="EDUCATION_" type="java.lang.String"/>
+        <property name="finishSchool" column="FINISHSCHOOL_" type="java.lang.String"/>
+        <property name="professional" column="PROFESSIONAL_" type="java.lang.String"/>
+        <property name="degree" column="DEGREE_" type="java.lang.String"/>
+        <property name="contractType" column="CONTRACTTYPE_" type="java.lang.String"/>
+        <property name="contractStartDate" column="CONTRACTSTARTDATE_" type="java.util.Date"/>
+        <property name="contractEndDate" column="CONTRACTENDDATE_" type="java.util.Date"/>
+        <property name="mobile" column="MOBILE_" type="java.lang.String"/>
+        <property name="officeTel" column="OFFICETEL_" type="java.lang.String"/>
+        <property name="email" column="EMAIL_" type="java.lang.String"/>
+        <property name="politicalStatus" column="POLITICALSTATUS_" type="java.lang.String"/>
+        <property name="nation" column="NATION_" type="java.lang.String"/>
+        <property name="nativePlace" column="NATIVEPLACE_" type="java.lang.String"/>
+        <property name="homeAddr" column="HOMEADDR_" type="java.lang.String"/>
+        <property name="zipCode" column="ZIPCODE_" type="java.lang.String"/>
+        <property name="domicilePlace" column="DOMICILEPLACE_" type="java.lang.String"/>
+        <property name="domicileType" column="DOMICILETYPE_" type="java.lang.String"/>
+        <property name="maritalStatus" column="MARITALSTATUS_" type="java.lang.String"/>
+        <property name="hadKids" column="HADKIDS_" type="java.lang.Integer"/>
+        <property name="salesExperience" column="SALESEXPERIENCE_" type="java.lang.Integer"/>
+        <property name="financialExperience" column="FINANCIALEXPERIENCE_" type="java.lang.Integer"/>
+        <property name="financialQualification" column="FINANCIALQUALIFICATION_" type="java.lang.Integer"/>
+        <property name="workStartDate" column="WORKSTARTDATE_" type="java.util.Date"/>
+        <property name="supervisor" column="SUPERVISOR_" type="java.lang.String"/>
+        <property name="recruitmentType" column="RECRUITMENTTYPE_" type="java.lang.String"/>
+        <property name="recommended" column="RECOMMENDED_" type="java.lang.String"/>
+        <property name="seniority" column="SENIORITY_" type="java.lang.Integer"/>
+        <property name="emergencyContact" column="EMERGENCYCONTACT_" type="java.lang.String"/>
+        <property name="emergencyContactTel" column="EMERGENCYCONTACTTEL_" type="java.lang.String"/>
+        <property name="bankCardNO" column="BANKCARDNO_" type="java.lang.String"/>
+        <property name="bankType" column="BANKTYPE_" type="java.lang.String"/>
+        <property name="trainInfo" column="TRAININFO_" type="java.lang.String"/>
+        <property name="skillsInfo" column="SKILLSINFO_" type="java.lang.String"/>
+        <property name="resignType" column="RESIGNTYPE_" type="java.lang.String"/>
+        <property name="resignReason" column="RESIGNREASON_" type="java.lang.String"/>
+        <property name="resignDesc" column="RESIGNDESC_" type="java.lang.String"/>
+        <property name="achievement" column="ACHIEVEMENT_" type="java.lang.String"/>
+        <property name="project" column="PROJECT_" type="java.lang.String"/>
+        <property name="tranStartDate" column="TRANSTARTDATE_" type="java.util.Date"/>
+        <property name="tranEndDate" column="TRANENDDATE_" type="java.util.Date"/>
+        <property name="tranCost" column="TRANCOST_" type="java.lang.String"/>
+        <property name="penalty" column="PENALTY_" type="java.lang.String"/>
+        <property name="staffClass" column="STAFFCLASS_" type="java.lang.String"/>
+        <set name="workExperiences" cascade="all,delete-orphan" order-by="STARTDATE_" lazy="false">
+            <key>
+                <column name="STAFFFLOWAPPLYID_" length="36" />
+            </key>
+            <one-to-many class="org.eapp.oa.hr.hbean.WorkExperience" />
+        </set>
+	</class>
+</hibernate-mapping>

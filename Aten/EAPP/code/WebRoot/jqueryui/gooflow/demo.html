@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>流程图DEMO</title>
+<!--[if lt IE 9]>
+<?import namespace="v" implementation="#default#VML" ?>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="style/gooflow.css"/>
+<script type="text/javascript" src="../jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="jquery.gooflow.js"></script>
+<script type="text/javascript">
+var property={
+	width:1000,
+	height:600,
+	toolBtns:["start round","end round","state","plug","state square","task","node","chat rhombus","join","fork","complex mix"],//
+	haveHead:true,
+	headBtns:["new","open","save","reload","del","undo","redo","expand","shrink"],//如果haveHead=true，则定义HEAD区的按钮。。
+	haveTool:true,
+	haveGroup:true,
+	useOperStack:true
+};
+var remark={
+	cursor:"选择",
+	direct:"连接线",
+	start:"开始节点",
+	end:"结束节点",
+	task:"任务节点",
+	node:"机器节点",
+	chat:"判断节点",
+	state:"定时节点",
+	plug:"附加插件",
+	fork:"分支节点",
+	join:"联合节点",
+	complex:"子流程",
+	group:"分组管理",
+	
+	new:"新建",
+	open:"打开",
+	save:"保存",
+	del:"删除",
+	undo:"撤销",
+	redo:"重做",
+	expand:"扩大工作区域",
+	shrink:"缩小工作区域",
+	reload:"刷新"
+	
+};
+var demo;
+$(document).ready(function(){
+	demo=$.createGooFlow($("#demo"),property);
+	demo.setNodeRemarks(remark);
+
+	jsondata={"title":"新建流程和","nodes":{"START_NOTE":{"name":"开始","left":202,"top":29,"type":"start round","width":30,"height":30,"alt":true,"mark":true},"END_NODE":{"name":"结束","left":201,"top":301,"type":"end round","width":30,"height":30,"alt":true},"demo_node_1":{"name":"node_1","left":201,"top":158,"type":"node","width":100,"height":40,"alt":true}},"lines":{},"areas":{},"initNum":2,"width":1100,"height":600};
+	demo.loadData(jsondata);
+	
+	demo.onItemAdd=function(id, type, json) {
+		if (type=='line') {
+//			alert(json.from + "--" + json.to);
+		}
+		return true;
+	};
+	demo.onItemDel=function(id, type) {
+		var info = demo.getItemInfo(id, type);
+
+		if (info.type=='start round' || info.type=='end round') {
+			alert("不能删除开始与结束节点");
+			return false;
+		}
+//		return confirm("确定要删除该单元吗?");
+		return true;
+	};
+	
+	demo.onClickTitle=function(title) {
+		alert(title);
+	};
+//	demo.onItemFocus=function(id, type) {
+//		return false;//只读
+//	};
+	
+//	demo.$tool.hide();
+//	demo.$nodeData.demo_node_13.desc="备注";
+
+//	demo.focusItem('demo_node_1',false);
+	demo.markItem('END_NODE','node', true);
+});
+
+</script>
+</head>
+<body>
+	<div id="demo"></div>
+
+	<br/>
+	<textarea id="result" style="width:1000px;height:100px"></textarea>
+	<input id="submit" type="button" value='导出结果' onclick="document.getElementById('result').value=JSON.stringify(demo.exportData())"/>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="custser_qkxq_sub" language="groovy" pageWidth="124" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="124" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="fe72ec94-a367-4215-aae1-a2aaa1480072">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1" mode="Opaque" fontName="null" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{INNER_STYLE_FLAG}]]></conditionExpression>
+			<style backcolor="#F8F8F8" fontName="null" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="INNER_CUST_ID" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="INNER_STYLE_FLAG" class="java.lang.Boolean" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT RVR.RETURN_VIST_USER_,RVR.RETURN_VIST_TIME_,RVR.DISPLAY_NAME_ FROM (
+       SELECT RV.RETURN_VIST_USER_,RV.RETURN_VIST_TIME_,UA.DISPLAY_NAME_
+       FROM CRM_RETURN_VIST RV, EAPP.EAPP_USER_ACCOUNT UA
+       WHERE UA.ACCOUNT_ID_=RV.RETURN_VIST_USER_ AND RV.CUST_ID_=$P{INNER_CUST_ID} ORDER BY RV.RETURN_VIST_TIME_ DESC
+) RVR WHERE ROWNUM=1]]>
+	</queryString>
+	<field name="RETURN_VIST_USER_" class="java.lang.String"/>
+	<field name="RETURN_VIST_TIME_" class="java.sql.Timestamp"/>
+	<field name="DISPLAY_NAME_" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="25">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="a6da449f-ac0b-4997-b82e-845cbe730a7f" style="style1" x="65" y="0" width="60" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DISPLAY_NAME_}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement uuid="6531639f-6aeb-4847-b592-2b1c096b0a66" style="style1" stretchType="RelativeToBandHeight" x="0" y="0" width="65" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RETURN_VIST_TIME_}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

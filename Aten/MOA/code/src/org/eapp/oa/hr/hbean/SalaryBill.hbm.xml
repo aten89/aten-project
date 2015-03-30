@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.eapp.oa.hr.hbean.SalaryBill" table="OA_SALARYBILL">
+        <id name="id" type="java.lang.String">
+            <column name="ID_" length="36" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="userAccountID" column="USERACCOUNTID_" type="java.lang.String"/>
+        <property name="month" column="MONTH_" type="java.lang.Integer"/>
+        <property name="importDate" column="IMPORTDATE_" type="java.util.Date"/>
+        <property name="dept" column="DEPT_" type="java.lang.String"/>
+        <property name="post" column="POST_" type="java.lang.String"/>
+        <property name="employeeNumber" column="EMPLOYEENUMBER_" type="java.lang.String"/>
+        <property name="userName" column="USERNAME_" type="java.lang.String"/>
+        <property name="entryDate" column="ENTRYDATE_" type="java.util.Date"/>
+        <property name="peopleNums" column="PEOPLENUMS_" type="java.lang.Integer"/>
+        <property name="status" column="STATUS_" type="java.lang.String"/>
+        <property name="wageTotal" column="WAGETOTAL_" type="java.lang.Float"/>
+        <property name="wageBasic" column="WAGEBASIC_" type="java.lang.Float"/>
+        <property name="wagePerformance" column="WAGEPERFORMANCE_" type="java.lang.Float"/>
+        <property name="scorePerformance" column="SCOREPERFORMANCE_" type="java.lang.Integer"/>
+        <property name="wagePerformanceReal" column="WAGEPERFORMANCEREAL_" type="java.lang.Float"/>
+        <property name="allowance" column="ALLOWANCE_" type="java.lang.Float"/>
+        <property name="commission" column="COMMISSION_" type="java.lang.Float"/>
+        <property name="lessMonthDays" column="LESSMONTHDAYS_" type="java.lang.Integer"/>
+        <property name="deductLessMonth" column="DEDUCTLESSMONTH_" type="java.lang.Float"/>
+        <property name="leaveCompassionate" column="LEAVECOMPASSIONATE_" type="java.lang.Integer"/>
+        <property name="deductCompassionate" column="DEDUCTCOMPASSIONATE_" type="java.lang.Float"/>
+        <property name="leaveSick" column="LEAVESICK_" type="java.lang.Integer"/>
+        <property name="deductSick" column="DEDUCTSICK_" type="java.lang.Float"/>
+        <property name="deductLate" column="DEDUCTLATE_" type="java.lang.Float"/>
+        <property name="deductElse" column="DEDUCTELSE_" type="java.lang.Float"/>
+        <property name="wagePayable" column="WAGEPAYABLE_" type="java.lang.Float"/>
+        <property name="pension" column="PENSION_" type="java.lang.Float"/>
+        <property name="lostJob" column="LOSTJOB_" type="java.lang.Float"/>
+        <property name="medical" column="MEDICAL_" type="java.lang.Float"/>
+        <property name="insurancePayment" column="INSURANCEPAYMENT_" type="java.lang.Float"/>
+        <property name="costSocialSecurity" column="COSTSOCIALSECURITY_" type="java.lang.Float"/>
+        <property name="costAccumulationFund" column="COSTACCUMULATIONFUND_" type="java.lang.Float"/>
+        <property name="costFiveInsurance" column="COSTFIVEINSURANCE_" type="java.lang.Float"/>
+        <property name="taxWage" column="TAXWAGE_" type="java.lang.Float"/>
+        <property name="wagePreTax" column="WAGEPRETAX_" type="java.lang.Float"/>
+        <property name="taxPersonal" column="TAXPERSONAL_" type="java.lang.Float"/>
+        <property name="wageReal" column="WAGEREAL_" type="java.lang.Float"/>
+        <property name="wageAllowance" column="WAGEALLOWANCE_" type="java.lang.Float"/>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="custser_cjkf_sub" language="groovy" pageWidth="912" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="912" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="fe72ec94-a367-4215-aae1-a2aaa1480072">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1" mode="Opaque" fontName="null" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{INNER_STYLE_FLAG}]]></conditionExpression>
+			<style backcolor="#F8F8F8" fontName="null" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="INNER_CUST_ID_" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="EXE_SQL" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="INNER_STYLE_FLAG" class="java.lang.Boolean" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[$P!{EXE_SQL}$P{INNER_CUST_ID_}]]>
+	</queryString>
+	<field name="TRANSFER_AMOUNT_" class="java.math.BigDecimal"/>
+	<field name="PROD_NAME_" class="java.lang.String"/>
+	<field name="REDEEM_FLAG_" class="java.math.BigDecimal"/>
+	<field name="PROD_SET_UP_DATE_" class="java.sql.Timestamp"/>
+	<field name="PAY_INTEREST_METHOD_" class="java.lang.String"/>
+	<field name="PROD_CASH_DATE_" class="java.sql.Timestamp"/>
+	<field name="SELL_TIME_LIMIT_" class="java.math.BigDecimal"/>
+	<field name="SUPPLIER_NAME" class="java.lang.String"/>
+	<field name="TRANSFER_DATE_" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ca8ab8f5-bda9-4b44-ab4e-04e9b2606135" style="style1" stretchType="RelativeToBandHeight" x="160" y="0" width="290" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PROD_NAME_}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement uuid="5c7f8642-2627-4f44-b583-629fe1fa6bdf" style="style1" stretchType="RelativeToBandHeight" x="450" y="0" width="55" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TRANSFER_AMOUNT_}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement uuid="da6e8fd2-fbd5-4e67-9d6a-4230f8b9ae75" style="style1" stretchType="RelativeToBandHeight" x="505" y="0" width="65" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TRANSFER_DATE_}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="580cb990-b4a6-4073-9925-b29276cb90b7" style="style1" stretchType="RelativeToBandHeight" x="0" y="0" width="160" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SUPPLIER_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement uuid="a6da449f-ac0b-4997-b82e-845cbe730a7f" style="style1" stretchType="RelativeToBandHeight" x="625" y="0" width="78" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PROD_SET_UP_DATE_}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="35a59c53-aa5b-441a-bb83-0800725c7432" style="style1" stretchType="RelativeToBandHeight" x="570" y="0" width="55" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{REDEEM_FLAG_} == "1" ? "是" : "否"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="3fd00bee-74ff-408a-af76-40a49f8f55ea" style="style1" stretchType="RelativeToBandHeight" x="703" y="0" width="55" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PAY_INTEREST_METHOD_}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement uuid="2f4ac883-cde6-4740-9b22-3453ea446dbb" style="style1" stretchType="RelativeToBandHeight" x="758" y="0" width="65" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PROD_CASH_DATE_}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c6176c0c-0082-4952-a032-bde3c679012c" style="style1" stretchType="RelativeToBandHeight" x="823" y="0" width="88" height="25"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<topPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<leftPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<bottomPen lineWidth="0.5" lineColor="#D7D7D7"/>
+					<rightPen lineWidth="0.5" lineColor="#D7D7D7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SELL_TIME_LIMIT_}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

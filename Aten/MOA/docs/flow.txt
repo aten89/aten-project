@@ -1,0 +1,58 @@
+公用任务事件
+org.eapp.oa.flow.handler.TaskCreateEvent
+org.eapp.oa.flow.handler.TaskNotifyEvent
+org.eapp.oa.flow.handler.TaskAssignEvent
+org.eapp.oa.flow.handler.TaskStartEvent
+org.eapp.oa.flow.handler.TaskGiveUpEvent
+org.eapp.oa.flow.handler.TaskEndEvent
+指定审批
+org.eapp.oa.flow.handler.reim.AppointToDecision
+"ACTOR:"+appointTo
+部门经理
+org.eapp.oa.flow.handler.reim.DeptManagerDecision
+org.eapp.oa.flow.handler.reim.DeptManagerAssign
+分管领导
+org.eapp.oa.flow.handler.reim.FGManagerDecision
+org.eapp.oa.flow.handler.reim.FGManagerAssign
+提交者部门经理
+org.eapp.oa.flow.handler.reim.UserDeptManagerDecision
+org.eapp.oa.flow.handler.reim.UserDeptManagerAssign
+驳回修改
+"ACTOR:"+ userAccountId
+
+判断表达式
+(isSpecial == "1":"否")+(isSpecial == "0":"是")
+(days >= 3:"是")+(days < 3:"否")
+(appointTo == "" || appointTo == null:"否")+(appointTo != "" && appointTo != null:"是")
+
+请假：申请人-上级领导-人事经理
+(QY0009)（知会前台）
+"/m/holi_deal?act=view_approve&type=v&id=" + formId
+"/m/holi_deal?act=view_approve&type=m&id=" + formId
+
+org.eapp.oa.flow.handler.hr.HoliDataArchiveEvent
+org.eapp.oa.flow.handler.hr.HoliCancellationEvent
+
+
+销假
+"/m/holi_deal?act=view_approve&type=v&id=" + formId
+"/m/holi_deal?act=view_approve&type=v&id=" + formId
+
+org.eapp.oa.flow.handler.hr.HoliCanDataArchiveEvent
+org.eapp.oa.flow.handler.hr.HoliCanCancellationEvent
+
+
+入职：招聘人→用人部门所属部门经理→人事部总经理
+(QY0009)→人力专员(QY0014)→信息技术部
+(QY0008)（开系统，赋予权限）
+离职：发起人--直接领导---人力(QY0014)---人力经理
+(QY0009)---人力(QY0014)
+
+"/m/staff_deal?act=view_approve&type=v&id=" + formId
+"/m/staff_deal?act=view_approve&type=m&id=" + formId
+"/m/staff_deal?act=view_approve&type=a&id=" + formId
+
+org.eapp.oa.flow.handler.hr.StaffCancellationEvent
+org.eapp.oa.flow.handler.hr.StaffDataArchiveEvent
+
+

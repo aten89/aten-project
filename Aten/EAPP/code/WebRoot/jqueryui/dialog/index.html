@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<script type="text/javascript" src="/jqueryui/jquery-1.2.6.min.js"></script> 
+	<script type="text/javascript" src="/jqueryui/dialog/jquery.wbox.js"></script> 
+	<!-- link rel="stylesheet" type="text/css" href="/jqueryui/dialog/style/wbox.css" />-->
+	<link rel="stylesheet" href="/themes/blue/style.css" type="text/css" />
+</head> 
+<body>
+	<div id="isFrame" >iframe google</div><br/>
+	<div id="isFrame2">本地iframe 自适用高度</div><br/>
+	<div id="ajax">ajax 1.html</div><br/>
+	<div id="msg">提示消息</div><br/>
+
+<div id="msgDiv" style="display:none;width:160px;height:80px;overflow-y:auto;line-height:20px;padding:0 0 0 3px;">点击弹出设置名点击弹出设置名点击弹出设置名点击弹出设置名点击弹出设置名字的点击弹出设置名字的<a href="http://www.baidu.com" target="_blank">wBox</a>2222</div>
+ <script type="text/javascript"> 
+
+	$("#isFrame").wBox({
+		title:"弹出框",
+		closeCallBack: function() {},
+	   	requestType:"iframe",
+	   	iframeWH:{width:800,height:400},
+	   	target:"http://www.baidu.com"
+	});
+	
+	$("#isFrame2").wBox({
+		requestType: "iframe",
+		target:"500x400.html"
+	});
+	$("#ajax").wBox({
+		requestType: "ajax",
+		target:"1.html"
+	});
+
+	var win = $(window);
+
+	var dialogM = $("#msg").wBox({
+		title: "<span style='font-weight: normal'>来自系统系统的消息<span>",
+		target:"#msgDiv",
+		overlayBG: false,
+		position: {
+        	left: win.width() - 195,
+           	top: win.height() - 140
+       	}
+	});
+	dialogM.showBox();
+</script>
+
+</body>
+</html>

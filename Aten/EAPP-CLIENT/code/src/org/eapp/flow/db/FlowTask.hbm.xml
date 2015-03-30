@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.eapp.flow.db.FlowTask" table="FLOW_TASK">
+        <id name="taskId" type="java.lang.String">
+            <column name="TASK_ID_" length="36" />
+            <generator class="uuid2"></generator>
+        </id>
+        <property name="flowClass" type="java.lang.String">
+            <column name="FLOW_CLASS_" length="36" />
+        </property>
+        <property name="flowKey" type="java.lang.String">
+            <column name="FLOW_KEY_" length="36" />
+        </property>
+        <property name="taskInstanceId" type="java.lang.String">
+            <column name="TASK_INSTANCE_ID_" length="36" />
+        </property>
+        <property name="flowInstanceId" type="java.lang.String">
+            <column name="FLOW_INSTANCE_ID_" length="36" />
+        </property>
+        <property name="flowDefineId" type="java.lang.String">
+            <column name="FLOW_DEFINE_ID_" length="36" />
+        </property>
+        <property name="taskState" type="java.lang.String">
+            <column name="TASK_STATE_" length="20" />
+        </property>
+        <property name="formId" type="java.lang.String">
+            <column name="FORM_ID_" length="36" />
+        </property>
+        <property name="transactor" type="java.lang.String">
+            <column name="TRANSACTOR_" length="36" />
+        </property>
+        <property name="createTime" type="java.util.Date">
+            <column name="CREATE_TIME_" />
+        </property>
+        <property name="startTime" type="java.util.Date">
+            <column name="START_TIME_" />
+        </property>
+        <property name="endTime" type="java.util.Date">
+            <column name="END_TIME_" />
+        </property>
+        <property name="comment" type="java.lang.String">
+            <column name="COMMENT_" length="4000" />
+        </property>
+        <property name="nodeName" type="java.lang.String">
+            <column name="NODE_NAME_" length="400" />
+        </property>
+        <property name="taskName" type="java.lang.String">
+            <column name="TASK_NAME_" length="400" />
+        </property>
+        <property name="flowName" type="java.lang.String">
+            <column name="FLOW_NAME_" length="400" />
+        </property>
+        <property name="viewFlag" type="java.lang.Boolean">
+            <column name="VIEW_FLAG_" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION_" length="400" />
+        </property>
+        <set name="taskAssigns" cascade="all" >
+            <key>
+                <column name="TASK_ID_" length="36" />
+            </key>
+            <one-to-many class="org.eapp.flow.db.FlowTaskAssign" />
+        </set>
+    </class>
+</hibernate-mapping>

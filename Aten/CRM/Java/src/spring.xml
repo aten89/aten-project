@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<!-- Spring 加载属文件 -->
+  	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name="locations">
+      		<value>classpath:config.properties</value>
+    	</property>
+		<property name="searchSystemEnvironment">
+			<value>true</value>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders">
+			<value>false</value>
+		</property>
+	</bean>
+	
+	<!-- 定义系统数据源 -->
+<!-- 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">      
+		<property name="jndiName" value="java:ORACLEDS_EAPP"/>      
+	</bean>  -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${DRIVER_CLASS}" />
+   		<property name="jdbcUrl" value="${DB_JDBC_URL}" />
+   		<property name="maxIdleTime" value="600" />
+   		<property name="acquireIncrement" value="2" />
+   		<property name="maxPoolSize" value="20" />
+   		<property name="initialPoolSize" value="2" />
+   		<property name="minPoolSize" value="2" />
+   		<property name="maxStatements" value="100" />
+   		<property name="idleConnectionTestPeriod" value="120" />
+   		
+		<!-- c3p0密码配置 -->
+		<property name="properties">
+			<bean class="org.eapp.util.spring.C3p0Properties">
+				<property name="properties">
+					<props>
+						<prop key="user">${DB_USER}</prop>
+					  	<prop key="encrypt">${DB_PSW_ENCRYPT}</prop>
+						<prop key="password">${DB_PASSWORD}</prop>
+					<!--	<prop key="encrypt">false</prop>
+						<prop key="password">db_paw</prop> -->
+					</props>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 定义Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> 
+	<!--	class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"> -->
+	 	
+		<!-- dataSource可以为任意的数据源 例如DBCP、C3P0 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 其他的Hibernate常用配置 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${HIBERNATE_DIALET}</prop>
+				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.show_sql">${HIBERNATE_SHOW_SQL}</prop>
+			</props>
+		</property>
+		<!-- 映射文件路径 -->
+		<property name="mappingResources">
+			<list>
+				<value>org/eapp/crm/hbean/CustomerAppointment.hbm.xml</value>
+				<value>org/eapp/crm/hbean/CustomerConsult.hbm.xml</value>
+				<value>org/eapp/crm/hbean/CustomerInfo.hbm.xml</value>
+				<value>org/eapp/crm/hbean/GroupExt.hbm.xml</value>
+				<value>org/eapp/crm/hbean/ImportCustomer.hbm.xml</value>
+				<value>org/eapp/crm/hbean/ReturnVist.hbm.xml</value>
+				<value>org/eapp/crm/hbean/UserAccountExt.hbm.xml</value>
+				<value>org/eapp/crm/hbean/TelPartArea.hbm.xml</value>
+				<value>org/eapp/crm/hbean/ReportQueryAssign.hbm.xml</value>
+				<value>org/eapp/crm/hbean/ReportNormConf.hbm.xml</value>
+	        </list>
+		</property>
+		
+		<!-- 注释映射路径
+		<property name="annotatedClasses">
+            <list>
+         		<value>org.eapp.hbean.UserAccount</value>
+            </list>
+        </property> -->
+	</bean>
+	
+	<!-- 事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 事务拦截器 -->
+	<bean id="transactionInterceptor" 
+ 		class="org.springframework.transaction.interceptor.TransactionInterceptor"> 
+      	<property name="transactionManager"> 
+       		<ref bean="transactionManager" /> 
+      	</property> 
+      	<!-- 配置事务属性 --> 
+      	<property name="transactionAttributes"> 
+       		<props> 
+       			<!-- 以下方法开头需要事务 --> 
+        		<prop key="delete*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="add*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="modify*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="tx*">PROPAGATION_REQUIRED,-Exception</prop> 
+		        <prop key="ntx*">PROPAGATION_REQUIRES_NEW,-Exception</prop> 
+		        <!-- 以下方法开头只查询无事务 --> 
+		        <prop key="get*">PROPAGATION_SUPPORTS,readOnly</prop> 
+		        <prop key="query*">PROPAGATION_SUPPORTS,readOnly</prop> 
+		       	<prop key="cs*">PROPAGATION_SUPPORTS,readOnly</prop>
+		       	<prop key="find*">PROPAGATION_SUPPORTS,readOnly</prop>
+       		</props> 
+      	</property> 
+	</bean> 
+	
+	<!-- 自动代理 凡是开头是tx的bean都进入事务管理 -->
+	<bean id="preformanceThresholdProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>*Biz</value><!-- 拦截Bean名称为Service结尾的所有方法，方法嵌套时支持同一事务或同一Session -->
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<value>transactionInterceptor</value>
+		</property>
+	</bean>
+	
+	<!-- 获取SPRING的ApplicationContext对象-->
+	<bean class="org.eapp.util.spring.SpringHelper"></bean>
+  
+  	<!-- WEB服务器启动初始化内容  -->
+  	<bean id="serverStartupInit" class="org.eapp.crm.util.ServerStartupInit" init-method="init" destroy-method="destroy">
+  		<property name="uploadConfig" ref="uploadConfig" />
+  		<property name="mailConfig" ref="mailConfig" />
+	</bean>
+  
+	<!-- 文件管理 -->
+	<bean id="uploadConfig" class="org.eapp.util.web.upload.UploadConfig">
+		<property name="rootFolder" value="upload/" />
+	  	<property name="tempFolder" value="temp/" />
+	  	<property name="imgExt" value=".jpg.jpeg.gif.bmp.png" />
+	  	<property name="enableUploadPath" value="true" />
+	  	<property name="savePath" value="${FILE_SAVE_PATH}" />
+	</bean>
+	<!-- 邮件服务 -->
+  	<bean id="mailConfig" class="org.eapp.util.mail.MailConfig">
+  		<property name="sendAddress" value="${MAIL_SEND_ADDRESS}" />
+  		<property name="username" value="${MAIL_USERNAME}" />
+  		<property name="password" value="${MAIL_PASSWORD}" />
+  		<property name="props">
+  	  		<value>
+  	  			${MAIL_SMTP_PROPS}
+  	  		</value>
+    	</property>
+  	</bean>
+  	
+  	<!-- Hession from CRM -->
+	<bean id="possRMIClientConfig" class="org.eapp.rmi.util.hession.RMIClientConfig">
+		<property name="serviceBasePath" value="${POSS_HESSIAN_URL}"/>
+		<property name="userName" value="poss_user"/>
+		<property name="password" value="poss_hessian_key"/>
+	</bean>
+	<bean id="messagePoint" class="org.eapp.rmi.util.hession.SecureHessianProxyFactoryBean">
+		<property name="servicePath" value="hs/messagePoint"/>
+		<property name="serviceInterface" value="org.eapp.poss.rmi.hessian.IMessagePoint"/>
+		<property name="rmiClientConfig" ref="possRMIClientConfig"/>
+	</bean>
+	
+	<bean id="transactionPoint" class="org.eapp.rmi.util.hession.SecureHessianProxyFactoryBean">
+		<property name="servicePath" value="hs/transactionPoint"/>
+		<property name="serviceInterface" value="org.eapp.poss.rmi.hessian.ITransactionPoint"/>
+		<property name="rmiClientConfig" ref="possRMIClientConfig"/>
+	</bean>
+  	
+  	<!-- 参数配置 -->
+  	<bean id="groupExtDAO" class="org.eapp.crm.dao.imp.GroupExtDAO" parent="baseDAO"></bean>
+	<bean id="groupExtBiz" class="org.eapp.crm.blo.imp.GroupExtBiz">
+		<property name="groupExtDAO" ref="groupExtDAO" />
+	</bean>
+	
+  	<bean name="groupExtAction" class="org.eapp.crm.action.GroupExtAction" scope="prototype">
+    	<property name="groupExtBiz" ref="groupExtBiz"/>
+    </bean>
+    
+    <bean id="userAccountExtDAO" class="org.eapp.crm.dao.imp.UserAccountExtDAO" parent="baseDAO"/>
+    <bean id="userAccountExtBiz" class="org.eapp.crm.blo.imp.UserAccountExtBiz">
+    	<property name="userAccountExtDAO" ref="userAccountExtDAO"/>
+    </bean>
+    <bean name="userAccountExtAction" class="org.eapp.crm.action.UserAccountExtAction" scope="prototype">
+    	<property name="groupExtBiz" ref="groupExtBiz"/>
+    	<property name="userAccountExtBiz" ref="userAccountExtBiz"/>
+    </bean>
+  	
+  	<!-- Hession from OA -->
+	<bean id="oaRMIClientConfig" class="org.eapp.rmi.util.hession.RMIClientConfig">
+		<property name="serviceBasePath" value="${OA_HESSIAN_URL}"/>
+		<property name="userName" value="oa_user"/>
+		<property name="password" value="oa_hessian_key"/>
+	</bean>
+	<bean id="addressListPoint" class="org.eapp.rmi.util.hession.SecureHessianProxyFactoryBean">
+		<property name="servicePath" value="hs/addrlist"/>
+		<property name="serviceInterface" value="org.eapp.oa.rmi.hessian.IAddressListPoint"/>
+		<property name="rmiClientConfig" ref="oaRMIClientConfig"/>
+	</bean>
+	<bean id="flowConfigPoint" class="org.eapp.rmi.util.hession.SecureHessianProxyFactoryBean">
+		<property name="servicePath" value="hs/flowcfg"/>
+		<property name="serviceInterface" value="org.eapp.oa.rmi.hessian.IFlowConfigPoint"/>
+		<property name="rmiClientConfig" ref="oaRMIClientConfig"/>
+	</bean>
+	
+	<!-- BaseDAO -->
+	<bean id="baseDAO" class="org.eapp.crm.dao.imp.BaseHibernateDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 以下为DAO Service ...，都要继承baseDAO -->
+
+	<!-- ======通讯录====== 
+	<bean id="addressListDAO" class="org.eapp.oa.address.dao.impl.AddressListDAO" parent="baseDAO"/>
+	<bean id="addressListBiz" class="org.eapp.oa.address.blo.impl.AddressListBiz">
+		<property name="addressListDAO" ref="addressListDAO"/>
+	</bean>
+	-->
+	
+	<!-- 导入客户 -->
+	<bean id="importCustomerDAO" class="org.eapp.crm.dao.imp.ImportCustomerDAO" parent="baseDAO"/>
+	<bean id="importCustomerBiz" class="org.eapp.crm.blo.imp.ImportCustomerBiz">
+		<property name="importCustomerDAO" ref="importCustomerDAO" />
+	</bean>
+	
+	<!-- 预约记录 -->
+	<bean id="customerAppointmentDAO" class="org.eapp.crm.dao.imp.CustomerAppointmentDAO" parent="baseDAO"/>
+	<bean id="customerAppointmentBiz" class="org.eapp.crm.blo.imp.CustomerAppointmentBiz">
+		<property name="customerAppointmentDAO" ref="customerAppointmentDAO" />
+		<property name="addressListPoint" ref="addressListPoint" />
+		
+	</bean>
+	
+	<!-- 以下为struts Action，大多应该设为非单例模式 -->	
+	<!-- 字典 -->
+	<bean name="dictAction" class="org.eapp.crm.action.DictAction" scope="prototype">
+	</bean>
+
+    <!-- ======通讯录======
+    <bean name="addressListAction" class="org.eapp.oa.address.action.AddressListAction" scope="prototype">
+    	<property name="addressListBiz" ref="addressListBiz"/>
+    </bean>
+    -->
+    
+    <!-- 导入客户 -->
+    <bean id="importCustomerAction" class="org.eapp.crm.action.ImportCustomerAction" scope="prototype">
+    	<property name="importCustomerBiz" ref="importCustomerBiz"/>
+    </bean>
+    
+     <!-- 客户信息 -->
+    <bean id="customerInfoAction" class="org.eapp.crm.action.CustomerInfoAction" scope="prototype">
+    	<property name="customerInfoBiz" ref="customerInfoBiz"/>
+    	<property name="customerAppointmentBiz" ref="customerAppointmentBiz"/>
+    	<property name="messagePoint" ref="messagePoint"/>
+    	<property name="transactionPoint" ref="transactionPoint"/>
+    </bean>
+    <bean id="customerInfoBiz" class="org.eapp.crm.blo.imp.CustomerInfoBiz">
+		<property name="customerInfoDAO" ref="customerInfoDAO" />
+		<property name="customerAppointmentDAO" ref="customerAppointmentDAO" />
+		<property name="userAccountExtDAO" ref="userAccountExtDAO" />
+		<property name="telPartAreaDAO" ref="telPartAreaDAO" />
+		<property name="customerServiceDAO" ref="customerServiceDAO" />
+	</bean>
+	<bean id="customerInfoDAO" class="org.eapp.crm.dao.imp.CustomerInfoDAO" parent="baseDAO"/>
+	
+	<!-- 客服管理 -->
+    <bean id="customerServiceAction" class="org.eapp.crm.action.CustomerServiceAction" scope="prototype">
+    	<property name="customerServiceBiz" ref="customerServiceBiz"/>
+    </bean>
+    <bean id="customerServiceBiz" class="org.eapp.crm.blo.imp.CustomerServiceBiz">
+		<property name="customerServiceDAO" ref="customerServiceDAO" />
+	</bean>
+	<bean id="customerServiceDAO" class="org.eapp.crm.dao.imp.CustomerServiceDAO" parent="baseDAO"/>
+	
+	<!-- 电话归属 -->
+    <bean id="telPartAreaBiz" class="org.eapp.crm.blo.imp.TelPartAreaBiz">
+		<property name="telPartAreaDAO" ref="telPartAreaDAO" />
+	</bean>
+	<bean id="telPartAreaDAO" class="org.eapp.crm.dao.imp.TelPartAreaDAO" parent="baseDAO"/>
+    
+    <!-- 报表管理 -->
+    <bean id="reportAction" class="org.eapp.crm.action.ReportAction" scope="prototype">
+    	<property name="reportBiz" ref="reportBiz"/>
+    </bean>
+    <bean id="reportBiz" class="org.eapp.crm.blo.imp.ReportBiz">
+		<property name="dataSource" ref="dataSource" />
+		<property name="reportQueryAssignDAO" ref="reportQueryAssignDAO" />
+		<property name="reportNormConfDAO" ref="reportNormConfDAO" />
+	</bean>
+	<bean id="reportQueryAssignDAO" class="org.eapp.crm.dao.imp.ReportQueryAssignDAO" parent="baseDAO"/>
+	<bean id="reportNormConfDAO" class="org.eapp.crm.dao.imp.ReportNormConfDAO" parent="baseDAO"/>
+</beans>

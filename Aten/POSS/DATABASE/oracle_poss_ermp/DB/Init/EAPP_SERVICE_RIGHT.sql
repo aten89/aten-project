@@ -1,0 +1,1 @@
+--EAPP_SERVICE_RIGHT 接口服务权限配置

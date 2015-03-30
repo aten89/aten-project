@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.eapp.oa.kb.hbean.KnowledgeClass" table="OA_KnowledgeClass">
+        <cache usage="read-write"/>
+        <id name="id" type="java.lang.String">
+            <column name="ID_" length="36" />
+			<generator class="uuid.hex"></generator>
+        </id>
+		
+        <many-to-one name="parentClass" class="org.eapp.oa.kb.hbean.KnowledgeClass" lazy="false" fetch="select">
+            <column name="PARENTID_" length="36" />
+        </many-to-one>
+
+		 <property name="name" type="java.lang.String">
+            <column name="NAME_" length="128" />
+        </property>
+
+		 <property name="displayOrder" type="java.lang.Integer">
+            <column name="DISPLAYORDER_" length="4" />
+        </property>
+
+		 <property name="treeLevel" type="java.lang.Integer">
+            <column name="TREELEVEL_" length="4" />
+        </property>
+
+		 <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION_" length="1024" />
+        </property>
+		
+		<set name="assigns" cascade="all">
+            <key>
+                <column name="KNOWLEDGECLASSID_" length="36" />
+            </key>
+            <one-to-many class="org.eapp.oa.kb.hbean.KnowledgeClassAssign" />
+        </set>
+        
+        <set name="childClsases">
+            <key>
+                <column name="PARENTID_" length="36" />
+            </key>
+            <one-to-many class="org.eapp.oa.kb.hbean.KnowledgeClass" />
+        </set>
+       
+    </class>
+</hibernate-mapping>
+
+

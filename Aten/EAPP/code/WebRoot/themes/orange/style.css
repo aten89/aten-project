@@ -1,0 +1,307 @@
+@charset "utf-8";
+@import "../comm/comm.css";
+/*------------------总体样式--------------------*/
+html{
+   scrollbar-face-color:#efefef;
+   scrollbar-highlight-color:#B3B3B3;
+   scrollbar-shadow-color:#B3B3B3;
+   scrollbar-3dlight-color:#efefef;
+   scrollbar-arrow-color:#87898B;
+   scrollbar-track-color:#efefef;
+   scrollbar-darkshadow-color:#efefef;
+}
+body{color:#333; background:#fffafa}
+a{color:#333;text-decoration:none}
+a:hover{color:#BA500C;text-decoration:underline}
+.textShadow{color:#A0A0A0;font-weight:normal;filter:dropshadow(OffX='1', OffY='1', Color='white', Positive='true');text-shadow:#fff 1px 1px 0}
+/*------------------菜单框架--------------------*/
+/*头部*/
+.head{background:#fff url(../orange/images/tipLine.gif) repeat-x left bottom;border-bottom:1px solid #fff;}
+.logo02{color:#FDFDFD;}
+.logoShadow{color:#9F4000;}
+.syIco{background:#fff url(../orange/images/syIco.gif) no-repeat}
+
+.tip{color:#fff}
+.tip a{color:#fff; text-decoration:underline}
+.tip a:hover{color:#fff}
+/*导航*/
+.nav{background:url(../orange/images/navBg.gif) repeat-x}
+.level01{color:#4f4e4e;}
+.level02{color:#666}
+.navOption li.current label{background:url(../orange/images/navCurrent.gif) no-repeat center bottom}
+
+/*子系统*/
+.subSys .t01{background:url(../comm/images/totalNav01Line.gif) repeat-x;}
+.subSys .t01 span{background:url(../comm/images/totalNav01.gif) no-repeat;}
+.subSys .t01 div{background:url(../comm/images/totalNav01Right.gif) no-repeat;}
+.subSys .t02{border-left:1px solid #ABABAB;border-right:1px solid #ABABAB;background:#FAFAFA}
+.subSys .t03{background:url(../comm/images/totalNav03Line.gif) repeat-x; }
+.subSys .t03 span{background:url(../comm/images/totalNav03.gif) no-repeat;}
+.subSys .t03 div{background:url(../comm/images/totalNav03Right.gif) no-repeat;}
+.subSys .t02 li{color:#000}
+.subSys .t02 li.over{background:#bcbcbc}
+.subSys .t02 li.over div{background:#bcbcbc}
+
+/*当前位置*/
+.localBk{background:url(../orange/images/conBg.gif) repeat-x left top}
+.location ul{background:url(../orange/images/local02.gif) repeat-x left top; }
+.location li.local01{background:url(../orange/images/local01.gif) no-repeat left top}
+.location li.local03{background:url(../orange/images/local03.gif) no-repeat}
+
+.favBk{background:url(../comm/images/favLine.gif) no-repeat 31px 2px}
+
+/*收藏夹*/
+.favFile .favulBk{border:1px solid #bcbcbc; background:#fff;}
+.favFile .favulBk h2{background:url(../comm/images/myFavLIne.gif) repeat-x}
+.favFile li.over{background:#bcbcbc;}
+a.favAdd:hover{background:url(../comm/images/favAddBg.gif) no-repeat}
+a.favorite:hover{background:url(../comm/images/favoriteBg.gif) no-repeat}
+.favCurrent{background:url(../comm/images/favoriteBg.gif) no-repeat}
+
+.favAddButton a:hover{background:url(../orange/images/rkeyLine.gif) repeat-x;text-decoration:none;}
+/*切换子系统2*/
+.selSys ul{border:1px solid #bcbcbc; background:#fff;}
+.selSys li.over{background:#ECECEC; border:1px solid #ECECEC;}
+
+.delFavlink,.delFavlinkOver{ position:absolute; top:3px; right:1px;width:17px;height:17px; border:none;}
+.delFavlink{background:url(../comm/images/delFavlink.gif) no-repeat}
+.delFavlinkOver{background:url(../comm/images/delFavlinkOver.gif) no-repeat}
+
+
+/*------------------tab框架--------------------*/
+.conRtopLine{border-top:0px solid #bcbcbc}
+.ifrBd{background:#DBDBDB;}
+.conRight{background:url(../orange/images/sideBarLine.gif) repeat-y right bottom;}
+
+/*侧边栏*/
+.sideBar li{background:url(../orange/images/sideBar02.gif) no-repeat 5px top; color:#666; }
+.sideBar li.current{background:url(../orange/images/sideBar01.gif) no-repeat; color:#fff}
+.homeBg{background:url(../orange/images/home.gif) no-repeat}
+.tabClose{background:url(../orange/images/tabClose.gif) no-repeat}
+.tabClose:hover{background:url(../orange/images/tabCloseOver.gif) no-repeat}
+/*选项卡翻页*/
+a.tabPageOver:hover{background:url(../comm/images/tabPageLine.gif) repeat-x}
+.tabUp{background:url(../comm/images/tabUp.gif) no-repeat center center}
+.tabDown{background:url(../comm/images/tabDown.gif) no-repeat center center; }
+
+/*========右键菜单*/
+.rightKey{background:#fff; border:1px solid #B2B2B2;}
+.rightKey li.over{background:url(../orange/images/rkeyLine.gif) repeat-x}
+
+.rKeyFav{background:url(../orange/images/rKeyFav.gif) no-repeat center 1px}
+.rkeyFlash{background:url(../orange/images/rkeyFlash.gif) no-repeat center 1px}
+.rkeyClose{background:url(../orange/images/rkeyClose.gif) no-repeat center 1px}
+.rkeyOther{background:url(../orange/images/rkeyOther.gif) no-repeat center 1px}
+.rkeyAll{background:url(../orange/images/rkeyAll.gif) no-repeat center 1px}
+
+/*------------------页面样式----------------------*/
+/*按钮*/
+.allBtn{background:url(../orange/images/btLine.gif);border:1px solid #ccc}
+.selBtn{background:url(../orange/images/selBtn.gif) no-repeat}
+/*表单宽度*/
+.ipt01{border:1px solid #ccc}
+.ipt02{border:1px solid #ccc}
+.ipt03{border:1px solid #ccc}
+.ipt05{border:1px solid #ccc}
+.area01{border:1px solid #ccc}
+
+/*时间宽度*/
+.invokeBoth{border:1px solid #ccc}
+
+/*表格新增*/
+.addCon table{ background:#EAEAEA}
+.addCon th{background:#fff url(../orange/images/thList1.gif) repeat-x;color:#000}
+.addCon td{color:#555; background:#fff}
+.addCon td.tit{background:#F5F5F5; border:1px solid #fff; color:#333}
+
+/*工具条*/
+.addTool{background:url(../orange/images/toolLine.gif) repeat-x; border-bottom:none;}
+.addTool .t01{background:url(../orange/images/toolDot.gif) no-repeat}
+
+/*搜索*/
+.soso{background:#EAEAEA}
+.soso .t01{background:url(../orange/images/searchTip.gif) no-repeat 2px top}
+.soso .t02{ background:url(../orange/images/toolLine.gif) repeat-x}
+
+/*表格列表*/
+.allList{background:#fff}
+.allList table{border:0}
+.allList th{background:url(../orange/images/thList.gif) repeat-x; color:#000; border-bottom:1px solid #bcbcbc}
+.allList td{border-bottom:1px solid #ccc}
+.allList td.last{border-bottom:1px solid #bcbcbc}
+.allList tr.alt{background:#F1F5FE}
+.allList tr.over{background:#F5F5F5}
+/*翻页*/
+.pageNext .pageIpt01{border:1px solid #bcbcbc}
+.pageNext .btn{background:url(../orange/images/go.gif) no-repeat}
+
+/*模块定制*/
+.mbdz{background:#fff}
+.mbdz li{background:url(../orange/images/mbdzBg.gif) no-repeat}
+
+/*内部框架*/
+.subBk{background:#fff}
+.subBk table{border:0px solid #bcbcbc}
+.subBk th.sub02{border-bottom:0px solid #bcbcbc;background:#fff url(../orange/images/thList1.gif) repeat-x; color:#000}
+.subLeft{border:1px solid #EEEEEE}
+.subLeft02{border-right:1px dashed #ccc}
+
+/*搜索*/
+.mkSearch{background:url(../orange/images/titLine.gif) repeat-x;border-top:1px solid #D7D7D7}
+.mkSearch .sIpt01{border:1px solid #ccc}
+.mkSelList li{background:url(../comm/images/listDot.gif) no-repeat 6px center}
+
+/*动作绑定*/
+.dzbdSel01{border:1px solid #EAEAEA}
+.pxSel01{border:1px solid #bcbcbc}
+
+/*从左边开始*/
+.czbks{background:url(../comm/images/czbks.gif) no-repeat center 50px}
+.tjjs{color:#000}
+
+.subFrame{background:#fff;border:1px solid #bcbcbc}
+.dzScroll{border:1px solid #EEEEEE}
+.dzScroll table{border:none}
+/*模块动作*/
+.mkdz{border:1px solid #EEEEEE;}
+.mkdzTip{color:#000;background:url(../orange/images/toolLine.gif) repeat-x;border-bottom:none;}
+.mkdzTip td{color:#000}
+
+/*角色定位*/
+.jsdw{border:1px solid #EEEEEE}
+.optionLine{border-bottom:none; background:url(../orange/images/thList.gif) repeat-x; color:#000}
+.infoTip{border:1px dashed #bcbcbc;background:url(../comm/images/infoDot.gif) no-repeat 10px 5px}
+
+/*绑定用户*/
+.bindUser td{border-bottom:1px solid #ccc}
+.bindUser th{background:url(../orange/images/thList.gif) repeat-x; color:#000; border-bottom:1px solid #bcbcbc}
+.bindUser tr.over{background:#FBF1F0}
+/*错误提示*/
+.cxbsBg{border:1px dashed #ccc;background:#fff url(../comm/images/cxbsBg.gif) no-repeat 18px 21px}
+
+/*皮肤定制*/
+.shinCustom{border:1px solid #EEEEEE}
+.shinCustom .mb{background:#fff}
+.shinCustom .mb li img{border:1px solid #bcbcbc}
+
+.headDefault{background:#fff url(../orange/images/thList1.gif) repeat-x; color:#000;border-bottom:0px solid #EFC9C5;}
+
+/*门户定制*/
+.portletLeft{background:#fff;border:1px solid #EEEEEE}
+.portletRight{background:#fff;border:1px solid #EEEEEE}
+.portletRight .portOp{background:url(../orange/images/mbdzBg.gif) no-repeat left center; color:#000;}
+.portletLeft .portOp .portDiv{background:#FCFCFC url(../comm/images/mkdz03.gif) no-repeat center center;color:#000;font-weight:bold}
+.portletLeft .portOp h1{background:url(../comm/images/portalTopLine.gif) repeat-x;}
+
+/*快捷定制*/
+.ShortCutConfig{border:1px solid #EEEEEE;  background:#fff}
+.ShortCutBg{background:#FBF1F0;border:1px dashed #bcbcbc}
+.ShortCutAdd table{border:1px solid #EEEEEE}
+.ShortCutAdd .tit{background:#EEEEEE;}
+
+/*标题*/
+h1.divTitle01{background:url(../orange/images/titLine.gif) repeat-x;color:#E12222;}
+.more{background:url(../comm/images/more.gif) no-repeat center top}
+.more02{background:url(../comm/images/more02.gif) no-repeat center top}
+/*首页拖曳模块*/
+.divPanel .mb{background:#fff}
+.divPanel .mb li{background:url(../comm/images/dot01.gif) no-repeat left 9px;}
+.divPanel .mb h2{color:#000}
+
+/*------------------组件样式----------------------*/
+/*---下拉框 select.css---*/
+/* 选择框样式*/
+.select_top {border: 1px solid #bcbcbc;background: #FFFFFF;}
+/* 头部输入框样式*/
+.s_top_text {background: #FFFFFF;}
+/* 头部选择图片样式*/
+.s_top_img {background:url(../orange/images/s_bt_out.gif) no-repeat;}
+/* 头部选择图片样式*/
+.s_top_img_down {background:url(../orange/images/s_bt_down.gif) no-repeat;}
+/* 头部选择图片样式*/
+.s_top_img_over {background:url(../orange/images/s_bt_over.gif) no-repeat;}
+/* 下拉列表样式*/
+.select_bottom {border:1px solid #ccc;background: #FFF;color:#000}
+/* 列表中选项样式*/
+.s_list_i {border: 1px solid #FFF;}
+/* 列表中选项鼠标移过添加的样式，鼠标移过时有两个样式s_list_i与s_list_io*/
+.s_list_io {background: #F6F6F6;border: 1px solid #ddd;}
+.s_list_bt { border: 1px solid #FFF;}
+/* 多选模式时 全选按扭*/
+.ms_all{border:none;background:url(../orange/images/all.gif) no-repeat}
+/* 多选模式时 确定按扭*/
+.ms_ok {border:none;background:url(../orange/images/ok.gif) no-repeat;}
+
+/*---时间选择 datepicker.css---*/
+.timeSel{background:url(../orange/images/calendar.gif)}
+#datepicker_div, .datepicker_inline{background:url(../orange/images/timeLine01.gif)}
+#datepicker_div {display: none;	border: 1px solid #F9C184;}
+.datepicker_dialog {border: 4px ridge #e00 !important;}
+img.datepicker_trigger {background:url(../orange/images/calendar.gif)}
+.datepicker_prompt {background:url(../orange/images/timeLine01.gif);color: #000;}
+.datepicker_control, .datepicker_links, .datepicker_header, .datepicker {color: #fff;}
+.datepicker_control {background:url(../orange/images/timeLine01.gif);}
+.datepicker_links label {color: #888;}
+.datepicker_header {background:url(../orange/images/timeLine02.gif);}
+.datepicker_header select {	background: #fff;color: #333;}
+.datepicker {background: #ccc}
+.datepicker_titleRow {background:url(../orange/images/timeLine03.gif) left bottom;}
+.datepicker_daysRow {background: #FEFCFC;color: #666;}
+.datepicker_weekCol {background: #777;color: #fff;}
+.datepicker_daysCell {color: #000;border: 1px solid #FEFCFC;}
+.datepicker_weekEndCell {background: #FEFCFC;}
+.datepicker_titleRow .datepicker_weekEndCell {background:url(../orange/images/timeLine03.gif) left bottom}
+.datepicker_daysCellOver {background: #fff;	border: 1px solid #F2D8D5;}
+.datepicker_unselectable {color: #888;}
+.datepicker_today {	background: #fcc !important;}
+.datepicker_currentDay {background:url(../orange/images/timeSel01.gif) no-repeat;}
+.datepicker_status {}
+#datepicker_div a, .datepicker_inline a {background: none;color: #000;}
+.datepicker_control a, .datepicker_links a {color: #333 !important;}
+.datepicker_titleRow a {color: #333 !important;}
+.datepicker_control a:hover {color: #333 !important;}
+.datepicker_links a:hover, .datepicker_titleRow a:hover {color: #000 !important;}
+.datepicker_multi .datepicker {border: 1px solid #777;}
+
+/*----------------upload.css----------------*/
+.fileBk{border:1px dashed #bcbcbc; background:#fff; }
+.fileLeft{border-right:1px dashed #bcbcbc}
+.fileBk a{color:#e00}
+.fileBk .fileLink{ color:#333}
+.fileBk .fileLink:hover{ color:#000;}
+.fileDel{color:#f00}
+.addFj{background:url(../comm/images/addFj.gif) no-repeat}
+.czpz{background:url(../comm/images/czpz.gif) no-repeat}
+
+/*更多菜单20120330*/
+.moreOptionBtn{background:url(../orange/images/moreOptionBtn.gif) no-repeat; cursor:pointer}
+.moreOptionBg{ background:url(../orange/images/moreOptionBgBottom.png) no-repeat left bottom;_background:url(../orange/images/moreOptionBgBottom_ie6.png) no-repeat left bottom;}
+.moreOptionBgHead{background:url(../orange/images/moreOptionBg.png) repeat-y;_background:url(../orange/images/moreOptionBg_ie6.png) repeat-y;}
+.moreOptionMain{background:url(../orange/images/moreOptionBgHead.png) no-repeat left top;}
+.moreOptionMain a{background:url(../orange/images/moreOptionLine.gif) no-repeat center bottom;}
+.moreOptionMain a:hover{background:#CECECE url(../comm/images/check.gif) no-repeat 173px center;}
+
+/*更多二级菜单*/
+.moreOptionBtn2{background:url(../orange/images/moreOptionBtn2.gif) no-repeat; cursor:pointer}
+.moreMenu2Div ul{border:1px solid #C0C0C0; background:#fff;}
+.moreMenu2Div li.over{background:#ECECEC; border:1px solid #ECECEC;}
+
+/*alerts*/
+#popup_container {border: solid 2px #DDDDDE;}
+#popup_ok,#popup_cancel{background:url(../orange/images/btLine.gif);border:1px solid #ccc}
+#popup_title{background: #DDDDDE;}
+
+/*dialog*/
+#wBox .wBox_body {border:2px solid #DDDDDE;}
+#wBox .wBox_title {background:#DDDDDE;}
+
+/*流程编辑器*/
+.GooFlow{background:#EAEAEA;border-color:#EAEAEA;}
+.GooFlow_head div{background:#E3E3E3;}
+.GooFlow_head label{background:#E3E3E3;}
+.GooFlow_item{background:#DDDDDE;border-color:#878585;}
+.GooFlow .rs_ghost{background:#F5F5F5;border-color:#878585;}
+.GooFlow .item_round, .GooFlow .item_square, .GooFlow .item_rhombus{border-color:#878585;}
+.GooFlow .item_focus{border-color:#FF3300;}
+.GooFlow .item_mark{border-color:#FF3300;}
+

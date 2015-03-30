@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <subclass name="org.eapp.workflow.def.node.TaskNode" 
+            extends="org.eapp.workflow.def.Node"
+            discriminator-value="TASK">
+            
+	<property name="signalType" type="int">
+		<column name="SIGNALTYPE_" />
+	</property>
+	
+	<property name="autoCreateTasks" type="boolean">
+		<column name="AUTOCREATETASKS_" />
+	</property>
+	
+	<property name="autoEndTasks" type="boolean">
+		<column name="AUTOENDTASKS_" />
+	</property>
+	
+    <set name="tasks" cascade="all">
+		<key>
+			<column name="TASKNODE_" length="36" />
+		</key>
+ 		<one-to-many class="org.eapp.workflow.def.TaskDefine" />
+    </set>
+            
+  </subclass>
+</hibernate-mapping>

@@ -1,0 +1,397 @@
+@import "../comm/comm.css";
+/*------------------总体样式--------------------*/
+*{padding:0;font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif}
+html{
+   scrollbar-face-color:#EEF3FD;
+   scrollbar-highlight-color:#8DB2E3;
+   scrollbar-shadow-color:#8DB2E3;
+   scrollbar-3dlight-color:#EEF3FD;
+   scrollbar-arrow-color:#688CAF;
+   scrollbar-track-color:#EEF3FD;
+   scrollbar-darkshadow-color:#EEF3FD;
+}
+body{font-family:"微软雅黑","宋体",Arial, Helvetica, sans-serif; color:#333; background:#fff}
+a{color:#333;text-decoration:none}
+a:hover{color:#3E418B;text-decoration:underline}
+.textShadow{color:#999;font-weight:normal;filter:dropshadow(OffX='1', OffY='1', Color='white', Positive='true');text-shadow:#fff 1px 1px 0}
+.blank3{clear:both; margin:0; padding:0; font-size:1px; height:0px}
+/*------------------菜单框架--------------------*/
+/*头部*/
+.topBk{background:#036BCD;background:#036BCD url(../flat/images/logo_bg.png) no-repeat right top;}
+.head{background:url(../flat/images/header_n01.png) no-repeat -8px top; height:54px}
+.logo02{color:#fff;top:11px;font-family:"微软雅黑";letter-spacing:0;font-size:24px;}
+.logoShadow{color:#036BCD;top:12px;font-size:24px; display:none}
+.syIco{background:#fff url(../flat/images/syIco.gif) no-repeat}
+.tip{color:#fff}
+.tip span a{ color:#fff}
+.qKey{padding:10px 4px 0 0;}
+
+/*导航*/
+.nav{background:url(../flat/images/navBg.gif) repeat-x; height:53px;}
+.nTip{height:53px;}
+.level01{color:#fff;font-weight:normal;font-size:14px; height:28px; padding-top:0;padding-left:12px}
+.navOption li{height:28px;padding-top:0;}
+.navOption li.current label{background:#1082F5 url(../flat/images/navCurrent.gif) no-repeat center bottom;}
+.navOption li.current{color:#fff;}
+.navOption li span{display:block; margin-left:0;}
+.navOption li label{height:25px;padding:3px 10px 0}
+.navOption li label.over{text-decoration:none;background:#1082F5}
+
+.level02{clear:both;height:25px;overflow:hidden;padding-top:0px;padding-left:12px}
+.level02 li{ height:21px; padding-top:4px;}
+.level02 li span{ margin-left:0;padding:0 10px;}
+.level02 li label{ height:16px;}
+.level02 li.over{ background:#b5dfff}
+.level02 li label.over{text-decoration:none;}
+
+/*子系统*/
+.subSys .t02{border:1px solid #B9B9B9;background:#fff;padding:10px 0 0;}
+.subSys .t03{}
+.subSys .t03 span{}
+.subSys .t03 div{}
+.subSys .t02 li{color:#000}
+.subSys .t02 li.over{ background:#1082F5; color:#fff}
+.subSys .t02 li.over div{}
+
+/*当前位置*/
+.localBk{background:url(../flat/images/conBg.gif) repeat-x left top}
+.location ul{background:url(../flat/images/local02.gif) repeat-x left top; }
+.location li.local01{background:url(../flat/images/local01.gif) no-repeat left top}
+.location li.local03{background:url(../flat/images/local03.gif) no-repeat}
+
+.favBk{background:url(../comm/images/favLine.gif) no-repeat 31px 2px}
+
+/*收藏夹*/
+.favFile .favulBk{border:1px solid #b9b9b9; background:#fff;}
+.favFile .favulBk h2{ height:23px}
+.favFile ul{padding-left:0;padding-right:0}
+.favFile li{ height:20px; padding-top:5px;padding-left:10px;padding-right:10px}
+.favFile li.over{background:#f3f3f3;}
+a.favAdd:hover{}
+a.favorite:hover{background:#f3f3f3}
+.favCurrent{background:url(../comm/images/favoriteBg.gif) no-repeat}
+.favAddButton{border-top:1px solid #E0E0E0; background:#fff;padding-top:0px;}
+.favAddButton a{height:23px;padding-top:6px;padding-left:10px;padding-right:10px}
+.favAddButton a:hover{background:#F3F3F3;text-decoration:none;}
+
+.myfav{ float:left;background:url(../flat/images/myfav.png) no-repeat; width:80px; height:20px;}
+.myfavMin{ float:right;background:url(../flat/images/myfavMin.png) no-repeat; width:8px; height:8px; cursor:pointer}
+
+/*切换子系统2*/
+.selSys{top:23px;}
+.selSys ul{border:1px solid #b9b9b9; background:#fff;padding-left:0;padding-right:0;}
+.selSys li.over{background:#1082f5; color:#fff}
+
+.delFavlink,.delFavlinkOver{ position:absolute; top:6px; right:1px;width:17px;height:17px; border:none;}
+.delFavlink{background:url(../flat/images/delFavlink.png) no-repeat}
+.delFavlinkOver{background:url(../flat/images/delFavlinkOver.png) no-repeat}
+
+
+/*------------------tab框架--------------------*/
+.conRtopLine{}
+.ifrBd{background:#fff;}
+.conRight{background:url(../flat/images/sideBarLine.gif) repeat-y left bottom;border-top:1px solid #29A7FF}
+
+/*侧边栏*/
+.sideBar li{background:url(../flat/images/sideBar02.gif) no-repeat left bottom;padding:2px 2px 0 18px;width:120px;font-size:14px;  color:#333;height:29px; line-height:29px;margin-top:0px; color:#333  }
+.sideBar li:hover{ background:#c5e6ff url(../flat/images/sideBar_dot.png) repeat-x left bottom}
+.sideBar li.current{background:url(../flat/images/sideBar01.gif) no-repeat left bottom; color:#fff;padding:2px 2px 0 18px;width:120px;}
+.sideBar li button{margin-right:8px;margin-top:6px}
+.homeBg{background:url(../flat/images/home.png) no-repeat; margin:8px 5px 0 0;}
+.tabClose{background:url(../flat/images/tabClose.gif) no-repeat}
+.tabClose:hover{background:url(../flat/images/tabCloseOver.gif) no-repeat}
+/*选项卡翻页*/
+a.tabPageOver:hover{background:url(../flat/images/tabPageLine.gif) repeat-x}
+.tabUp{background:url(../flat/images/tabUp.png) no-repeat center center}
+.tabDown{background:url(../flat/images/tabDown.png) no-repeat center center; }
+
+/*========右键菜单*/
+.rightKey{background:#fff; border:1px solid #b9b9b9; width:110px}
+.rightKey li{height:20px; padding:5px 0 3px 6px;}
+.rightKey li button{ margin:0 5px 2px 0}
+.rightKey li.over{background:#f3f3f3}
+
+.rkeyFlash{background:url(../flat/images/rkeyFlash.png) no-repeat center 1px;}
+.rkeyClose{background:url(../flat/images/rkeyClose.png) no-repeat center 1px}
+.rkeyOther{background:url(../flat/images/rkeyOther.png) no-repeat center 1px;}
+.rkeyAll{background:url(../flat/images/rkeyAll.png) no-repeat center 1px;}
+.rKeyFav{background:url(../flat/images/favAdd.png) no-repeat center 1px; width:18px; height:16px}
+
+/*------------------页面样式----------------------*/
+/*按钮*/
+.allBtn{background:#2C8AEF;border:none; height:23px; line-height:23px;padding-left:10px; padding-right:10px; color:#fff}
+.selBtn{background:url(../flat/images/selBtn.png) no-repeat; width:20px; height:20px;}
+/*表单宽度*/
+.ipt01{border:1px solid #ddd; height:18px; line-height:18px;}
+.ipt02{border:1px solid #ddd; }
+.ipt03{border:1px solid #ddd; }
+.ipt05{border:1px solid #ddd; height:18px; line-height:18px;}
+.area01{border:1px solid #ddd}
+
+/*时间宽度*/
+.invokeBoth{border:1px solid #ddd; height:18px;}
+
+/*表格新增*/
+.addCon table{ background:#DBDBDB}
+.addCon th{background:#fff;color:#000}
+.addCon td{color:#333; background:#fff}
+.addCon td.tit{background:#F8F8F8; color:#333}
+
+/*工具条*/
+.addTool{border:none;background:#fff; border-bottom:none; height:28px;}
+.addTool .t01{padding-top:2px;padding-left:0}
+.addTool input{margin-left:0}
+.sortLine{border-bottom:none}
+
+/*搜索*/
+.soso{ border:1px solid #DBDBDB; border-bottom:none;background:#fff;}
+.soso .t01{background:#fff url(../flat/images/toolDot.png) no-repeat 8px 8px; height:27px;padding-top:4px;}
+.soso .t02{ background:#fff;padding-bottom:5px}
+
+/*表格列表*/
+.allList{background:#fff}
+.allList table{border:1px solid #DBDBDB;border-bottom:none}
+.allList th{background:#F6F6F6; color:#000; border-bottom:1px solid #DBDBDB; height:26px}
+.allList td{border-bottom:1px solid #DBDBDB; padding-top:8px;padding-bottom:8px}
+.allList td.last{border-bottom:1px solid #dbdbdb;}
+.allList tr.alt{background:#F8F8F8}
+.allList tr.over{background:#F8F8F8}
+/*翻页*/
+.pageNext .pageIpt01{border:1px solid #ddd; width:22px; height:15px;margin-bottom:3px; margin-left:2px; margin-right:2px;}
+.pageNext .btn{background:url(../flat/images/go.gif) no-repeat}
+
+/*模块定制*/
+.mbdz{background:#fff}
+.mbdz li{background:url(../flat/images/mbdzBg.gif) no-repeat}
+
+/*内部框架*/
+.subBk{background:#fff}
+.subBk table{border:1px solid #dbdbdb}
+.subBk th.sub02{border-bottom:1px solid #dbdbdb;background:#fff; color:#000; height:28px}
+.subLeft{border-right:1px solid #dbdbdb}
+.subLeft02{border-right:1px dashed #dbdbdb}
+
+/*搜索*/
+.mkSearch{background:#f6f6f6;border-top:1px solid #ddd;border-bottom:1px solid #ddd}
+.mkSearch .sIpt01{border:1px solid #ddd}
+.mkSelList li{background:url(../comm/images/listDot.gif) no-repeat 6px center}
+
+/*动作绑定*/
+.dzbdSel01{border:1px solid #dbdbdb}
+.pxSel01{border:1px solid #dbdbdb}
+
+/*从左边开始*/
+.czbks{background:url(../flat/images/czbks.png) no-repeat center 50px}
+.tjjs{color:#000}
+
+.subFrame{background:#fff;border:1px solid #dbdbdb}
+.dialogBk{ background:#fff}
+.dzScroll{border:1px solid #dbdbdb}
+.dzScroll table{border:none}
+/*模块动作*/
+.mkdz{border:1px solid #dbdbdb;}
+.mkdzTip{color:#000;border:1px solid #dbdbdb;background:#fff;border-bottom:none; height:24px}
+.mkdzTip td{color:#000}
+.cBox02{margin-top:-2px;}
+/*角色定位*/
+.jsdw{border:1px solid #dbdbdb}
+.optionLine{border:1px solid #dbdbdb;border-bottom:none; background:#f6f6f6; color:#000;height:26px}
+.infoTip{border:1px dashed #EDC1BC;background:url(../comm/images/infoDot.gif) no-repeat 10px 5px}
+
+
+/*绑定用户*/
+.bindUser td{border-bottom:1px solid #ddd}
+.bindUser th{background:#f6f6f6; color:#000; border-bottom:1px solid #dbdbdb}
+.bindUser tr.over{background:#F8F8F8}
+
+/*错误提示*/
+.cxbsBg{border:1px dashed #ccc;background:#fff url(../flat/images/cxbsBg.gif) no-repeat 18px 21px}
+
+/*皮肤定制*/
+.shinCustom{border:1px solid #dbdbdb}
+.shinCustom .mb{background:#fff}
+.shinCustom .mb li img{border:1px solid #dbdbdb}
+
+.headDefault{background:#fff; color:#000;border-bottom:1px solid #dbdbdb;}
+
+/*门户定制*/
+.portletLeft{background:#fff;border:1px solid #dbdbdb}
+.portletRight{background:#fff;border:1px solid #dbdbdb}
+.portletRight .portOp{background:url(../flat/images/mbdzBg.gif) no-repeat left center; color:#000;}
+.portletLeft .portOp .portDiv{background:#FCFCFC url(../comm/images/mkdz03.gif) no-repeat center center;color:#000;font-weight:bold}
+.portletLeft .portOp h1{background:#f6f6f6;}
+
+.opLink{ color:#858AF0}
+/*快捷定制*/
+.ShortCutConfig{border:1px solid #dbdbdb;  background:#fff}
+.ShortCutBg{background:#F8F8F8;border:1px dashed #dbdbdb}
+.ShortCutAdd table{border:1px solid #DBDBDB}
+.ShortCutAdd .tit{background:#DBDBDB;}
+/*标题*/
+h1.divTitle01{background:#E2F0FA;color:#333;}
+
+h1.flatTit00{background:#E2F0FA;}
+h1.flatTit01{background:#B0ECC9;}
+h1.flatTit02{background:#B2BAC2;}
+h1.flatTit03{background:#E6E8EA;}
+h1.flatTit04{background:#E1F8EA;}
+h1.flatTit05{background:#E0DED4;}
+
+.more{background:url(../flat/images/more.gif) no-repeat center top}
+.more02{background:url(../comm/images/more02.gif) no-repeat center top}
+/*首页拖曳模块*/
+.divPanel .mb{background:#fff; border:1px solid #EEEEEE}
+.divPanel .mb li{background:url(../comm/images/dot01.gif) no-repeat left 9px;}
+.divPanel .mb h2{color:#000}
+
+/*------------------组件样式----------------------*/
+/*---下拉框 select.css---*/
+/* 选择框样式*/
+.select_top {border: 1px solid #ddd;background: #FFFFFF;}
+/* 头部输入框样式*/
+.s_top_text {background: #FFFFFF;height:17px}
+/* 头部选择图片样式*/
+.s_top_img {background:url(../flat/images/s_bt_out.gif) no-repeat;}
+/* 头部选择图片样式*/
+.s_top_img_down {background:url(../flat/images/s_bt_down.gif) no-repeat;}
+/* 头部选择图片样式*/
+.s_top_img_over {background:url(../flat/images/s_bt_over.gif) no-repeat;}
+/* 下拉列表样式*/
+.select_bottom {border:1px solid #ddd;background: #FFF;color:#000}
+/* 列表中选项样式*/
+.s_list_i {border:none; line-height:22px;padding-top:4px;padding-bottom:3px;}
+/* 列表中选项鼠标移过添加的样式，鼠标移过时有两个样式s_list_i与s_list_io*/
+.s_list_io {background: #f3f3f3;border:none;}
+.s_list_bt { border: 1px solid #FFF;line-height:20px;padding-top:4px;padding-bottom:3px;}
+/* 多选模式时 全选按扭*/
+.ms_all{border:none;background:url(../flat/images/all.gif) no-repeat}
+/* 多选模式时 确定按扭*/
+.ms_ok {border:none;background:url(../flat/images/ok.gif) no-repeat;}
+
+/*---时间选择 datepicker.css---*/
+.timeSel{background:url(../flat/images/calendar.gif);  width:19px; height:19px;}
+#datepicker_div, .datepicker_inline{background:#fff}
+#datepicker_div {display: none;	border: 1px solid #ddd;}
+img.datepicker_trigger {background:url(../flat/images/calendar.gif); width:19px; height:19px}
+.datepicker_prompt {background:#ccc;color: #000;}
+.datepicker_control, .datepicker_links, .datepicker_header, .datepicker {color: #fff;}
+.datepicker_control {background:#fff;}
+.datepicker_links label {color: #888;}
+.datepicker_header {background:#fff;}
+.datepicker_header select {	background: #fff;color: #333;}
+.datepicker {background: #ccc}
+.datepicker_titleRow {background:#fff;}
+.datepicker_daysRow {background: #FEFCFC;color: #666;}
+.datepicker_weekCol {background: #777;color: #fff;}
+.datepicker_daysCell {color: #000;border: 1px solid #FEFCFC;}
+.datepicker_weekEndCell {background: #FEFCFC;}
+.datepicker_titleRow .datepicker_weekEndCell {background:#fff}
+.datepicker_daysCellOver {background: #fff;	border: 1px solid #2C8AEF;}
+.datepicker_unselectable {color: #888;}
+.datepicker_today {	background: #DCEAFB !important;}
+.datepicker_currentDay {background:#2C8AEF; color:#fff}
+.datepicker_status {background: #e00;}
+#datepicker_div a, .datepicker_inline a {background: none;color: #000;}
+.datepicker_control a, .datepicker_links a {color: #333 !important;}
+.datepicker_titleRow a {color: #333 !important;}
+.datepicker_control a:hover {color: #333 !important;}
+.datepicker_links a:hover, .datepicker_titleRow a:hover {color: #000 !important;}
+.datepicker_multi .datepicker {border: 1px solid #777;}
+
+/*----------------upload.css----------------*/
+.fileBk{border:1px dashed #dbdbdb; background:#fff; }
+.fileLeft{border-right:1px dashed #dbdbdb}
+.fileBk a{color:#e00}
+.fileBk .fileLink{ color:#333}
+.fileBk .fileLink:hover{ color:#000;}
+.fileDel{color:#f00}
+.addFj{background:url(../comm/images/addFj.gif) no-repeat}
+.drpz{background:url(../comm/images/drpz.gif) no-repeat}
+.czpz{background:url(../comm/images/czpz.gif) no-repeat}
+
+/*更多菜单20120330*/
+.dynamicOption{ background:url(../flat/images/dynamicOption.png) no-repeat; top:0px;left:0px;padding-top:0px;padding-left:0px;}
+.moreOptionBtn{background:url(../flat/images/moreOptionBtn.png) no-repeat; cursor:pointer;top:0px;}
+.doShow{top:11px;left:0px;padding-left:3px;}
+.mobShow{top:8px;}
+.moreOptionBg{ background:none; }
+.moreOptionBgHead{ }
+.moreOptionMain{background:#fff; border:1px solid #ccc; margin-top:36px;padding:0 0 0 0; }
+.moreOptionMain a{background:#fff; width:185px}
+.moreOptionMain a:hover{ background:#eee}
+
+/*更多二级菜单*/
+.moreOptionBtn2{ width:70px; height:14px; cursor:pointer;background:url(../flat/images/moreOptionBtn2.png) no-repeat 72px 5px}
+.moreMenu2Div{ background:#fff; border:1px solid #b9b9b9;min-width: 120px;}
+.moreMenu2Div ul{padding-left:0;padding-right:0;left:0}
+.moreMenu2Div li{margin-top:0;padding-left:10px;padding-right:10px;padding-top:6px;padding-bottom:7px}
+.moreMenu2Div li:hover{ background:#f3f3f3;font-weight:bold}
+
+
+/*alerts*/
+#popup_container {border: solid 2px #046ACB;}
+#popup_ok,#popup_cancel{background:#2D8AEF;color:#fff;border:none; height:23px; padding-top:3px;padding-left:10px; padding-right:10px}
+#popup_title{background: #046ACB; color:#fff; text-align:left;padding-left:12px; border:none}
+
+
+/*dialog*/
+#wBox .wBox_body {border:2px solid #046ACB;}
+#wBox .wBox_title {background:#046ACB;}
+
+/*---树 tree.css---*/
+.simpleTree .root{background: url(../flat/images/root.gif) no-repeat 16px 0 #ffffff;}
+.simpleTree .folder-open{background: url(../flat/images/collapsable.gif) 0 -2px no-repeat #fff;}
+.simpleTree .folder-open-last{background: url(../flat/images/collapsable-last.gif) 0 -2px no-repeat #fff;}
+.simpleTree .folder-close{background: url(../flat/images/expandable.gif) 0 -2px no-repeat #fff;}
+.simpleTree .folder-close-last{background: url(../flat/images/expandable-last.gif) 0 -2px no-repeat #fff;}
+.simpleTree .doc{background: url(../flat/images/leaf.gif) 0 -1px no-repeat #fff;}
+.simpleTree .doc-last{margin-left:-16px;background: url(../flat/images/leaf-last.gif) 0 -1px no-repeat #fff;}
+.simpleTree .active{background-color:#B5DFFF;border: 1px solid #fff;}
+
+/*弹窗口*/
+#wBox .wBox_title .wBox_itemTitle{ color:#fff}
+
+/*alerts*/
+#popup_content {background:url(../flat/images/info.gif) no-repeat 15px 10px;;}
+#popup_content.alert {background:url(../flat/images/info.gif) no-repeat 15px 10px;}
+#popup_content.confirm {background-image: url(../flat/images/important.gif);}
+#popup_content.prompt {background-image: url(../flat/images/help.gif);}
+#popup_panel{margin-top:30px}
+
+
+/*--------------------------新增样式 20141027 by zr---------------------*/
+.subsoW{ width:43px}
+.soRow2{ height:55px;}
+.exlW{width:72px}
+
+/*工具栏按钮样式*/
+.add_btn{border:none; background:url(../flat/images/add.png) no-repeat; width:60px; height:23px; cursor:pointer}
+.flash_btn{border:none; background:url(../flat/images/flash.png) no-repeat; width:60px; height:23px; cursor:pointer}
+.allDel_btn{border:none; background:url(../flat/images/allDel.png) no-repeat; width:80px; height:23px; cursor:pointer}
+.sort_btn{border:none; background:url(../flat/images/sort.png) no-repeat; width:60px; height:23px; cursor:pointer}
+.edit_btn{border:none; background:url(../flat/images/edit.png) no-repeat; width:60px; height:23px; cursor:pointer}
+.bdfw_btn{border:none; background:url(../flat/images/bdfw.png) no-repeat; width:80px; height:23px; cursor:pointer}
+.mrmf_btn{border:none; background:url(../flat/images/mrmf.png) no-repeat; width:80px; height:23px; cursor:pointer}
+.bdjg_btn{border:none; background:url(../flat/images/bdjg.png) no-repeat; width:80px; height:23px; cursor:pointer}
+.bdyf_btn{border:none; background:url(../flat/images/bdyf.png) no-repeat; width:80px; height:23px; cursor:pointer}
+.bdmk_btn{border:none; background:url(../flat/images/bdmk.png) no-repeat; width:80px; height:23px; cursor:pointer}
+.bdjrzh_btn{border:none; background:url(../flat/images/bdjrzh.png) no-repeat; width:80px; height:23px; cursor:pointer}
+.tjjs_btn{border:none; background:url(../flat/images/tjjs.png) no-repeat; width:80px; height:23px; cursor:pointer}
+.mmzz_btn{border:none; background:url(../flat/images/mmzz.png) no-repeat; width:80px; height:23px; cursor:pointer}
+.del_btn{border:none; background:url(../flat/images/del.png) no-repeat; width:60px; height:23px; cursor:pointer}
+.addTm_btn{border:none; background:url(../flat/images/addTm.png) no-repeat; width:80px; height:23px; cursor:pointer}
+.tjry_btn{border:none; background:url(../flat/images/tjry.png) no-repeat; width:80px; height:23px; cursor:pointer}
+.tjzw_btn{border:none; background:url(../flat/images/tjzw.png) no-repeat; width:80px; height:23px; cursor:pointer}
+.bddz_btn{border:none; background:url(../flat/images/bddz.png) no-repeat; width:80px; height:23px; cursor:pointer}
+
+
+/*流程编辑器*/
+.GooFlow{background:#FFFFFF;border-color:#DBDBDB;}
+.GooFlow_head div{background:#F8F8F8;}
+.GooFlow_head label{background:#F8F8F8;}
+.GooFlow_item{background:#DBDBDB;border-color:#939191;}
+.GooFlow .rs_ghost{background:#F8F8F8;border-color:#939191;}
+.GooFlow .item_round, .GooFlow .item_square, .GooFlow .item_rhombus{border-color:#939191;}
+.GooFlow .item_focus{border-color:#FF3300;}
+.GooFlow .item_mark{border-color:#FF3300;}
+

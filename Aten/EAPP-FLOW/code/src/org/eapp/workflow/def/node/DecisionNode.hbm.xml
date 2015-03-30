@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <subclass name="org.eapp.workflow.def.node.DecisionNode" 
+            extends="org.eapp.workflow.def.Node"
+            discriminator-value="DECISION">
+            
+	<list name="decisionConditions" table="WF_NODECONDITIONS">
+  		<key column="NODE_" foreign-key="FK_NODE_CONDITIONS"/>
+      	<list-index column="INDEX_" />
+      	<composite-element class="org.eapp.workflow.def.node.DecisionCondition">
+        	<property name="transitionName" column="TRANSITIONNAME_" insert="false" update="false" />
+        	<property name="expression" column="EXPRESSION_"/>
+     	</composite-element>
+    </list>
+
+	<many-to-one name="decisionDelegation" class="org.eapp.workflow.def.Delegation" fetch="select" cascade="all">
+        <column name="DECISIONDELEGATION_" length="36" />
+    </many-to-one>
+    
+  </subclass>
+</hibernate-mapping>

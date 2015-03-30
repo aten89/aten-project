@@ -1,0 +1,2241 @@
+/*==============================================================*/
+/* DBMS name:      ORACLE Version 10g                           */
+/* Created on:     2014/8/22 19:04:19                           */
+/*==============================================================*/
+
+
+ALTER TABLE OA_AREADEVICECFG
+   DROP CONSTRAINT FK_AREADEV_REF_DEVCLASS;
+
+ALTER TABLE OA_BUSTRIPAPPLYDETAIL
+   DROP CONSTRAINT FK__BUSTRIP_APPLY_REF;
+
+ALTER TABLE OA_DEVALLOCATELIST
+   DROP CONSTRAINT FK_DEVALLOT_REF_DEV;
+
+ALTER TABLE OA_DEVPURCHASELIST
+   DROP CONSTRAINT FK_OA_DEVPURCHASE_REF_DEV;
+
+ALTER TABLE OA_DEVVALIDATEFORM
+   DROP CONSTRAINT FK_DEVVALID_REF_PURCHDEV;
+
+ALTER TABLE OA_DEVICECFGITEM
+   DROP CONSTRAINT FK_DEVCFGITEM_REF_DEVPROP;
+
+ALTER TABLE OA_DEVICECLAASSIGNAREA
+   DROP CONSTRAINT FK_ASSIGNAREA_REF_ASSIGN;
+
+ALTER TABLE OA_DEVICECLAASSIGNAREA
+   DROP CONSTRAINT FK_DEVCLASSIGNAREA_REF_DEVCLA;
+
+ALTER TABLE OA_DEVICECLASSASSIGNDETAIL
+   DROP CONSTRAINT FK_DETAIL_REF_DEVCLASSIGN;
+
+ALTER TABLE OA_DEVICECURSTATUSINFO
+   DROP CONSTRAINT FK_DEVSTAUS_REF_DEV;
+
+ALTER TABLE OA_DEVICEPARAMDETAIL
+   DROP CONSTRAINT FK_DEVPARAM_REF_DEV;
+
+ALTER TABLE OA_DEVICEPARAMDETAIL
+   DROP CONSTRAINT FK_DEVPARAM_REF_PURCHDEV;
+
+ALTER TABLE OA_DISCARDDEALDEVLIST
+   DROP CONSTRAINT FK_LIST_REF_DISCARDDEAL;
+
+ALTER TABLE OA_DISCARDDEVLIST
+   DROP CONSTRAINT FK_DEVSCRAP_REF_DEV;
+
+ALTER TABLE OA_DOCCLASS
+   DROP CONSTRAINT FK_DOCCLASS_REF_ATTACHMENT;
+
+ALTER TABLE OA_DOCCLASSASSIGN
+   DROP CONSTRAINT FK_DOCCLASS_REF_DCASSIGN;
+
+ALTER TABLE OA_DOCFORM
+   DROP CONSTRAINT FK_DOCF_C_REF_ATTACHMENT;
+
+ALTER TABLE OA_DOCFORM
+   DROP CONSTRAINT FK_DOCF_DC_REF_ATTACHMENT;
+
+ALTER TABLE OA_DOCFORM_ATTACH
+   DROP CONSTRAINT FK_DF_ATTACH_REF_ATTACH;
+
+ALTER TABLE OA_DOCFORM_ATTACH
+   DROP CONSTRAINT FK_DF_ATTACH_REF_DOCFORM;
+
+ALTER TABLE OA_DOCFORM_INFO
+   DROP CONSTRAINT FK_DFI_REF_DOCFORM;
+
+ALTER TABLE OA_DOCFORM_INFO
+   DROP CONSTRAINT FK_DFI_REF_INFORMATION;
+
+ALTER TABLE OA_DOCNUMBER
+   DROP CONSTRAINT FK_DOCNO_REF_ATTACHMENT;
+
+ALTER TABLE OA_HOLIDAYDETAIL
+   DROP CONSTRAINT FK_HOLID_DETAIL_REF_HOLID;
+
+ALTER TABLE OA_INFOFORM
+   DROP CONSTRAINT FK_INFOFORM_REF_INFO;
+
+ALTER TABLE OA_INFOFORM
+   DROP CONSTRAINT FK_INFOF_DOC_REF_ATTACH;
+
+ALTER TABLE OA_INFOLAYOUTASSIGN
+   DROP CONSTRAINT FK_IFLAYOUT_REF_IFLASSIGN;
+
+ALTER TABLE OA_INFO_ATTACH
+   DROP CONSTRAINT FK_INFO_ATTACH_REF_ATTACH;
+
+ALTER TABLE OA_INFO_ATTACH
+   DROP CONSTRAINT FK_INFO_ATTACH_REF_INFOR;
+
+ALTER TABLE OA_KNOWLEDGE_ATTACH
+   DROP CONSTRAINT FK_OA_KNOWL_FK_KNL_AT_OA_ATTAC;
+
+ALTER TABLE OA_MEETINGINFO
+   DROP CONSTRAINT FK_MEETINFO_REF_MEETROOM;
+
+ALTER TABLE OA_MEETINGMINUTE
+   DROP CONSTRAINT FK_MINUTE_REF_ATTACH;
+
+ALTER TABLE OA_MEETINGMINUTE
+   DROP CONSTRAINT FK_MINUTE_REF_MEET;
+
+ALTER TABLE OA_MEETINGPARTICIPANT
+   DROP CONSTRAINT FK_MEET_REF_MEETPARTIPANT;
+
+ALTER TABLE OA_OUTLAYLIST
+   DROP CONSTRAINT FK_OUTLAYLIST_REF_REIMB;
+
+ALTER TABLE OA_OUTLAYLIST
+   DROP CONSTRAINT FK_OUTLAYLIST_REF_REIMITEM;
+
+ALTER TABLE OA_PURCHASEDEVPURPOSE
+   DROP CONSTRAINT FK_PURPOSE_REF_PURCHFORM;
+
+ALTER TABLE OA_PURCHASEDEVICE
+   DROP CONSTRAINT FK_PURCHDEV_REF_DEVPUCH;
+
+ALTER TABLE OA_REIMITEM
+   DROP CONSTRAINT FK_REIMITEM_REF_REIM;
+
+ALTER TABLE OA_TASKASSIGN
+   DROP CONSTRAINT FK_TASKPOOLEDS_REF_TASKS;
+
+ALTER TABLE OA_WORKEXPERIENCE
+   DROP CONSTRAINT FK_OA_WORKEXP_REF_OA_STAFFFLOW;
+
+DROP TABLE OA_ADDRESSLIST CASCADE CONSTRAINTS;
+
+DROP TABLE OA_AREADEVICECFG CASCADE CONSTRAINTS;
+
+DROP TABLE OA_ATTACHMENT CASCADE CONSTRAINTS;
+
+DROP TABLE OA_BUSTRIPAPPLY CASCADE CONSTRAINTS;
+
+DROP TABLE OA_BUSTRIPAPPLYDETAIL CASCADE CONSTRAINTS;
+
+DROP TABLE OA_BUSTRIPFLOWCONF CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVDISCARDDISPOSEFORM CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVALLOCATEFORM CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVALLOCATELIST CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVDISCARDFORM CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVPURCHASEFORM CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVPURCHASELIST CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVREPAIRFORM CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVVALIDATEFORM CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVICE CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVICECFGITEM CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVICECHECKITEM CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVICECLAASSIGNAREA CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVICECLASS CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVICECLASSASSIGN CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVICECLASSASSIGNDETAIL CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVICECURSTATUSINFO CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVICEPARAMDETAIL CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVICEPROPERTY CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVICEUPDATELOG CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DEVICEVALIDETAIL CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DISCARDDEALDEVLIST CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DISCARDDEVLIST CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DOCCLASS CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DOCCLASSASSIGN CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DOCFORM CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DOCFORM_ATTACH CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DOCFORM_INFO CASCADE CONSTRAINTS;
+
+DROP TABLE OA_DOCNUMBER CASCADE CONSTRAINTS;
+
+DROP TABLE OA_FLOWCONFIG CASCADE CONSTRAINTS;
+
+DROP TABLE OA_FLOWMETA CASCADE CONSTRAINTS;
+
+DROP TABLE OA_FLOWNOTIFY CASCADE CONSTRAINTS;
+
+DROP TABLE OA_HRFLOWCONF CASCADE CONSTRAINTS;
+
+DROP TABLE OA_HOLIDAYAPPLY CASCADE CONSTRAINTS;
+
+DROP TABLE OA_HOLIDAYDETAIL CASCADE CONSTRAINTS;
+
+DROP TABLE OA_HOLIDAYTYPE CASCADE CONSTRAINTS;
+
+DROP TABLE OA_INDEXTASK CASCADE CONSTRAINTS;
+
+DROP TABLE OA_INFOFORM CASCADE CONSTRAINTS;
+
+DROP TABLE OA_INFOLAYOUT CASCADE CONSTRAINTS;
+
+DROP TABLE OA_INFOLAYOUTASSIGN CASCADE CONSTRAINTS;
+
+DROP TABLE OA_INFO_ATTACH CASCADE CONSTRAINTS;
+
+DROP TABLE OA_INFORMATION CASCADE CONSTRAINTS;
+
+DROP TABLE OA_KNOWLEDGE CASCADE CONSTRAINTS;
+
+DROP TABLE OA_KNOWLEDGECLASS CASCADE CONSTRAINTS;
+
+DROP TABLE OA_KNOWLEDGECLASSASSIGN CASCADE CONSTRAINTS;
+
+DROP TABLE OA_KNOWLEDGEREPLY CASCADE CONSTRAINTS;
+
+DROP TABLE OA_KNOWLEDGE_ATTACH CASCADE CONSTRAINTS;
+
+DROP TABLE OA_KNOWLEDGE_LOG CASCADE CONSTRAINTS;
+
+DROP TABLE OA_LABELLIB CASCADE CONSTRAINTS;
+
+DROP TABLE OA_MEETINGINFO CASCADE CONSTRAINTS;
+
+DROP TABLE OA_MEETINGMINUTE CASCADE CONSTRAINTS;
+
+DROP TABLE OA_MEETINGPARTICIPANT CASCADE CONSTRAINTS;
+
+DROP TABLE OA_MEETINGROOM CASCADE CONSTRAINTS;
+
+DROP TABLE OA_OUTLAYLIST CASCADE CONSTRAINTS;
+
+DROP TABLE OA_POSITIVEAPPLY CASCADE CONSTRAINTS;
+
+DROP TABLE OA_PURCHASEDEVPURPOSE CASCADE CONSTRAINTS;
+
+DROP TABLE OA_PURCHASEDEVICE CASCADE CONSTRAINTS;
+
+DROP TABLE OA_REIMFLOWCONF CASCADE CONSTRAINTS;
+
+DROP TABLE OA_REIMITEM CASCADE CONSTRAINTS;
+
+DROP TABLE OA_REIMBURSEMENT CASCADE CONSTRAINTS;
+
+DROP TABLE OA_SALARYBILL CASCADE CONSTRAINTS;
+
+DROP TABLE OA_STAFFFLOWAPPLY CASCADE CONSTRAINTS;
+
+DROP TABLE OA_STAFFFLOWQUERYASSIGN CASCADE CONSTRAINTS;
+
+DROP TABLE OA_TASK CASCADE CONSTRAINTS;
+
+DROP TABLE OA_TASKASSIGN CASCADE CONSTRAINTS;
+
+DROP TABLE OA_TRANSFERAPPLY CASCADE CONSTRAINTS;
+
+DROP TABLE OA_WORKEXPERIENCE CASCADE CONSTRAINTS;
+
+/*==============================================================*/
+/* Table: OA_ADDRESSLIST                                        */
+/*==============================================================*/
+CREATE TABLE OA_ADDRESSLIST  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   USERACCOUNTID_       VARCHAR2(30),
+   EMPLOYEENUMBER_      VARCHAR2(30),
+   SEATNUMBER_          VARCHAR2(10),
+   ENTERCORPDATE_       TIMESTAMP,
+   MOBILE_              VARCHAR2(30),
+   OFFICETEL_           VARCHAR2(30),
+   EMAIL_               VARCHAR2(50),
+   QQ_                  VARCHAR2(20),
+   MSN_                 VARCHAR2(50),
+   NICKNAME_            VARCHAR2(30),
+   SEX_                 CHAR(1),
+   BIRTHDATE_           TIMESTAMP,
+   NATIVEPLACE_         VARCHAR2(30),
+   NATION_              VARCHAR2(30),
+   COMMADDR_            VARCHAR2(100),
+   ZIPCODE_             VARCHAR2(10),
+   HOMEADDR_            VARCHAR2(100),
+   HOMETEL_             VARCHAR2(30),
+   REMARK_              VARCHAR2(4000),
+   PHOTOURL_            VARCHAR2(500),
+   CONSTRAINT PK_OA_ADDRESSLIST PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_AREADEVICECFG                                      */
+/*==============================================================*/
+CREATE TABLE OA_AREADEVICECFG  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DEVICETYPE_          VARCHAR2(36),
+   AREACODE_            VARCHAR2(128),
+   ORDERPREFIX_         VARCHAR2(32),
+   ORDERPOSTFIX_        VARCHAR2(32),
+   SEPARATOR_           VARCHAR2(16),
+   SEQNUM_              INTEGER,
+   PURCHASEFLOWKEY_     VARCHAR2(36),
+   USEAPPLYFLOWKEY_     VARCHAR2(36),
+   ALLOCATEFLOWKEY_     VARCHAR2(36),
+   DISCARDFLOWKEY_      VARCHAR2(36),
+   DIMISSIONFLOWKEY_    VARCHAR2(36),
+   MAINDEVFLAG_         INTEGER,
+   REMARK_              VARCHAR2(512),
+   CONSTRAINT PK_OA_AREADEVICECFG PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_ATTACHMENT                                         */
+/*==============================================================*/
+CREATE TABLE OA_ATTACHMENT  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   FILEEXT_             VARCHAR2(36),
+   FILEPATH_            VARCHAR2(512),
+   DISPLAYNAME_         VARCHAR2(128),
+   SIZE_                INTEGER,
+   UPLOADDATE_          TIMESTAMP,
+   CONSTRAINT PK_OA_ATTACHMENT PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_BUSTRIPAPPLY                                       */
+/*==============================================================*/
+CREATE TABLE OA_BUSTRIPAPPLY  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   APPLICANT_           VARCHAR2(36),
+   APPLYDATE_           TIMESTAMP,
+   REGIONAL_            VARCHAR2(36),
+   APPLYDEPT_           VARCHAR2(128),
+   APPOINTTO_           VARCHAR2(36),
+   BORROWSUM_           NUMBER(10,2),
+   TERMTYPE_            VARCHAR2(128),
+   TOTALDAYS_           NUMBER(5,1),
+   TRIPAPPID_           VARCHAR2(36),
+   CHANGEREASON_        VARCHAR2(512),
+   ARCHIVEDATE_         TIMESTAMP,
+   FLOWINSTANCEID_      VARCHAR2(36),
+   PASSED_              SMALLINT,
+   APPLYSTATUS_         SMALLINT,
+   CONSTRAINT PK_OA_BUSTRIPAPPLY PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_BUSTRIPAPPLY.PASSED_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+COMMENT ON COLUMN OA_BUSTRIPAPPLY.APPLYSTATUS_ IS
+'0:取消；1：正常；2：变更';
+
+/*==============================================================*/
+/* Table: OA_BUSTRIPAPPLYDETAIL                                 */
+/*==============================================================*/
+CREATE TABLE OA_BUSTRIPAPPLYDETAIL  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   FROMPLACE_           VARCHAR2(128),
+   TOPLACE_             VARCHAR2(128),
+   STARTDATE_           TIMESTAMP,
+   ENDDATE_             TIMESTAMP,
+   DAYS_                NUMBER(5,1),
+   CAUSA_               VARCHAR2(512),
+   TRIPAPPLYID_         VARCHAR2(36),
+   CONSTRAINT PK_OA_BUSTRIPAPPLYDETAIL PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_BUSTRIPFLOWCONF                                    */
+/*==============================================================*/
+CREATE TABLE OA_BUSTRIPFLOWCONF  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   GROUPNAME_           VARCHAR2(128),
+   FLOWKEY_             VARCHAR2(36),
+   DESCRIPTION_         VARCHAR2(1024),
+   CONSTRAINT PK_OA_BUSTRIPFLOWCONF PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_BUSTRIPFLOWCONF.GROUPNAME_ IS
+'来源于ERMP字典表，非空非重复约束';
+
+/*==============================================================*/
+/* Table: OA_DEVDISCARDDISPOSEFORM                              */
+/*==============================================================*/
+CREATE TABLE OA_DEVDISCARDDISPOSEFORM  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DEVICETYPE_          VARCHAR2(128),
+   REGACCOUNTID_        VARCHAR2(128),
+   REGTIME_             TIMESTAMP,
+   SALEPRICE_           NUMBER(16,2),
+   SALEDATE_            TIMESTAMP,
+   FORMNO_              INTEGER,
+   SEQUENCEYEAR_        SMALLINT,
+   CONSTRAINT PK_OA_DEVDISCARDDISPOSEFORM PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVDISCARDDISPOSEFORM.ID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DEVDISCARDDISPOSEFORM.SALEPRICE_ IS
+'流程实例 FlowInstanceID_';
+
+COMMENT ON COLUMN OA_DEVDISCARDDISPOSEFORM.SALEDATE_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询是否生效 Passed_';
+
+/*==============================================================*/
+/* Table: OA_DEVALLOCATEFORM                                    */
+/*==============================================================*/
+CREATE TABLE OA_DEVALLOCATEFORM  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   REGACCOUNTID_        VARCHAR2(128),
+   REGTIME_             TIMESTAMP,
+   APPLICANT_           VARCHAR2(128),
+   APPLYGROUPNAME_      VARCHAR2(128),
+   APPLYDATE_           TIMESTAMP,
+   MOVETYPE_            VARCHAR2(128),
+   INGROUPNAME_         VARCHAR2(128),
+   INACCOUNTID_         VARCHAR2(128),
+   MOVEDATE_            TIMESTAMP,
+   REASON_              VARCHAR2(2000),
+   FLOWINSTANCEID_      VARCHAR2(36),
+   PASSED_              SMALLINT,
+   ARCHIVEDATE_         TIMESTAMP,
+   FORMSTATUS_          SMALLINT,
+   DEVICEVALIDATEID_    VARCHAR2(36),
+   APPLYFORMNO_         INTEGER,
+   DEVICETYPE_          VARCHAR2(128),
+   SEQUENCEYEAR_        SMALLINT,
+   REFDEVUSEFORMID_     VARCHAR2(36),
+   AREACODE_            VARCHAR2(128),
+   CONSTRAINT PK_OA_DEVALLOCATEFORM PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVALLOCATEFORM.ID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DEVALLOCATEFORM.MOVETYPE_ IS
+'调拨类型 MoveType_
+0：调拨给其他人
+1：调拨回库存';
+
+COMMENT ON COLUMN OA_DEVALLOCATEFORM.INGROUPNAME_ IS
+'调入部门 InGroupName_';
+
+COMMENT ON COLUMN OA_DEVALLOCATEFORM.INACCOUNTID_ IS
+'调入部门经办人 InAccountID_';
+
+COMMENT ON COLUMN OA_DEVALLOCATEFORM.MOVEDATE_ IS
+'调拨日期 MoveDate_';
+
+COMMENT ON COLUMN OA_DEVALLOCATEFORM.REASON_ IS
+'调拨原因 reason_';
+
+COMMENT ON COLUMN OA_DEVALLOCATEFORM.FLOWINSTANCEID_ IS
+'流程实例 FlowInstanceID_';
+
+COMMENT ON COLUMN OA_DEVALLOCATEFORM.PASSED_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询是否生效 Passed_';
+
+COMMENT ON COLUMN OA_DEVALLOCATEFORM.ARCHIVEDATE_ IS
+'归档时间 ArchiveDate_';
+
+COMMENT ON COLUMN OA_DEVALLOCATEFORM.FORMSTATUS_ IS
+'0:草稿
+1:审批中
+2:已发布
+3:作废';
+
+COMMENT ON COLUMN OA_DEVALLOCATEFORM.DEVICEVALIDATEID_ IS
+'验收单ID DeviceValidateID_';
+
+/*==============================================================*/
+/* Table: OA_DEVALLOCATELIST                                    */
+/*==============================================================*/
+CREATE TABLE OA_DEVALLOCATELIST  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DEVALLOCATEFORMID_   VARCHAR2(36),
+   DEVICEID_            VARCHAR2(36),
+   DEVICECFGDESC_       VARCHAR2(2000),
+   PURPOSEBEF_          VARCHAR2(128),
+   PURPOSE_             VARCHAR2(128),
+   AREACODEBEF_         VARCHAR2(128),
+   AREACODE_            VARCHAR2(128),
+   DEVSTATUSBEF_        SMALLINT,
+   DISPLAYORDER_        SMALLINT,
+   CONSTRAINT PK_OA_DEVALLOCATELIST PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVALLOCATELIST.DEVALLOCATEFORMID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DEVALLOCATELIST.DEVICEID_ IS
+'主键 ID_';
+
+/*==============================================================*/
+/* Table: OA_DEVDISCARDFORM                                     */
+/*==============================================================*/
+CREATE TABLE OA_DEVDISCARDFORM  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DEVICETYPE_          VARCHAR2(128),
+   REGACCOUNTID_        VARCHAR2(128),
+   REGTIME_             TIMESTAMP,
+   APPLICANT_           VARCHAR2(128),
+   APPLYGROUPNAME_      VARCHAR2(128),
+   APPLYDATE_           TIMESTAMP,
+   FLOWINSTANCEID_      VARCHAR2(36),
+   PASSED_              SMALLINT,
+   ARCHIVEDATE_         TIMESTAMP,
+   FORMSTATUS_          SMALLINT,
+   DEVICEVALIDATEID_    VARCHAR2(36),
+   APPLYFORMNO_         INTEGER,
+   SEQUENCEYEAR_        SMALLINT,
+   ENTERCOMPANYDATE_    TIMESTAMP,
+   WORKYEAR_            NUMBER(16,2),
+   FORMTYPE_            SMALLINT,
+   AREACODE_            VARCHAR2(128),
+   CONSTRAINT PK_OA_DEVDISCARDFORM PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVDISCARDFORM.ID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DEVDISCARDFORM.APPLICANT_ IS
+'申请人 AccountID_';
+
+COMMENT ON COLUMN OA_DEVDISCARDFORM.APPLYGROUPNAME_ IS
+'申请部门 GroupName_';
+
+COMMENT ON COLUMN OA_DEVDISCARDFORM.APPLYDATE_ IS
+'申请日期 ApplyDate_';
+
+COMMENT ON COLUMN OA_DEVDISCARDFORM.FLOWINSTANCEID_ IS
+'流程实例 FlowInstanceID_';
+
+COMMENT ON COLUMN OA_DEVDISCARDFORM.PASSED_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询是否生效 Passed_';
+
+COMMENT ON COLUMN OA_DEVDISCARDFORM.ARCHIVEDATE_ IS
+'归档时间 ArchiveDate_';
+
+COMMENT ON COLUMN OA_DEVDISCARDFORM.FORMSTATUS_ IS
+'0:草稿
+1:审批中
+2:已发布
+3:作废';
+
+COMMENT ON COLUMN OA_DEVDISCARDFORM.DEVICEVALIDATEID_ IS
+'验收单ID DeviceValidateID_';
+
+COMMENT ON COLUMN OA_DEVDISCARDFORM.FORMTYPE_ IS
+'0：设备报废
+1：离职报废';
+
+/*==============================================================*/
+/* Table: OA_DEVPURCHASEFORM                                    */
+/*==============================================================*/
+CREATE TABLE OA_DEVPURCHASEFORM  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   APPLYTYPE_           SMALLINT,
+   REGACCOUNTID_        VARCHAR2(128),
+   REGTIME_             TIMESTAMP,
+   APPLICANT_           VARCHAR2(128),
+   APPLYGROUPNAME_      VARCHAR2(128),
+   APPLYDATE_           TIMESTAMP,
+   BUYTYPE_             VARCHAR2(128),
+   BUDGETMONEY_         NUMBER(16,2),
+   DEVCFGDESC_          VARCHAR2(4000),
+   REMARK_              VARCHAR2(4000),
+   DEVICEVALIDATEID_    VARCHAR2(36),
+   FORMSTATUS_          SMALLINT,
+   DEVICETYPE_          VARCHAR2(128),
+   FLOWINSTANCEID_      VARCHAR2(36),
+   PASSED_              SMALLINT,
+   ARCHIVEDATE_         TIMESTAMP,
+   APPLYFORMNO_         INTEGER,
+   SEQUENCEYEAR_        SMALLINT,
+   AREACODE_            VARCHAR2(128),
+   DEVICECLASS_         VARCHAR2(128),
+   WORKAREACODE_        VARCHAR2(128),
+   CONSTRAINT PK_OA_DEVPURCHASEFORM PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVPURCHASEFORM.ID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DEVPURCHASEFORM.APPLYTYPE_ IS
+'0:领用;
+1:申购;';
+
+COMMENT ON COLUMN OA_DEVPURCHASEFORM.APPLICANT_ IS
+'申购人 AccountID_';
+
+COMMENT ON COLUMN OA_DEVPURCHASEFORM.APPLYGROUPNAME_ IS
+'申请部门 GroupName_';
+
+COMMENT ON COLUMN OA_DEVPURCHASEFORM.APPLYDATE_ IS
+'申购日期 BuyDate_';
+
+COMMENT ON COLUMN OA_DEVPURCHASEFORM.BUYTYPE_ IS
+'申购方式 BuyType_';
+
+COMMENT ON COLUMN OA_DEVPURCHASEFORM.BUDGETMONEY_ IS
+'预算金额 BudgetMoney_';
+
+COMMENT ON COLUMN OA_DEVPURCHASEFORM.REMARK_ IS
+'领用(申购)说明 Remark_';
+
+COMMENT ON COLUMN OA_DEVPURCHASEFORM.DEVICEVALIDATEID_ IS
+'验收单ID DeviceValidateID_';
+
+COMMENT ON COLUMN OA_DEVPURCHASEFORM.FORMSTATUS_ IS
+'0:草稿
+1:审批中
+2:已发布
+3:作废';
+
+COMMENT ON COLUMN OA_DEVPURCHASEFORM.DEVICETYPE_ IS
+'设备类型 DeviceClass_';
+
+COMMENT ON COLUMN OA_DEVPURCHASEFORM.FLOWINSTANCEID_ IS
+'流程实例 FlowInstanceID_';
+
+COMMENT ON COLUMN OA_DEVPURCHASEFORM.PASSED_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询是否生效 Passed_';
+
+COMMENT ON COLUMN OA_DEVPURCHASEFORM.ARCHIVEDATE_ IS
+'归档时间 ArchiveDate_';
+
+/*==============================================================*/
+/* Table: OA_DEVPURCHASELIST                                    */
+/*==============================================================*/
+CREATE TABLE OA_DEVPURCHASELIST  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   PURCHASEFORMID_      VARCHAR2(36),
+   DEVICEID_            VARCHAR2(36),
+   PURPOSE_             VARCHAR2(128),
+   AREACODE_            VARCHAR2(128),
+   PLANUSEDATE_         TIMESTAMP,
+   RETURNBACKDATE_      TIMESTAMP,
+   DISPLAYORDER_        SMALLINT,
+   CONSTRAINT PK_OA_DEVPURCHASELIST PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVPURCHASELIST.PURCHASEFORMID_ IS
+'设备领用、申购、调拨单ID';
+
+COMMENT ON COLUMN OA_DEVPURCHASELIST.DEVICEID_ IS
+'主键 ID_';
+
+/*==============================================================*/
+/* Table: OA_DEVREPAIRFORM                                      */
+/*==============================================================*/
+CREATE TABLE OA_DEVREPAIRFORM  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DEVICEID_            VARCHAR2(36),
+   DEVICENAME_          VARCHAR2(128),
+   REPAIRDEVICENO_      INTEGER,
+   REGACCOUNTID_        VARCHAR2(128),
+   CREATETIME_          TIMESTAMP,
+   ACCOUNTID_           VARCHAR2(128),
+   GROUPNAME_           VARCHAR2(128),
+   APPLYTIME_           TIMESTAMP,
+   STATUS_              SMALLINT,
+   BUDGETMONEY_         NUMBER(16,2),
+   REASON_              VARCHAR2(1000),
+   REMARK_              VARCHAR2(1000),
+   REPAIRMAN_           VARCHAR2(128),
+   SEQUENCEYEAR_        SMALLINT,
+   CONSTRAINT PK_OA_DEVREPAIRFORM PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVREPAIRFORM.ID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DEVREPAIRFORM.DEVICEID_ IS
+'设备ID DeviceID_';
+
+COMMENT ON COLUMN OA_DEVREPAIRFORM.REPAIRDEVICENO_ IS
+'维修单编号 RepairDeviceNo_';
+
+COMMENT ON COLUMN OA_DEVREPAIRFORM.CREATETIME_ IS
+'登记时间 CreateTime_';
+
+COMMENT ON COLUMN OA_DEVREPAIRFORM.ACCOUNTID_ IS
+'申请人 AccountID_';
+
+COMMENT ON COLUMN OA_DEVREPAIRFORM.GROUPNAME_ IS
+'申请部门 GroupName_';
+
+COMMENT ON COLUMN OA_DEVREPAIRFORM.STATUS_ IS
+'维修单状态 Status_
+0：维修中
+1：已维修';
+
+COMMENT ON COLUMN OA_DEVREPAIRFORM.BUDGETMONEY_ IS
+'预算费用 BudgetMoney_';
+
+COMMENT ON COLUMN OA_DEVREPAIRFORM.REASON_ IS
+'损坏原因 Reason_';
+
+COMMENT ON COLUMN OA_DEVREPAIRFORM.REMARK_ IS
+'维修说明 Remark_';
+
+/*==============================================================*/
+/* Table: OA_DEVVALIDATEFORM                                    */
+/*==============================================================*/
+CREATE TABLE OA_DEVVALIDATEFORM  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DEVICEID_            VARCHAR2(36),
+   PURCHASEDEVID_       VARCHAR2(36),
+   VALITYPE_            SMALLINT,
+   ACCOUNTID_           VARCHAR2(128),
+   VALIDATE_            TIMESTAMP,
+   REMARK_              VARCHAR2(1000),
+   VALIDFORMNO_         INTEGER,
+   SEQUENCEYEAR_        SMALLINT,
+   CONSTRAINT PK_OA_DEVVALIDATEFORM PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVVALIDATEFORM.ID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DEVVALIDATEFORM.DEVICEID_ IS
+'设备ID DeviceID_';
+
+COMMENT ON COLUMN OA_DEVVALIDATEFORM.PURCHASEDEVID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DEVVALIDATEFORM.VALITYPE_ IS
+'0.调拨验收1.采购验收2.直接入库验收
+验收单类型 ValiType_';
+
+COMMENT ON COLUMN OA_DEVVALIDATEFORM.ACCOUNTID_ IS
+'检验人 AccountID_';
+
+COMMENT ON COLUMN OA_DEVVALIDATEFORM.VALIDATE_ IS
+'检验日期 ValiDate_';
+
+COMMENT ON COLUMN OA_DEVVALIDATEFORM.REMARK_ IS
+'备注 Remark_';
+
+/*==============================================================*/
+/* Table: OA_DEVICE                                             */
+/*==============================================================*/
+CREATE TABLE OA_DEVICE  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DEVICENO_            VARCHAR2(36),
+   DEVICETYPE_          VARCHAR2(128),
+   DEVICECLASS_         VARCHAR2(128),
+   DEVICENAME_          VARCHAR2(128),
+   DEVICEMODEL_         VARCHAR2(128),
+   DESCRIPTION_         VARCHAR2(2000),
+   REGACCOUNTID_        VARCHAR2(128),
+   REGTIME_             TIMESTAMP,
+   BUYTIME_             TIMESTAMP,
+   BUYTYPE_             VARCHAR2(128),
+   DEDUCTFLAG_          SMALLINT,
+   DEDUCTMONEY_         NUMBER(16,2),
+   INDATE_              TIMESTAMP,
+   AREACODE_            VARCHAR2(128),
+   SEQUENCE_            INTEGER,
+   PRICE_               NUMBER(16, 2),
+   FINANCEORIGINALVAL_  NUMBER(16,2),
+   CONSTRAINT PK_OA_DEVICE PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVICE.ID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DEVICE.DEVICENO_ IS
+'设备编号 DeviceNO_';
+
+COMMENT ON COLUMN OA_DEVICE.DEVICETYPE_ IS
+'设备类型 Type_';
+
+COMMENT ON COLUMN OA_DEVICE.DEVICECLASS_ IS
+'设备类别 DeviceSort_';
+
+COMMENT ON COLUMN OA_DEVICE.DEVICENAME_ IS
+'设备名称 DeviceName_';
+
+COMMENT ON COLUMN OA_DEVICE.DEVICEMODEL_ IS
+'设备型号 DeviceModel_';
+
+COMMENT ON COLUMN OA_DEVICE.DESCRIPTION_ IS
+'设备描述 Description_';
+
+COMMENT ON COLUMN OA_DEVICE.REGTIME_ IS
+'登记时间 RegTime_';
+
+COMMENT ON COLUMN OA_DEVICE.BUYTIME_ IS
+'购买时间 BuyTime_';
+
+/*==============================================================*/
+/* Table: OA_DEVICECFGITEM                                      */
+/*==============================================================*/
+CREATE TABLE OA_DEVICECFGITEM  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DEVICETYPE_          VARCHAR2(36),
+   ITEMID_              VARCHAR2(36),
+   DISPLAYORDER_        INTEGER,
+   REMARK_              VARCHAR2(512),
+   CONSTRAINT PK_OA_DEVICECFGITEM PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVICECFGITEM.ITEMID_ IS
+'主键 ID_';
+
+/*==============================================================*/
+/* Table: OA_DEVICECHECKITEM                                    */
+/*==============================================================*/
+CREATE TABLE OA_DEVICECHECKITEM  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   ITEMNAME_            VARCHAR2(128),
+   DEVICECLASSID_       VARCHAR2(36),
+   DISPLAYORDER_        INTEGER,
+   REMARK_              VARCHAR2(512),
+   CONSTRAINT PK_OA_DEVICECHECKITEM PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_DEVICECLAASSIGNAREA                                */
+/*==============================================================*/
+CREATE TABLE OA_DEVICECLAASSIGNAREA  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   ASSIGNID_            VARCHAR2(36),
+   DEVICECLASS_         VARCHAR2(36),
+   CONSTRAINT PK_OA_DEVICECLAASSIGNAREA PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_DEVICECLASS                                        */
+/*==============================================================*/
+CREATE TABLE OA_DEVICECLASS  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   NAME_                VARCHAR2(128),
+   REMARK_              VARCHAR2(512),
+   DEVICETYPE_          VARCHAR2(128),
+   STATUS_              INTEGER                        DEFAULT 1,
+   CONSTRAINT PK_OA_DEVICECLASS PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVICECLASS.STATUS_ IS
+'0：删除
+1：正常';
+
+/*==============================================================*/
+/* Table: OA_DEVICECLASSASSIGN                                  */
+/*==============================================================*/
+CREATE TABLE OA_DEVICECLASSASSIGN  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   AREACODE_            VARCHAR2(128),
+   CONFIGTIME_          TIMESTAMP,
+   REMARK_              VARCHAR2(512),
+   ASSIGNEDVALUE_       VARCHAR2(128),
+   DEVICETYPE_          VARCHAR2(36),
+   CONSTRAINT PK_OA_DEVICECLASSASSIGN PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVICECLASSASSIGN.ASSIGNEDVALUE_ IS
+'该字段是用逗号分隔的授权类别串。如：0，1，2说明已授予三种权限。';
+
+/*==============================================================*/
+/* Table: OA_DEVICECLASSASSIGNDETAIL                            */
+/*==============================================================*/
+CREATE TABLE OA_DEVICECLASSASSIGNDETAIL  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   ASSIGNCLASS_         INTEGER,
+   ASSIGNID_            VARCHAR2(36),
+   TYPE_                CHAR(1),
+   ASSIGNKEY_           VARCHAR2(128),
+   CONSTRAINT PK_OA_DEVICECLASSASSIGNDETAIL PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVICECLASSASSIGNDETAIL.TYPE_ IS
+'0：用户
+1：职位
+2：机构';
+
+/*==============================================================*/
+/* Table: OA_DEVICECURSTATUSINFO                                */
+/*==============================================================*/
+CREATE TABLE OA_DEVICECURSTATUSINFO  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DEVICEID_            VARCHAR2(36),
+   OWNER_               VARCHAR2(128),
+   GROUPNAME_           VARCHAR2(128),
+   DEVICECURSTATUS_     INTEGER,
+   STATUSUPTDATE_       TIMESTAMP,
+   AREACODE_            VARCHAR2(128),
+   PURPOSE_             VARCHAR2(128),
+   APPROVETYPE_         SMALLINT,
+   FORMID_              VARCHAR2(36),
+   CONSTRAINT PK_OA_DEVICECURSTATUSINFO PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVICECURSTATUSINFO.ID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DEVICECURSTATUSINFO.DEVICECURSTATUS_ IS
+'0：已删除
+1：正常
+4:离职回购
+5:离职赠送
+6:拿走
+7:报废未处理
+8:报废已处理
+';
+
+COMMENT ON COLUMN OA_DEVICECURSTATUSINFO.APPROVETYPE_ IS
+'1:领用审批中
+2:调拨审批中
+3:报废审批中
+4:离职审批中';
+
+COMMENT ON COLUMN OA_DEVICECURSTATUSINFO.FORMID_ IS
+'用于跟踪';
+
+/*==============================================================*/
+/* Table: OA_DEVICEPARAMDETAIL                                  */
+/*==============================================================*/
+CREATE TABLE OA_DEVICEPARAMDETAIL  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DEVICEID_            VARCHAR2(36),
+   PURCHASEDEVID_       VARCHAR2(36),
+   PROPERTYNAME_        VARCHAR2(128),
+   PROPERTYVALUE_       VARCHAR2(128),
+   REMARK_              VARCHAR2(512),
+   CONSTRAINT PK_OA_DEVICEPARAMDETAIL PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVICEPARAMDETAIL.ID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DEVICEPARAMDETAIL.DEVICEID_ IS
+'设备ID DeviceID_';
+
+COMMENT ON COLUMN OA_DEVICEPARAMDETAIL.PURCHASEDEVID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DEVICEPARAMDETAIL.PROPERTYNAME_ IS
+'属性名 PropertyName_';
+
+COMMENT ON COLUMN OA_DEVICEPARAMDETAIL.PROPERTYVALUE_ IS
+'属性值 PropertyValue_';
+
+/*==============================================================*/
+/* Table: OA_DEVICEPROPERTY                                     */
+/*==============================================================*/
+CREATE TABLE OA_DEVICEPROPERTY  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   PROPERTYNAME_        VARCHAR2(128),
+   REMARK_              VARCHAR2(512),
+   CONSTRAINT PK_OA_DEVICEPROPERTY PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVICEPROPERTY.ID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DEVICEPROPERTY.PROPERTYNAME_ IS
+'属性名 PropertyName_';
+
+/*==============================================================*/
+/* Table: OA_DEVICEUPDATELOG                                    */
+/*==============================================================*/
+CREATE TABLE OA_DEVICEUPDATELOG  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DEVICEID_            VARCHAR2(36),
+   OPERATOR_            VARCHAR2(128),
+   OPERATEDATE_         TIMESTAMP,
+   OPERATETYPE_         SMALLINT,
+   UPDATECONTENT_       VARCHAR2(2000),
+   CONSTRAINT PK_OA_DEVICEUPDATELOG PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVICEUPDATELOG.DEVICEID_ IS
+'主键 ID_';
+
+/*==============================================================*/
+/* Table: OA_DEVICEVALIDETAIL                                   */
+/*==============================================================*/
+CREATE TABLE OA_DEVICEVALIDETAIL  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DEVICEVALIDATEID_    VARCHAR2(36),
+   ITEM_                VARCHAR2(256),
+   ISELIGIBILITY_       SMALLINT,
+   REMARK_              VARCHAR2(1000),
+   CONSTRAINT PK_OA_DEVICEVALIDETAIL PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DEVICEVALIDETAIL.ID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DEVICEVALIDETAIL.DEVICEVALIDATEID_ IS
+'验收单ID';
+
+COMMENT ON COLUMN OA_DEVICEVALIDETAIL.ITEM_ IS
+'检查项目 Item_';
+
+COMMENT ON COLUMN OA_DEVICEVALIDETAIL.ISELIGIBILITY_ IS
+'是否合格 IsEligibility_
+0：���合格
+1：合格';
+
+COMMENT ON COLUMN OA_DEVICEVALIDETAIL.REMARK_ IS
+'备注 Remark_';
+
+/*==============================================================*/
+/* Table: OA_DISCARDDEALDEVLIST                                 */
+/*==============================================================*/
+CREATE TABLE OA_DISCARDDEALDEVLIST  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DISCARDDEALFORMID_   VARCHAR2(36),
+   DEVICEID_            VARCHAR2(36),
+   DISPLAYORDER_        SMALLINT,
+   CONSTRAINT PK_OA_DISCARDDEALDEVLIST PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DISCARDDEALDEVLIST.DISCARDDEALFORMID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DISCARDDEALDEVLIST.DEVICEID_ IS
+'主键 ID_';
+
+/*==============================================================*/
+/* Table: OA_DISCARDDEVLIST                                     */
+/*==============================================================*/
+CREATE TABLE OA_DISCARDDEVLIST  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DISCARDFORMID_       VARCHAR2(36),
+   DEVICEID_            VARCHAR2(36),
+   OWNERTYPE_           SMALLINT,
+   REASON_              VARCHAR2(2000),
+   DEALTYPE_            VARCHAR2(128),
+   DEALDATE_            TIMESTAMP,
+   DISCARDTYPE_         VARCHAR2(128),
+   DISCARDDATE_         TIMESTAMP,
+   REMAINING_           NUMBER(16,2),
+   DEPRECIATION_        NUMBER(16,2),
+   BUYFLAG_             SMALLINT,
+   BUYPRICE_            NUMBER(16,2),
+   NOBUYPRICE_          NUMBER(16,2),
+   INDATE_              TIMESTAMP,
+   DISPLAYORDER_        SMALLINT,
+   PLANPAYDATE_         TIMESTAMP,
+   CONSTRAINT PK_OA_DISCARDDEVLIST PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DISCARDDEVLIST.DISCARDFORMID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_DISCARDDEVLIST.DEVICEID_ IS
+'主键 ID_';
+
+/*==============================================================*/
+/* Table: OA_DOCCLASS                                           */
+/*==============================================================*/
+CREATE TABLE OA_DOCCLASS  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   NAME_                VARCHAR2(128),
+   FLOWCLASS_           VARCHAR2(36),
+   DISPLAYORDER_        INTEGER,
+   DESCRIPTION_         VARCHAR2(1024),
+   BODYTEMPLATE_        VARCHAR2(36),
+   FILECLASS_           INTEGER,
+   CONSTRAINT PK_OA_DOCCLASS PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DOCCLASS.NAME_ IS
+'来源于ERMP字典表，非空非重复约束';
+
+/*==============================================================*/
+/* Table: OA_DOCCLASSASSIGN                                     */
+/*==============================================================*/
+CREATE TABLE OA_DOCCLASSASSIGN  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DOCCLASSID_          VARCHAR2(36),
+   TYPE_                CHAR(1),
+   ASSIGNKEY_           VARCHAR2(128),
+   CONSTRAINT PK_OA_DOCCLASSASSIGN PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DOCCLASSASSIGN.TYPE_ IS
+'0：用户
+1：角色
+2：机构';
+
+/*==============================================================*/
+/* Table: OA_DOCFORM                                            */
+/*==============================================================*/
+CREATE TABLE OA_DOCFORM  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DRAFTSMAN_           VARCHAR2(128),
+   DOCCLASS_            VARCHAR2(128),
+   GROUPNAME_           VARCHAR2(128),
+   DRAFTDATE_           TIMESTAMP,
+   DOCNUMBER_           VARCHAR2(256),
+   SUBMITTO_            VARCHAR2(512),
+   COPYTO_              VARCHAR2(512),
+   SUBJECT_             VARCHAR2(256),
+   BODYDRAFTDOC_        VARCHAR2(36),
+   BODYDOC_             VARCHAR2(36),
+   FLOWINSTANCEID_      VARCHAR2(36),
+   FORMSTATUS_          SMALLINT,
+   PASSED_              SMALLINT,
+   ARCHIVEDATE_         TIMESTAMP,
+   URGENCY_             VARCHAR2(128),
+   SECURITYCLASS_       VARCHAR2(128),
+   COPYDOCFORMID_       VARCHAR2(36),
+   SIGNGROUPNAMES_      VARCHAR2(512),
+   FILECLASS_           INTEGER,
+   CONSTRAINT PK_OA_DOCFORM PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_DOCFORM.FORMSTATUS_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+COMMENT ON COLUMN OA_DOCFORM.PASSED_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+/*==============================================================*/
+/* Table: OA_DOCFORM_ATTACH                                     */
+/*==============================================================*/
+CREATE TABLE OA_DOCFORM_ATTACH  (
+   DOCFORMID_           VARCHAR2(36)                    NOT NULL,
+   ATTACHMENTID_        VARCHAR2(36)                    NOT NULL,
+   CONSTRAINT PK_OA_DOCFORM_ATTACH PRIMARY KEY (DOCFORMID_, ATTACHMENTID_)
+);
+
+/*==============================================================*/
+/* Table: OA_DOCFORM_INFO                                       */
+/*==============================================================*/
+CREATE TABLE OA_DOCFORM_INFO  (
+   DOCFORMID_           VARCHAR2(36)                    NOT NULL,
+   INFORMATIONID_       VARCHAR2(36)                    NOT NULL,
+   CONSTRAINT PK_OA_DOCFORM_INFO PRIMARY KEY (DOCFORMID_, INFORMATIONID_)
+);
+
+/*==============================================================*/
+/* Table: OA_DOCNUMBER                                          */
+/*==============================================================*/
+CREATE TABLE OA_DOCNUMBER  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   DOCWORD_             VARCHAR2(128),
+   YEARPREFIX_          VARCHAR2(32),
+   CURRENTYEAR_         INTEGER,
+   YEARPOSTFIX_         VARCHAR2(32),
+   ORDERPREFIX_         VARCHAR2(32),
+   ORDERNUMBER_         INTEGER,
+   ORDERPOSTFIX_        VARCHAR2(32),
+   HEADTEMPLATE_        VARCHAR2(32),
+   DESCRIPTION_         VARCHAR2(1024),
+   CONSTRAINT PK_OA_DOCNUMBER PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_FLOWCONFIG                                         */
+/*==============================================================*/
+CREATE TABLE OA_FLOWCONFIG  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   FLOWCLASS_           VARCHAR2(128),
+   FLOWKEY_             VARCHAR2(36),
+   FLOWNAME_            VARCHAR2(400),
+   FLOWVERSION_         NUMBER(14,0),
+   DRAFTFLAG_           CHAR(1),
+   CONSTRAINT PK_OA_FLOWCONFIG PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_FLOWMETA                                           */
+/*==============================================================*/
+CREATE TABLE OA_FLOWMETA  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   FLOWCLASS_           VARCHAR2(128),
+   NAME_                VARCHAR2(200),
+   DISPLAYNAME_         VARCHAR2(200),
+   TYPE_                VARCHAR2(20),
+   NOTNULL_             SMALLINT,
+   CONSTRAINT PK_OA_FLOWMETA PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_FLOWNOTIFY                                         */
+/*==============================================================*/
+CREATE TABLE OA_FLOWNOTIFY  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   SUBJECT_             VARCHAR2(200),
+   NOTIFYUSER_          VARCHAR2(100),
+   NOTIFYTYPE_          SMALLINT,
+   CREATOR_             VARCHAR2(100),
+   GROUPFULLNAME_       VARCHAR2(500),
+   CREATETIME_          TIMESTAMP,
+   STATUS_              SMALLINT,
+   FLOWCLASS_           VARCHAR2(20),
+   NOTIFYTIME_          TIMESTAMP,
+   REFFORMID_           VARCHAR2(36),
+   VIEWDETAILURL_       VARCHAR2(200),
+   FLOW_STATUS_         SMALLINT                       DEFAULT -1,
+   CONSTRAINT PK_OA_FLOWNOTIFY PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_FLOWNOTIFY.NOTIFYTYPE_ IS
+'1立即知会、3流程结束后知会';
+
+COMMENT ON COLUMN OA_FLOWNOTIFY.STATUS_ IS
+'0登记、1知会、2已读';
+
+COMMENT ON COLUMN OA_FLOWNOTIFY.FLOW_STATUS_ IS
+'0作废、1通过、-1未知';
+
+/*==============================================================*/
+/* Table: OA_HRFLOWCONF                                         */
+/*==============================================================*/
+CREATE TABLE OA_HRFLOWCONF  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   GROUPNAME_           VARCHAR2(128),
+   HOLIDAYFLOWKEY_      VARCHAR2(36),
+   CANHOLIDAYFLOWKEY_   VARCHAR2(36),
+   ENTRYFLOWKEY_        VARCHAR2(36),
+   RESIGNFLOWKEY_       VARCHAR2(36),
+   DESCRIPTION_         VARCHAR2(256),
+   TRANSFERFLOWKEY_     VARCHAR2(36),
+   POSITIVEFLOWKEY_     VARCHAR2(36),
+   CONSTRAINT PK_OA_HRFLOWCONF PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_HRFLOWCONF.GROUPNAME_ IS
+'来源于ERMP字典表，非空非重复约束';
+
+/*==============================================================*/
+/* Table: OA_HOLIDAYAPPLY                                       */
+/*==============================================================*/
+CREATE TABLE OA_HOLIDAYAPPLY  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   APPLICANT_           VARCHAR2(36),
+   APPLYDATE_           TIMESTAMP,
+   APPLYDEPT_           VARCHAR2(128),
+   APPOINTTO_           VARCHAR2(36),
+   ISSPECIAL_           INTEGER,
+   SPECIALREASON_       VARCHAR2(512),
+   TOTALDAYS_           NUMBER(5,1),
+   REGIONAL_            VARCHAR2(36),
+   CANCELFLAG_          SMALLINT                       DEFAULT 0,
+   REMARK_              VARCHAR2(200),
+   FLOWINSTANCEID_      VARCHAR2(36),
+   ARCHIVEDATE_         TIMESTAMP,
+   PASSED_              SMALLINT,
+   APPLYSTATUS_         SMALLINT,
+   CONSTRAINT PK_OA_HOLIDAYAPPLY PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_HOLIDAYAPPLY.APPOINTTO_ IS
+'0：普通
+1：不可回复
+2：只读';
+
+COMMENT ON COLUMN OA_HOLIDAYAPPLY.PASSED_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+COMMENT ON COLUMN OA_HOLIDAYAPPLY.APPLYSTATUS_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+/*==============================================================*/
+/* Table: OA_HOLIDAYDETAIL                                      */
+/*==============================================================*/
+CREATE TABLE OA_HOLIDAYDETAIL  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   HOLIDAYAPPLYID_      VARCHAR2(36),
+   HOLIDAYNAME_         VARCHAR2(36),
+   STARTDATE_           TIMESTAMP,
+   STARTTIME_           VARCHAR2(8),
+   ENDDATE_             TIMESTAMP,
+   ENDTIME_             VARCHAR2(8),
+   DAYS_                NUMBER(5,1),
+   REMARK_              VARCHAR2(200),
+   SOURCE_ID_           VARCHAR2(36),
+   CANCELDAYS_          NUMBER(5,1),
+   CANCELREMARK_        VARCHAR2(200),
+   CONSTRAINT PK_OA_HOLIDAYDETAIL PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_HOLIDAYTYPE                                        */
+/*==============================================================*/
+CREATE TABLE OA_HOLIDAYTYPE  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   HOLIDAYNAME_         VARCHAR2(256),
+   MAXDAYS_             NUMBER(5,1),
+   EXPRESSION_          VARCHAR2(256),
+   DESCRIPTION_         VARCHAR2(512),
+   CONSTRAINT PK_OA_HOLIDAYTYPE PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_INDEXTASK                                          */
+/*==============================================================*/
+CREATE TABLE OA_INDEXTASK  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   ACTION_              VARCHAR2(36),
+   DOCUMENTID_          VARCHAR2(36),
+   DOCUMENTTYPE_        VARCHAR2(36),
+   CREATEDATE_          TIMESTAMP,
+   CONSTRAINT PK_OA_INDEXTASK PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_INFOFORM                                           */
+/*==============================================================*/
+CREATE TABLE OA_INFOFORM  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   CONTENTDOC_          VARCHAR2(36),
+   FLOWINSTANCEID_      VARCHAR2(36),
+   PASSED_              SMALLINT,
+   ARCHIVEDATE_         TIMESTAMP,
+   INFORMATIONID_       VARCHAR2(36),
+   COPYINFOFORMID_      VARCHAR2(36),
+   CONSTRAINT PK_OA_INFOFORM PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_INFOFORM.PASSED_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+/*==============================================================*/
+/* Table: OA_INFOLAYOUT                                         */
+/*==============================================================*/
+CREATE TABLE OA_INFOLAYOUT  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   NAME_                VARCHAR2(128),
+   FLOWCLASS_           VARCHAR2(36),
+   DISPLAYORDER_        INTEGER,
+   DESCRIPTION_         VARCHAR2(1024),
+   CONSTRAINT PK_OA_INFOLAYOUT PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_INFOLAYOUT.NAME_ IS
+'来源于ERMP字典表，非空非重复约束';
+
+/*==============================================================*/
+/* Table: OA_INFOLAYOUTASSIGN                                   */
+/*==============================================================*/
+CREATE TABLE OA_INFOLAYOUTASSIGN  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   INFOLAYOUTID_        VARCHAR2(36),
+   TYPE_                CHAR(1),
+   ASSIGNKEY_           VARCHAR2(128),
+   FLAG_                CHAR(1),
+   CONSTRAINT PK_OA_INFOLAYOUTASSIGN PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_INFOLAYOUTASSIGN.TYPE_ IS
+'0：用户
+1：角色
+2：机构';
+
+/*==============================================================*/
+/* Table: OA_INFO_ATTACH                                        */
+/*==============================================================*/
+CREATE TABLE OA_INFO_ATTACH  (
+   INFOID_              VARCHAR2(36)                    NOT NULL,
+   ATTACHMENTID_        VARCHAR2(36)                    NOT NULL,
+   CONSTRAINT PK_OA_INFO_ATTACH PRIMARY KEY (INFOID_, ATTACHMENTID_)
+);
+
+/*==============================================================*/
+/* Table: OA_INFORMATION                                        */
+/*==============================================================*/
+CREATE TABLE OA_INFORMATION  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   SUBJECT_             VARCHAR2(256),
+   INFOLAYOUT_          VARCHAR2(128),
+   INFOCLASS_           VARCHAR2(128),
+   CONTENT_             CLOB,
+   CONTENTURL_          VARCHAR2(512),
+   DISPLAYMODE_         SMALLINT                       DEFAULT 0,
+   INFOSTATUS_          SMALLINT                       DEFAULT 0,
+   INFOPROPERTY_        SMALLINT                       DEFAULT 0,
+   GROUPNAME_           VARCHAR2(128),
+   DRAFTSMAN_           VARCHAR2(128),
+   DRAFTDATE_           TIMESTAMP,
+   PUBLICDATE_          TIMESTAMP,
+   INVALIDDATE_         TIMESTAMP,
+   SUBJECTCOLOR_        VARCHAR2(36),
+   CONSTRAINT PK_OA_INFORMATION PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_INFORMATION.DISPLAYMODE_ IS
+'0：内容地址，
+1：直接显示内容，
+默认0';
+
+COMMENT ON COLUMN OA_INFORMATION.INFOSTATUS_ IS
+'0：未发布
+1：已发布';
+
+COMMENT ON COLUMN OA_INFORMATION.INFOPROPERTY_ IS
+'0：普通
+1：置顶
+2：屏蔽';
+
+/*==============================================================*/
+/* Table: OA_KNOWLEDGE                                          */
+/*==============================================================*/
+CREATE TABLE OA_KNOWLEDGE  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   KNOWLEDGECLASSID_    VARCHAR2(36),
+   SUBJECT_             VARCHAR2(256),
+   LABELS_              VARCHAR2(1000),
+   REMARK_              VARCHAR2(4000),
+   CONTENT_             CLOB,
+   CONTENTURL_          VARCHAR2(512),
+   DISPLAYMODE_         SMALLINT                       DEFAULT 0,
+   GROUPNAME_           VARCHAR2(128),
+   PUBLISHER_           VARCHAR2(128),
+   PUBLISHDATE_         TIMESTAMP,
+   MODIFYDATE_          TIMESTAMP,
+   PROPERTY_            SMALLINT,
+   STATUS_              SMALLINT,
+   FIRSTTYPE_           VARCHAR2(128),
+   SECONDTYPE_          VARCHAR2(128),
+   CONSTRAINT PK_OA_KNOWLEDGE PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_KNOWLEDGE.DISPLAYMODE_ IS
+'0：内容地址，
+1：直接显示内容，
+默认0';
+
+COMMENT ON COLUMN OA_KNOWLEDGE.PROPERTY_ IS
+'0：普通
+1：不可回复
+2：只读';
+
+COMMENT ON COLUMN OA_KNOWLEDGE.STATUS_ IS
+'0：收集中
+1：正式
+';
+
+/*==============================================================*/
+/* Table: OA_KNOWLEDGECLASS                                     */
+/*==============================================================*/
+CREATE TABLE OA_KNOWLEDGECLASS  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   PARENTID_            VARCHAR2(36),
+   NAME_                VARCHAR2(128),
+   DISPLAYORDER_        INTEGER,
+   TREELEVEL_           INTEGER,
+   DESCRIPTION_         VARCHAR2(1024),
+   CONSTRAINT PK_OA_KNOWLEDGECLASS PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_KNOWLEDGECLASSASSIGN                               */
+/*==============================================================*/
+CREATE TABLE OA_KNOWLEDGECLASSASSIGN  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   KNOWLEDGECLASSID_    VARCHAR2(36),
+   TYPE_                CHAR(1),
+   ASSIGNKEY_           VARCHAR2(128),
+   FLAG_                CHAR(1),
+   CONSTRAINT PK_OA_KNOWLEDGECLASSASSIGN PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_KNOWLEDGECLASSASSIGN.TYPE_ IS
+'0：用户
+1：角色
+2：机构';
+
+/*==============================================================*/
+/* Table: OA_KNOWLEDGEREPLY                                     */
+/*==============================================================*/
+CREATE TABLE OA_KNOWLEDGEREPLY  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   KNOWLEDGEID_         VARCHAR2(36),
+   CONTENT_             CLOB,
+   GROUPNAME_           VARCHAR2(128),
+   REPLYMAN_            VARCHAR2(128),
+   REPLYDATE_           TIMESTAMP,
+   CONSTRAINT PK_OA_KNOWLEDGEREPLY PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_KNOWLEDGE_ATTACH                                   */
+/*==============================================================*/
+CREATE TABLE OA_KNOWLEDGE_ATTACH  (
+   KNOWLEDGEID_         VARCHAR2(36)                    NOT NULL,
+   ATTACHMENTID_        VARCHAR2(36)                    NOT NULL,
+   ID_                  VARCHAR2(36),
+   TYPE_                INTEGER,
+   CONSTRAINT PK_OA_KNOWLEDGE_ATTACH PRIMARY KEY (KNOWLEDGEID_, ATTACHMENTID_)
+);
+
+COMMENT ON COLUMN OA_KNOWLEDGE_ATTACH.TYPE_ IS
+'0：附件
+1：内容图片
+2：内容视频';
+
+/*==============================================================*/
+/* Table: OA_KNOWLEDGE_LOG                                      */
+/*==============================================================*/
+CREATE TABLE OA_KNOWLEDGE_LOG  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   USERID_              VARCHAR2(128),
+   TYPE_                VARCHAR2(36),
+   KNOWLEDGEID_         VARCHAR2(36),
+   KNOWLEDGETITLE_      VARCHAR2(256),
+   OPERATETIME_         TIMESTAMP
+);
+
+/*==============================================================*/
+/* Table: OA_LABELLIB                                           */
+/*==============================================================*/
+CREATE TABLE OA_LABELLIB  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   NAME_                VARCHAR2(256),
+   COUNT_               NUMBER(10,0),
+   PROPERTY_            SMALLINT                       DEFAULT 0,
+   CREATEDATE_          TIMESTAMP,
+   CONSTRAINT PK_OA_LABELLIB PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_LABELLIB.PROPERTY_ IS
+'0：普通';
+
+/*==============================================================*/
+/* Table: OA_MEETINGINFO                                        */
+/*==============================================================*/
+CREATE TABLE OA_MEETINGINFO  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   APPLYMAN_            VARCHAR2(128),
+   GROUPNAME_           VARCHAR2(128),
+   RESERVETIME_         TIMESTAMP,
+   ROOMID_              VARCHAR2(36),
+   THEME_               VARCHAR2(128),
+   CONTENT_             CLOB,
+   BEGINTIME_           TIMESTAMP,
+   ENDTIME_             TIMESTAMP,
+   REMARK_              VARCHAR2(2048),
+   CONSTRAINT PK_OA_MEETINGINFO PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_MEETINGMINUTE                                      */
+/*==============================================================*/
+CREATE TABLE OA_MEETINGMINUTE  (
+   MEETINGID_           VARCHAR2(36)                    NOT NULL,
+   ATTACHMENTID_        VARCHAR2(36)                    NOT NULL,
+   TYPE_                INTEGER,
+   CONSTRAINT PK_OA_MEETINGMINUTE PRIMARY KEY (MEETINGID_, ATTACHMENTID_)
+);
+
+COMMENT ON COLUMN OA_MEETINGMINUTE.TYPE_ IS
+'0：会议附件
+1：会议纪要
+2：邮件内容图片';
+
+/*==============================================================*/
+/* Table: OA_MEETINGPARTICIPANT                                 */
+/*==============================================================*/
+CREATE TABLE OA_MEETINGPARTICIPANT  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   MEETINGID_           VARCHAR2(36),
+   PARTICIPANT_         VARCHAR2(128),
+   EMAIL_               VARCHAR2(64),
+   NAME_                VARCHAR2(128),
+   TYPE_                SMALLINT,
+   CONSTRAINT PK_OA_MEETINGPARTICIPANT PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_MEETINGPARTICIPANT.PARTICIPANT_ IS
+'以后有通讯录时，改为通讯录表的外键';
+
+COMMENT ON COLUMN OA_MEETINGPARTICIPANT.TYPE_ IS
+'0：系统用户
+1：手动添加的用户';
+
+/*==============================================================*/
+/* Table: OA_MEETINGROOM                                        */
+/*==============================================================*/
+CREATE TABLE OA_MEETINGROOM  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   NAME_                VARCHAR2(128),
+   SEATNUM_             INTEGER,
+   ENVIRONMENT_         VARCHAR2(128),
+   POWERJACKNUM_        INTEGER,
+   CABLENUM_            INTEGER,
+   LINENUM_             INTEGER,
+   PHONENUMBER_         VARCHAR2(128),
+   STATUS_              SMALLINT,
+   DISPLAYORDER_        INTEGER,
+   REMARK_              VARCHAR2(2048),
+   AREACODE_            VARCHAR2(128),
+   CONSTRAINT PK_OA_MEETINGROOM PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_MEETINGROOM.STATUS_ IS
+'0：可预订
+1：不可预订
+';
+
+/*==============================================================*/
+/* Table: OA_OUTLAYLIST                                         */
+/*==============================================================*/
+CREATE TABLE OA_OUTLAYLIST  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   REIMBURSEMENTID_     VARCHAR2(36),
+   OUTLAYCATEGORY_      VARCHAR2(128),
+   OUTLAYNAME_          VARCHAR2(128),
+   DOCUMETNUM_          INTEGER,
+   OUTLAYSUM_           NUMBER(10,2),
+   DESCRIPTION_         VARCHAR2(512),
+   REIMITEMID_          VARCHAR2(36),
+   DISPLAYORDER_        INTEGER,
+   CONSTRAINT PK_OA_OUTLAYLIST PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_POSITIVEAPPLY                                      */
+/*==============================================================*/
+CREATE TABLE OA_POSITIVEAPPLY  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   APPLICANT_           VARCHAR2(36),
+   APPLYDATE_           TIMESTAMP,
+   POSITIVEUSER_        VARCHAR2(36),
+   DEPT_                VARCHAR2(128),
+   ENTRYDATE_           TIMESTAMP,
+   SEX_                 SMALLINT,
+   POST_                VARCHAR2(100),
+   PROBATION_           SMALLINT,
+   FORMALDATE_          TIMESTAMP,
+   FORMALTYPE_          VARCHAR2(100),
+   WORKRESULTS_         VARCHAR2(1000),
+   CULTUREUNDERSTAND_   VARCHAR2(1000),
+   RULESCOMPLIANCE_     VARCHAR2(1000),
+   WORKEXPERIENCE_      VARCHAR2(1000),
+   WORKSUMMARY_         VARCHAR2(1000),
+   WORKIMPROVE_         VARCHAR2(1000),
+   FLOWINSTANCEID_      VARCHAR2(36),
+   ARCHIVEDATE_         TIMESTAMP,
+   PASSED_              SMALLINT,
+   APPLYSTATUS_         SMALLINT,
+   CONSTRAINT PK_OA_POSITIVEAPPLY PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_POSITIVEAPPLY.PASSED_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+COMMENT ON COLUMN OA_POSITIVEAPPLY.APPLYSTATUS_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+/*==============================================================*/
+/* Table: OA_PURCHASEDEVPURPOSE                                 */
+/*==============================================================*/
+CREATE TABLE OA_PURCHASEDEVPURPOSE  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   PURCHASEFORMID_      VARCHAR2(36),
+   PURPOSE_             VARCHAR2(128),
+   SELECTEDFLAG_        SMALLINT,
+   MANYTIMEFLAG_        SMALLINT,
+   CONSTRAINT PK_OA_PURCHASEDEVPURPOSE PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_PURCHASEDEVPURPOSE.PURCHASEFORMID_ IS
+'主键 ID_';
+
+/*==============================================================*/
+/* Table: OA_PURCHASEDEVICE                                     */
+/*==============================================================*/
+CREATE TABLE OA_PURCHASEDEVICE  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   PURCHASEFORMID_      VARCHAR2(36),
+   DEVICECLASS_         VARCHAR2(128),
+   DEVICENAME_          VARCHAR2(128),
+   DEVICEMODEL_         VARCHAR2(128),
+   DESCRIPTION_         VARCHAR2(2000),
+   BUYTIME_             TIMESTAMP,
+   PRICE_               NUMBER(16,2),
+   DEDUCTFLAG_          SMALLINT,
+   DEDUCTMONEY_         NUMBER(16,2),
+   INDATE_              TIMESTAMP,
+   DEVICEID_            VARCHAR2(36),
+   DEVICECFGDESC_       VARCHAR2(2000),
+   PURPOSE_             VARCHAR2(128),
+   PLANUSEDATE_         TIMESTAMP,
+   BELONGTOAREACODE_    VARCHAR2(128),
+   AREACODE_            VARCHAR2(128),
+   RETURNBACKDATE_      TIMESTAMP,
+   DISPLAYORDER_        SMALLINT,
+   CONSTRAINT PK_OA_PURCHASEDEVICE PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_PURCHASEDEVICE.ID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_PURCHASEDEVICE.PURCHASEFORMID_ IS
+'主键 ID_';
+
+COMMENT ON COLUMN OA_PURCHASEDEVICE.DEVICECLASS_ IS
+'设备类别 DeviceSort_';
+
+COMMENT ON COLUMN OA_PURCHASEDEVICE.DEVICENAME_ IS
+'设备名称 DeviceName_';
+
+COMMENT ON COLUMN OA_PURCHASEDEVICE.DEVICEMODEL_ IS
+'设备型号 DeviceModel_';
+
+COMMENT ON COLUMN OA_PURCHASEDEVICE.DESCRIPTION_ IS
+'设备描述 Description_';
+
+COMMENT ON COLUMN OA_PURCHASEDEVICE.BUYTIME_ IS
+'购买时间 BuyTime_';
+
+/*==============================================================*/
+/* Table: OA_REIMFLOWCONF                                       */
+/*==============================================================*/
+CREATE TABLE OA_REIMFLOWCONF  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   GROUPNAME_           VARCHAR2(128),
+   FLOWKEY_             VARCHAR2(36),
+   DESCRIPTION_         VARCHAR2(1024),
+   CONSTRAINT PK_OA_REIMFLOWCONF PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_REIMFLOWCONF.GROUPNAME_ IS
+'来源于ERMP字典表，非空非重复约束';
+
+/*==============================================================*/
+/* Table: OA_REIMITEM                                           */
+/*==============================================================*/
+CREATE TABLE OA_REIMITEM  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   REIMBURSEMENTID_     VARCHAR2(36),
+   REGIONNAME_          VARCHAR2(128),
+   CUSTOMNAME_          VARCHAR2(128),
+   TRAVELPLACE_         VARCHAR2(512),
+   TRAVELBEGINDATE_     TIMESTAMP,
+   TRAVELENDDATE_       TIMESTAMP,
+   COTERIELLIST_        VARCHAR2(1024),
+   DISPLAYORDER_        INTEGER,
+   CONSTRAINT PK_OA_REIMITEM PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_REIMBURSEMENT                                      */
+/*==============================================================*/
+CREATE TABLE OA_REIMBURSEMENT  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   FINANCE_             VARCHAR2(10),
+   APPLICANT_           VARCHAR2(128),
+   APPLYDATE_           TIMESTAMP,
+   APPLYDEPT_           VARCHAR2(128),
+   PAYEE_               VARCHAR2(128),
+   CAUSA_               VARCHAR2(4000),
+   LOANSUM_             NUMBER(10,2),
+   REIMBURSEMENTSUM_    NUMBER(16,2),
+   APPOINTTO_           VARCHAR2(128),
+   ARCHIVEDATE_         TIMESTAMP,
+   PASSED_              SMALLINT,
+   FLOWINSTANCEID_      VARCHAR2(36),
+   FORMSTATUS_          SMALLINT,
+   CONSTRAINT PK_OA_REIMBURSEMENT PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_REIMBURSEMENT.FINANCE_ IS
+'0：福州
+1：上海';
+
+COMMENT ON COLUMN OA_REIMBURSEMENT.ARCHIVEDATE_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+COMMENT ON COLUMN OA_REIMBURSEMENT.PASSED_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+COMMENT ON COLUMN OA_REIMBURSEMENT.FORMSTATUS_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+/*==============================================================*/
+/* Table: OA_SALARYBILL                                         */
+/*==============================================================*/
+CREATE TABLE OA_SALARYBILL  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   USERACCOUNTID_       VARCHAR2(100),
+   MONTH_               NUMBER(6),
+   IMPORTDATE_          TIMESTAMP,
+   DEPT_                VARCHAR2(100),
+   POST_                VARCHAR2(36),
+   EMPLOYEENUMBER_      VARCHAR2(30),
+   USERNAME_            VARCHAR2(100),
+   ENTRYDATE_           TIMESTAMP,
+   PEOPLENUMS_          NUMBER(4),
+   STATUS_              VARCHAR2(50),
+   WAGETOTAL_           NUMBER(10,2),
+   WAGEBASIC_           NUMBER(10,2),
+   WAGEPERFORMANCE_     NUMBER(10,2),
+   SCOREPERFORMANCE_    NUMBER(6),
+   WAGEPERFORMANCEREAL_ NUMBER(10,2),
+   ALLOWANCE_           NUMBER(10,2),
+   COMMISSION_          NUMBER(10,2),
+   LESSMONTHDAYS_       NUMBER(2),
+   DEDUCTLESSMONTH_     NUMBER(10,2),
+   LEAVECOMPASSIONATE_  NUMBER(2),
+   DEDUCTCOMPASSIONATE_ NUMBER(10,2),
+   LEAVESICK_           NUMBER(2),
+   DEDUCTSICK_          NUMBER(10,2),
+   DEDUCTLATE_          NUMBER(10,2),
+   DEDUCTELSE_          NUMBER(10,2),
+   WAGEPAYABLE_         NUMBER(10,2),
+   PENSION_             NUMBER(10,2),
+   LOSTJOB_             NUMBER(10,2),
+   MEDICAL_             NUMBER(10,2),
+   INSURANCEPAYMENT_    NUMBER(10,2),
+   COSTSOCIALSECURITY_  NUMBER(10,2),
+   COSTACCUMULATIONFUND_ NUMBER(10,2),
+   COSTFIVEINSURANCE_   NUMBER(10,2),
+   TAXWAGE_             NUMBER(10,2),
+   WAGEPRETAX_          NUMBER(10,2),
+   TAXPERSONAL_         NUMBER(10,2),
+   WAGEREAL_            NUMBER(10,2),
+   WAGEALLOWANCE_       NUMBER(10,2),
+   CONSTRAINT PK_OA_SALARYBILL PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_STAFFFLOWAPPLY                                     */
+/*==============================================================*/
+CREATE TABLE OA_STAFFFLOWAPPLY  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   COMPANYAREA_         VARCHAR2(128),
+   GROUPNAME_           VARCHAR2(128),
+   USERACCOUNTID_       VARCHAR2(36),
+   POST_                VARCHAR2(36),
+   EMPLOYEENUMBER_      VARCHAR2(30),
+   USERNAME_            VARCHAR2(36),
+   SEX_                 SMALLINT,
+   IDCARD_              VARCHAR2(20),
+   BIRTHDATE_           TIMESTAMP,
+   DESCRIPTION_         VARCHAR2(2000),
+   APPLYTYPE_           SMALLINT,
+   ENTRYDATE_           TIMESTAMP,
+   RESIGNDATE_          TIMESTAMP,
+   APPLICANT_           VARCHAR2(36),
+   APPLYDATE_           TIMESTAMP,
+   FLOWINSTANCEID_      VARCHAR2(36),
+   ARCHIVEDATE_         TIMESTAMP,
+   PASSED_              SMALLINT,
+   APPLYSTATUS_         SMALLINT,
+   STAFFSTATUS_         VARCHAR2(100),
+   GROUPFULLNAME_       VARCHAR2(300),
+   LEVEL_               VARCHAR2(100),
+   FORMALDATE_          TIMESTAMP,
+   AGE_                 NUMBER(3),
+   EDUCATION_           VARCHAR2(20),
+   FINISHSCHOOL_        VARCHAR2(100),
+   PROFESSIONAL_        VARCHAR2(100),
+   DEGREE_              VARCHAR2(20),
+   CONTRACTTYPE_        VARCHAR2(50),
+   CONTRACTSTARTDATE_   TIMESTAMP,
+   CONTRACTENDDATE_     TIMESTAMP,
+   MOBILE_              VARCHAR2(20),
+   OFFICETEL_           VARCHAR2(20),
+   EMAIL_               VARCHAR2(100),
+   POLITICALSTATUS_     VARCHAR2(50),
+   NATION_              VARCHAR2(50),
+   NATIVEPLACE_         VARCHAR2(300),
+   HOMEADDR_            VARCHAR2(300),
+   ZIPCODE_             VARCHAR2(20),
+   DOMICILEPLACE_       VARCHAR2(300),
+   DOMICILETYPE_        VARCHAR2(50),
+   MARITALSTATUS_       VARCHAR2(100),
+   HADKIDS_             SMALLINT,
+   SALESEXPERIENCE_     SMALLINT,
+   FINANCIALEXPERIENCE_ SMALLINT,
+   FINANCIALQUALIFICATION_ SMALLINT,
+   WORKSTARTDATE_       TIMESTAMP,
+   SUPERVISOR_          VARCHAR2(36),
+   RECRUITMENTTYPE_     VARCHAR2(100),
+   RECOMMENDED_         VARCHAR2(50),
+   SENIORITY_           NUMBER(3),
+   EMERGENCYCONTACT_    VARCHAR2(50),
+   EMERGENCYCONTACTTEL_ VARCHAR2(20),
+   BANKCARDNO_          VARCHAR2(50),
+   BANKTYPE_            VARCHAR2(50),
+   TRAININFO_           VARCHAR2(2000),
+   SKILLSINFO_          VARCHAR2(2000),
+   RESIGNTYPE_          VARCHAR2(100),
+   RESIGNREASON_        VARCHAR2(50),
+   RESIGNDESC_          VARCHAR2(2000),
+   ACHIEVEMENT_         VARCHAR2(50),
+   PROJECT_             VARCHAR2(50),
+   TRANSTARTDATE_       TIMESTAMP,
+   TRANENDDATE_         TIMESTAMP,
+   TRANCOST_            VARCHAR2(50),
+   PENALTY_             VARCHAR2(50),
+   STAFFCLASS_          VARCHAR2(100),
+   CONSTRAINT PK_OA_STAFFFLOWAPPLY PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_STAFFFLOWAPPLY.APPLYTYPE_ IS
+'1：离职；2：入职';
+
+COMMENT ON COLUMN OA_STAFFFLOWAPPLY.PASSED_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+COMMENT ON COLUMN OA_STAFFFLOWAPPLY.APPLYSTATUS_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+/*==============================================================*/
+/* Table: OA_STAFFFLOWQUERYASSIGN                               */
+/*==============================================================*/
+CREATE TABLE OA_STAFFFLOWQUERYASSIGN  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   USERACCOUNTID_       VARCHAR2(100),
+   GROUPNAME_           VARCHAR2(100),
+   CONSTRAINT PK_OA_STAFFFLOWQUERYASSIGN PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* Table: OA_TASK                                               */
+/*==============================================================*/
+CREATE TABLE OA_TASK  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   TASKINSTANCEID_      VARCHAR2(36),
+   FLOWINSTANCEID_      VARCHAR2(36),
+   FLOWKEY_             VARCHAR2(36),
+   FLOWDEFINEID_        VARCHAR2(36),
+   TASKSTATE_           VARCHAR2(20),
+   FORMID_              VARCHAR2(36),
+   TRANSACTOR_          VARCHAR2(128),
+   CREATETIME_          TIMESTAMP,
+   STARTTIME_           TIMESTAMP,
+   ENDTIME_             TIMESTAMP,
+   COMMENT_             VARCHAR2(4000),
+   NODENAME_            VARCHAR2(400),
+   TASKNAME_            VARCHAR2(400),
+   FLOWNAME_            VARCHAR2(400),
+   VIEWFLAG_            SMALLINT,
+   DESCRIPTION_         VARCHAR2(400),
+   CONSTRAINT PK_OA_TASK PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_TASK.FORMID_ IS
+'跟据流程分类关联不同类型的流程表单';
+
+/*==============================================================*/
+/* Table: OA_TASKASSIGN                                         */
+/*==============================================================*/
+CREATE TABLE OA_TASKASSIGN  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   TASKID_              VARCHAR2(36),
+   TYPE_                CHAR(1),
+   ASSIGNKEY_           VARCHAR2(128),
+   CONSTRAINT PK_OA_TASKASSIGN PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_TASKASSIGN.TYPE_ IS
+'0：用户
+1：角色
+2：机构';
+
+/*==============================================================*/
+/* Table: OA_TRANSFERAPPLY                                      */
+/*==============================================================*/
+CREATE TABLE OA_TRANSFERAPPLY  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   APPLICANT_           VARCHAR2(36),
+   APPLYDATE_           TIMESTAMP,
+   TRANSFERUSER_        VARCHAR2(36),
+   CONTRACTBODY_        VARCHAR2(100),
+   CONTRACTSTARTDATE_   TIMESTAMP,
+   CONTRACTENDDATE_     TIMESTAMP,
+   TRANSFERDATE_        TIMESTAMP,
+   ENTRYDATE_           TIMESTAMP,
+   TRANSFEROUTDEPT_     VARCHAR2(100),
+   TRANSFEROUTPOST_     VARCHAR2(100),
+   TRANSFERINDEPT_      VARCHAR2(100),
+   TRANSFERINPOST_      VARCHAR2(100),
+   REPORTDATE_          TIMESTAMP,
+   TRANSFERREASON_      VARCHAR2(1000),
+   TRANSITIONCONTENT_   VARCHAR2(1000),
+   FINACESUPPORTUSER_   VARCHAR2(100),
+   FINACESUPPORTTEL_    VARCHAR2(100),
+   FINACESUPPORTEMAIL_  VARCHAR2(100),
+   ITSUPPORTUSER_       VARCHAR2(100),
+   ITSUPPORTTEL_        VARCHAR2(100),
+   ITSUPPORTEMAIL_      VARCHAR2(100),
+   HRSUPPORTUSER_       VARCHAR2(100),
+   HRSUPPORTTEL_        VARCHAR2(100),
+   HRSUPPORTEMAIL_      VARCHAR2(100),
+   CHANGEOFFICE_        VARCHAR2(200),
+   WEEKLYREPORTTO_      VARCHAR2(100),
+   MONTHLYREPORTTO_     VARCHAR2(100),
+   FLOWINSTANCEID_      VARCHAR2(36),
+   ARCHIVEDATE_         TIMESTAMP,
+   PASSED_              SMALLINT,
+   APPLYSTATUS_         SMALLINT,
+   CONSTRAINT PK_OA_TRANSFERAPPLY PRIMARY KEY (ID_)
+);
+
+COMMENT ON COLUMN OA_TRANSFERAPPLY.PASSED_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+COMMENT ON COLUMN OA_TRANSFERAPPLY.APPLYSTATUS_ IS
+'流程结束时为已归档状态
+用于区分流程跟踪与归档查询';
+
+/*==============================================================*/
+/* Table: OA_WORKEXPERIENCE                                     */
+/*==============================================================*/
+CREATE TABLE OA_WORKEXPERIENCE  (
+   ID_                  VARCHAR2(36)                    NOT NULL,
+   STAFFFLOWAPPLYID_    VARCHAR2(36),
+   STARTDATE_           TIMESTAMP,
+   ENDDATE_             TIMESTAMP,
+   COMPANYNAME_         VARCHAR2(100),
+   POSTNAME_            VARCHAR2(100),
+   POSTDUTY_            VARCHAR2(100),
+   CONSTRAINT PK_OA_WORKEXPERIENCE PRIMARY KEY (ID_)
+);
+
+/*==============================================================*/
+/* View: VIEW_DEVICEFLOW                                        */
+/*==============================================================*/
+CREATE OR REPLACE VIEW VIEW_DEVICEFLOW AS
+SELECT 0 AS
+FORMTYPE_,T.ID_,T.APPLICANT_,T.PASSED_,T.APPLYGROUPNAME_,T.APPLYDATE_,T.FORMSTATUS_,T.DEVICEVALIDATEID_,T.ARCHIVEDATE_,
+T.REGTIME_,T.DEVICETYPE_,T.APPLYFORMNO_,T.SEQUENCEYEAR_,T.REGACCOUNTID_,T.FLOWINSTANCEID_,TO_CHAR(T.SEQUENCEYEAR_)||TO_CHAR(LPAD
+(T.APPLYFORMNO_,4,'0')) AS APPLYCODE_ FROM OA_DEVPURCHASEFORM T  WHERE T.APPLYTYPE_=0
+UNION
+SELECT 1 AS
+FORMTYPE_,T.ID_,T.APPLICANT_,T.PASSED_,T.APPLYGROUPNAME_,T.APPLYDATE_,T.FORMSTATUS_,T.DEVICEVALIDATEID_,T.ARCHIVEDATE_,
+T.REGTIME_,T.DEVICETYPE_,T.APPLYFORMNO_,T.SEQUENCEYEAR_,T.REGACCOUNTID_,T.FLOWINSTANCEID_,TO_CHAR(T.SEQUENCEYEAR_)||TO_CHAR(LPAD
+(T.APPLYFORMNO_,4,'0')) AS APPLYCODE_ FROM OA_DEVPURCHASEFORM T  WHERE T.APPLYTYPE_=1
+UNION
+SELECT 2 AS
+FORMTYPE_,T.ID_,T.APPLICANT_,T.PASSED_,T.APPLYGROUPNAME_,T.APPLYDATE_,T.FORMSTATUS_,T.DEVICEVALIDATEID_,T.ARCHIVEDATE_,
+T.REGTIME_,T.DEVICETYPE_,T.APPLYFORMNO_,T.SEQUENCEYEAR_,T.REGACCOUNTID_ ,T.FLOWINSTANCEID_,TO_CHAR(T.SEQUENCEYEAR_)||TO_CHAR
+(LPAD(T.APPLYFORMNO_,4,'0')) AS APPLYCODE_ FROM OA_DEVALLOCATEFORM T
+UNION
+SELECT 3 AS
+FORMTYPE_,T.ID_,T.APPLICANT_,T.PASSED_,T.APPLYGROUPNAME_,T.APPLYDATE_,T.FORMSTATUS_,T.DEVICEVALIDATEID_,T.ARCHIVEDATE_,
+T.REGTIME_ ,T.DEVICETYPE_,T.APPLYFORMNO_,T.SEQUENCEYEAR_,T.REGACCOUNTID_,T.FLOWINSTANCEID_,TO_CHAR(T.SEQUENCEYEAR_)||TO_CHAR
+(LPAD(T.APPLYFORMNO_,4,'0')) AS APPLYCODE_ FROM OA_DEVDISCARDFORM T WHERE T.FORMTYPE_=0
+UNION
+SELECT 4 AS
+FORMTYPE_,T.ID_,T.APPLICANT_,T.PASSED_,T.APPLYGROUPNAME_,T.APPLYDATE_,T.FORMSTATUS_,T.DEVICEVALIDATEID_,T.ARCHIVEDATE_,
+T.REGTIME_ ,T.DEVICETYPE_,T.APPLYFORMNO_,T.SEQUENCEYEAR_,T.REGACCOUNTID_,T.FLOWINSTANCEID_,TO_CHAR(T.SEQUENCEYEAR_)||TO_CHAR
+(LPAD(T.APPLYFORMNO_,4,'0')) AS APPLYCODE_ FROM OA_DEVDISCARDFORM T WHERE T.FORMTYPE_=1
+WITH READ ONLY;
+
+ALTER TABLE OA_AREADEVICECFG
+   ADD CONSTRAINT FK_AREADEV_REF_DEVCLASS FOREIGN KEY (DEVICETYPE_)
+      REFERENCES OA_DEVICECLASS (ID_);
+
+ALTER TABLE OA_BUSTRIPAPPLYDETAIL
+   ADD CONSTRAINT FK__BUSTRIP_APPLY_REF FOREIGN KEY (TRIPAPPLYID_)
+      REFERENCES OA_BUSTRIPAPPLY (ID_);
+
+ALTER TABLE OA_DEVALLOCATELIST
+   ADD CONSTRAINT FK_DEVALLOT_REF_DEV FOREIGN KEY (DEVICEID_)
+      REFERENCES OA_DEVICE (ID_);
+
+ALTER TABLE OA_DEVPURCHASELIST
+   ADD CONSTRAINT FK_OA_DEVPURCHASE_REF_DEV FOREIGN KEY (DEVICEID_)
+      REFERENCES OA_DEVICE (ID_);
+
+ALTER TABLE OA_DEVVALIDATEFORM
+   ADD CONSTRAINT FK_DEVVALID_REF_PURCHDEV FOREIGN KEY (PURCHASEDEVID_)
+      REFERENCES OA_PURCHASEDEVICE (ID_);
+
+ALTER TABLE OA_DEVICECFGITEM
+   ADD CONSTRAINT FK_DEVCFGITEM_REF_DEVPROP FOREIGN KEY (ITEMID_)
+      REFERENCES OA_DEVICEPROPERTY (ID_);
+
+ALTER TABLE OA_DEVICECLAASSIGNAREA
+   ADD CONSTRAINT FK_ASSIGNAREA_REF_ASSIGN FOREIGN KEY (ASSIGNID_)
+      REFERENCES OA_DEVICECLASSASSIGN (ID_);
+
+ALTER TABLE OA_DEVICECLAASSIGNAREA
+   ADD CONSTRAINT FK_DEVCLASSIGNAREA_REF_DEVCLA FOREIGN KEY (DEVICECLASS_)
+      REFERENCES OA_DEVICECLASS (ID_);
+
+ALTER TABLE OA_DEVICECLASSASSIGNDETAIL
+   ADD CONSTRAINT FK_DETAIL_REF_DEVCLASSIGN FOREIGN KEY (ASSIGNID_)
+      REFERENCES OA_DEVICECLASSASSIGN (ID_);
+
+ALTER TABLE OA_DEVICECURSTATUSINFO
+   ADD CONSTRAINT FK_DEVSTAUS_REF_DEV FOREIGN KEY (DEVICEID_)
+      REFERENCES OA_DEVICE (ID_);
+
+ALTER TABLE OA_DEVICEPARAMDETAIL
+   ADD CONSTRAINT FK_DEVPARAM_REF_DEV FOREIGN KEY (DEVICEID_)
+      REFERENCES OA_DEVICE (ID_);
+
+ALTER TABLE OA_DEVICEPARAMDETAIL
+   ADD CONSTRAINT FK_DEVPARAM_REF_PURCHDEV FOREIGN KEY (PURCHASEDEVID_)
+      REFERENCES OA_PURCHASEDEVICE (ID_);
+
+ALTER TABLE OA_DISCARDDEALDEVLIST
+   ADD CONSTRAINT FK_LIST_REF_DISCARDDEAL FOREIGN KEY (DISCARDDEALFORMID_)
+      REFERENCES OA_DEVDISCARDDISPOSEFORM (ID_);
+
+ALTER TABLE OA_DISCARDDEVLIST
+   ADD CONSTRAINT FK_DEVSCRAP_REF_DEV FOREIGN KEY (DEVICEID_)
+      REFERENCES OA_DEVICE (ID_);
+
+ALTER TABLE OA_DOCCLASS
+   ADD CONSTRAINT FK_DOCCLASS_REF_ATTACHMENT FOREIGN KEY (BODYTEMPLATE_)
+      REFERENCES OA_ATTACHMENT (ID_);
+
+ALTER TABLE OA_DOCCLASSASSIGN
+   ADD CONSTRAINT FK_DOCCLASS_REF_DCASSIGN FOREIGN KEY (DOCCLASSID_)
+      REFERENCES OA_DOCCLASS (ID_);
+
+ALTER TABLE OA_DOCFORM
+   ADD CONSTRAINT FK_DOCF_C_REF_ATTACHMENT FOREIGN KEY (BODYDOC_)
+      REFERENCES OA_ATTACHMENT (ID_);
+
+ALTER TABLE OA_DOCFORM
+   ADD CONSTRAINT FK_DOCF_DC_REF_ATTACHMENT FOREIGN KEY (BODYDRAFTDOC_)
+      REFERENCES OA_ATTACHMENT (ID_);
+
+ALTER TABLE OA_DOCFORM_ATTACH
+   ADD CONSTRAINT FK_DF_ATTACH_REF_ATTACH FOREIGN KEY (ATTACHMENTID_)
+      REFERENCES OA_ATTACHMENT (ID_);
+
+ALTER TABLE OA_DOCFORM_ATTACH
+   ADD CONSTRAINT FK_DF_ATTACH_REF_DOCFORM FOREIGN KEY (DOCFORMID_)
+      REFERENCES OA_DOCFORM (ID_);
+
+ALTER TABLE OA_DOCFORM_INFO
+   ADD CONSTRAINT FK_DFI_REF_DOCFORM FOREIGN KEY (DOCFORMID_)
+      REFERENCES OA_DOCFORM (ID_);
+
+ALTER TABLE OA_DOCFORM_INFO
+   ADD CONSTRAINT FK_DFI_REF_INFORMATION FOREIGN KEY (INFORMATIONID_)
+      REFERENCES OA_INFORMATION (ID_);
+
+ALTER TABLE OA_DOCNUMBER
+   ADD CONSTRAINT FK_DOCNO_REF_ATTACHMENT FOREIGN KEY (HEADTEMPLATE_)
+      REFERENCES OA_ATTACHMENT (ID_);
+
+ALTER TABLE OA_HOLIDAYDETAIL
+   ADD CONSTRAINT FK_HOLID_DETAIL_REF_HOLID FOREIGN KEY (HOLIDAYAPPLYID_)
+      REFERENCES OA_HOLIDAYAPPLY (ID_);
+
+ALTER TABLE OA_INFOFORM
+   ADD CONSTRAINT FK_INFOFORM_REF_INFO FOREIGN KEY (INFORMATIONID_)
+      REFERENCES OA_INFORMATION (ID_);
+
+ALTER TABLE OA_INFOFORM
+   ADD CONSTRAINT FK_INFOF_DOC_REF_ATTACH FOREIGN KEY (CONTENTDOC_)
+      REFERENCES OA_ATTACHMENT (ID_);
+
+ALTER TABLE OA_INFOLAYOUTASSIGN
+   ADD CONSTRAINT FK_IFLAYOUT_REF_IFLASSIGN FOREIGN KEY (INFOLAYOUTID_)
+      REFERENCES OA_INFOLAYOUT (ID_);
+
+ALTER TABLE OA_INFO_ATTACH
+   ADD CONSTRAINT FK_INFO_ATTACH_REF_ATTACH FOREIGN KEY (ATTACHMENTID_)
+      REFERENCES OA_ATTACHMENT (ID_);
+
+ALTER TABLE OA_INFO_ATTACH
+   ADD CONSTRAINT FK_INFO_ATTACH_REF_INFOR FOREIGN KEY (INFOID_)
+      REFERENCES OA_INFORMATION (ID_);
+
+ALTER TABLE OA_KNOWLEDGE_ATTACH
+   ADD CONSTRAINT FK_OA_KNOWL_FK_KNL_AT_OA_ATTAC FOREIGN KEY (ID_)
+      REFERENCES OA_ATTACHMENT (ID_);
+
+ALTER TABLE OA_MEETINGINFO
+   ADD CONSTRAINT FK_MEETINFO_REF_MEETROOM FOREIGN KEY (ROOMID_)
+      REFERENCES OA_MEETINGROOM (ID_);
+
+ALTER TABLE OA_MEETINGMINUTE
+   ADD CONSTRAINT FK_MINUTE_REF_ATTACH FOREIGN KEY (ATTACHMENTID_)
+      REFERENCES OA_ATTACHMENT (ID_);
+
+ALTER TABLE OA_MEETINGMINUTE
+   ADD CONSTRAINT FK_MINUTE_REF_MEET FOREIGN KEY (MEETINGID_)
+      REFERENCES OA_MEETINGINFO (ID_);
+
+ALTER TABLE OA_MEETINGPARTICIPANT
+   ADD CONSTRAINT FK_MEET_REF_MEETPARTIPANT FOREIGN KEY (MEETINGID_)
+      REFERENCES OA_MEETINGINFO (ID_);
+
+ALTER TABLE OA_OUTLAYLIST
+   ADD CONSTRAINT FK_OUTLAYLIST_REF_REIMB FOREIGN KEY (REIMBURSEMENTID_)
+      REFERENCES OA_REIMBURSEMENT (ID_);
+
+ALTER TABLE OA_OUTLAYLIST
+   ADD CONSTRAINT FK_OUTLAYLIST_REF_REIMITEM FOREIGN KEY (REIMITEMID_)
+      REFERENCES OA_REIMITEM (ID_);
+
+ALTER TABLE OA_PURCHASEDEVPURPOSE
+   ADD CONSTRAINT FK_PURPOSE_REF_PURCHFORM FOREIGN KEY (PURCHASEFORMID_)
+      REFERENCES OA_DEVPURCHASEFORM (ID_);
+
+ALTER TABLE OA_PURCHASEDEVICE
+   ADD CONSTRAINT FK_PURCHDEV_REF_DEVPUCH FOREIGN KEY (PURCHASEFORMID_)
+      REFERENCES OA_DEVPURCHASEFORM (ID_);
+
+ALTER TABLE OA_REIMITEM
+   ADD CONSTRAINT FK_REIMITEM_REF_REIM FOREIGN KEY (REIMBURSEMENTID_)
+      REFERENCES OA_REIMBURSEMENT (ID_);
+
+ALTER TABLE OA_TASKASSIGN
+   ADD CONSTRAINT FK_TASKPOOLEDS_REF_TASKS FOREIGN KEY (TASKID_)
+      REFERENCES OA_TASK (ID_);
+
+ALTER TABLE OA_WORKEXPERIENCE
+   ADD CONSTRAINT FK_OA_WORKEXP_REF_OA_STAFFFLOW FOREIGN KEY (STAFFFLOWAPPLYID_)
+      REFERENCES OA_STAFFFLOWAPPLY (ID_);
+

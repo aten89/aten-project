@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<flow-definition name="流程名称" 
+		flow-key="流程Key（36位ID）（只读）" 
+		category="分类" 
+		initial="开始结点名称，如果已定义start-node，就不能再定义">
+	<!-- category也可以在定义在属性里
+	<category>分类</category>-->
+		
+	<description><![CDATA[流程说明]]></description><!--description都为一个-->
+	
+	<meta name="name" 
+			display-name="显示名称" 
+			type="[DATATYPE_STRING | DATATYPE_BOOLEAN | DATATYPE_INT | DATATYPE_LONG | DATATYPE_FLOAT | DATATYPE_DOUBLE | DATATYPE_DATE]" 
+			not-null="false"/>
+
+	<event type="流程事件[FLOW_START | FLOW_END]">
+		<action name="流程启动动作" 
+				class="wfm.test.TestHandler" 
+				accept-propagated-events="是否接受传播事件[true | false]" 
+				is-async="动作是否异步运行[true | false]（未实现）">
+			<![CDATA[expression（未实现）]]></action>
+	</event>
+	
+	<start-node name="开始">
+		<description><![CDATA[节点说明]]></description>
+		<event type="节点事件[NODE_LEAVE]">
+			<action name="进入节点动作" class="wfm.test.TestHandler"></action>
+		</event>
+		<transition name="进入审批" to="审批">
+			<description><![CDATA[进入审批转向说明]]></description>
+			<condition><![CDATA[表达式，返回值必须是true或false]]></condition><!--一个-->
+			<action name="进入审批转向" class="wfm.test.TestHandler"></action>
+		</transition>
+	</start-node>
+	
+	<task-node name="审批" 
+			is-async="是否同步[true | false]（未实现）" 
+			signal="节点下行触发方式[0 | 1 | 2 | 3]"
+			auto-create-tasks = "true|false"
+			auto-end-tasks  = "true|false">
+			<!--
+				0:无论任务是否执行，节点下行
+				1:无论任务是否执行，节点都不往下走
+				2:当节点中的第一个任务完成，节点往下走
+				3:当节点中的最后一个任务完成，节点往下走
+			-->
+		<description><![CDATA[节点说明]]></description>
+		<event type="节点事件[NODE_ENTER | NODE_LEAVE]">
+			<action name="进入节点动作" class="wfm.test.TestHandler"></action>
+		</event>
+		<task name="审批任务" 
+				execute-order="任务执行顺序[int]（未实现）" 
+				due-date="到期时间[yyyy-MM-dd | yyyy-MM-dd HH:mm | yyyy-MM-dd HH:mm:ss]（未实现）" 
+				priority="任务优先级[100 | 200 | 300 | 400 | 500]（未实现）"
+				multi-type="single | parallel | serial">
+			<!-- <execute-order>1</execute-order> 这三个也可以在定义在属性里
+			<due-date>2008-2-2</due-date>
+			<priority>100</priority> -->
+			<description><![CDATA[审批任务说明]]></description>
+			<event type="任务事件[TASK_CREATE | TASK_NOTIFY | TASK_ASSIGN | TASK_START | TASK_GIVEUP | TASK_END]">
+				<action name="动作" class="wfm.test.TestHandler"></action>
+			</event>
+			<view-binding class="wfm.test.ViewHandler"><!--一个-->
+				<![CDATA[表达式，返回值为String]]>
+			</view-binding>
+			<assignment class="wfm.test.AssignHandler"><!--一个-->
+				<![CDATA[表达式，返回值为String,如"ROLES:001,002;ACTORS:003,004"]]>
+			</assignment>
+		</task>
+		<transition name="审批通过" to="判断节点"></transition>
+		<transition name="审批不通过" to="结束"></transition>
+	</task-node>
+	
+	<decision name="判断节点" is-async="是否同步[true | false]（未实现）">
+		<description><![CDATA[节点说明]]></description>
+		<event type="节点事件[NODE_ENTER | NODE_LEAVE]">
+			<action name="进入节点动作" class="wfm.test.TestHandler"></action>
+		</event>
+		
+		<handler class="wfm.test.DecisionHandler"><!--一个-->
+			<![CDATA[表达式，返回transition名称，值为String]]>
+		</handler>
+			
+		<condition ref-transition="转到结束"><![CDATA[表达式，返回值必须是true或false]]></condition>
+		<condition ref-transition="转到提交"><![CDATA[表达式，返回值必须是true或false]]></condition>
+		
+		<transition name="转到结束" to="结束"></transition>
+		<transition name="转到提交" to="自动提交"></transition>
+	</decision>
+	
+	<node name="自动提交" is-async="是否同步[true | false]（未实现）">
+		<description><![CDATA[自动提交节点说明]]></description>
+		<event type="节点事件[NODE_ENTER | NODE_LEAVE]">
+			<action name="进入节点动作" class="wfm.test.TestHandler"></action>
+		</event>
+		<action name="数据提交" class="wfm.test.TestHandler"></action><!--一个-->
+		<transition name="提交完毕" to="结束"></transition>
+	</node>	
+	
+	<fork name="分支节点" is-async="是否同步[true | false]（未实现）">
+		<description><![CDATA[节点说明]]></description>
+		<event type="节点事件[NODE_ENTER | NODE_LEAVE]">
+			<action name="进入节点动作" class="wfm.test.TestHandler"></action>
+		</event>
+		
+		<condition ref-transition="转到结束"><![CDATA[表达式，返回值必须是true或false]]></condition>
+		<condition ref-transition="转到提交"><![CDATA[表达式，返回值必须是true或false]]></condition>
+		
+		<transition name="转到结束" to="结束"></transition>
+		<transition name="转到提交" to="自动提交"></transition>
+	</fork>
+	
+	<join name="汇聚节点" is-async="是否同步[true | false]（未实现）">
+		<description><![CDATA[节点说明]]></description>
+		<event type="节点事件[NODE_ENTER | NODE_LEAVE]">
+			<action name="进入节点动作" class="wfm.test.TestHandler"></action>
+		</event>
+		<transition to="下一个节点"></transition>
+	</join>
+	
+	<subflow-node name="子流程节点" is-async="是否同步[true | false]（未实现）">
+		<description><![CDATA[节点说明]]></description>
+		<event type="节点事件[NODE_ENTER | NODE_LEAVE]">
+			<action name="进入节点动作" class="wfm.test.TestHandler"></action>
+		</event>
+		<sub-flow name="子流程名称" version="子流程版本" initial="runtime|immediate"> </sub-flow>>
+		<transition to="下一个节点"></transition>
+	</subflow-node>
+	
+	<end-node name="结束" end-complete-process="是否结束流程[true | false]">
+		<description><![CDATA[节点说明]]></description>
+		<event type="节点事件[NODE_ENTER]">
+			<action name="进入节点动作" class="wfm.test.TestHandler"></action>
+		</event>
+	</end-node>	
+	
+</flow-definition>
