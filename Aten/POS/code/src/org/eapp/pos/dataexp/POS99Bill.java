@@ -135,9 +135,9 @@ public class POS99Bill extends URLRequest {
 		//一个快钱账号初始化一个实例
 		POS99Bill test = new POS99Bill();
 		test.setKeystoreFile("D:/1.pfx");
-		test.setKeystorePassword("vpos123");
-		test.setLoginUsername("001");
-		test.setLoginPassword("99bill@99bill");
+		test.setKeystorePassword("123");
+		test.setLoginUsername("abc");
+		test.setLoginPassword("123");
 		
 		//初始化证书
 		test.initSSLSocketFactory();
