@@ -13,6 +13,7 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eapp.client.hessian.UserAccountService;
+import org.eapp.client.util.SystemProperties;
 import org.eapp.exception.RpcAuthorizationException;
 import org.eapp.rpc.dto.UserAccountInfo;
 import org.eapp.util.spring.SpringHelper;
@@ -30,7 +31,7 @@ import org.eapp.workflow.exe.TaskInstance;
  * @author zsy
  * @version Nov 28, 2008
  */
-public abstract class FlowTaskBiz {
+public abstract class FlowTaskBiz implements IFlowTaskBiz {
 	private static Log log = LogFactory.getLog(FlowTaskBiz.class);
 	private static String springBeanName;//Spring管理对象的Bean名称
 	
@@ -252,7 +253,7 @@ public abstract class FlowTaskBiz {
 	}
 	
 	/**
-	 * 待办任务到达通知
+	 * 待办任务到达通知（任务事件里调用）
 	 * @param transactor
 	 * @param taskAssigns
 	 */
@@ -278,7 +279,7 @@ public abstract class FlowTaskBiz {
 				}
 			}
 			
-			csSendTaskNotice(userAccountIds, task.getDescription());
+			csSendTaskNotice(userAccountIds, task);
 		} catch(Exception e) {
 			log.error(e.getMessage(), e);
 		}
@@ -312,27 +313,32 @@ public abstract class FlowTaskBiz {
 	
 	/**
 	 * 待办任务到达通知的具体实现
+	 * 子系统可以覆盖此方法的实现，比如增加实现邮件通知
 	 * @param userAccountIds 通知人员
 	 * @param taskDescription 任务描述
 	 */
-	public abstract void csSendTaskNotice(Set<String> userAccountIds, String taskDescription);
+	protected void csSendTaskNotice(Set<String> userAccountIds, FlowTask task) {
+		if (userAccountIds == null || userAccountIds.isEmpty()) {
+			return;
+		}
+		try {
+			//系统消息框
+			UserAccountService userAccountService = new UserAccountService();
+			for (String userAccountId : userAccountIds) {
+				userAccountService.sendSysMsg(SystemProperties.SYSTEM_ID, "系统", userAccountId, "待办任务：" + task.getDescription());
+			}
+			log.info("流程待办任务通知成功");
+			//邮件通知
+//			AddressList addr = addressListDAO.findByAccountId(userAccountId);
+//			if (addr == null || addr.getUserEmail() == null) {
+//				log.warn("在通讯录中未设置 "+userAccountId+" 邮箱");
+//				return;
+//			}
+//			MailMessage msg = new MailMessage(addr.getUserEmail(), noticeSubject, msgContent);	
+//			JMailProxy.daemonSend(msg);
+		} catch (Exception e) {
+			log.error("流程待办任务通知失败" + e.getMessage());
+		}
+	}
 	
-	/**
-	 * 新增任务
-	 * @param task
-	 */
-	public abstract void addTask(FlowTask task);
-
-	/**
-	 * 修改任务
-	 * @param task
-	 */
-	public abstract void modifyTask(FlowTask task);
-	
-	/**
-	 * 通过任务实例ID查找
-	 * @param taskInstanceId 任务实例ID
-	 * @return
-	 */
-	public abstract FlowTask getByTaskInstanceId(String taskInstanceId);
 }
